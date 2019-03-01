@@ -1,0 +1,19 @@
+Cosas importantes:
+
+Antes de ejecutarlos,
+poner el punto delante en los ficheros .env y .env-test. Sino generara error  de forma que queden: .env .env-test
+
+
+Antes de nada ejecutar:
+sudo /opt/lampp/xampp start
+
+Si da error apagar el apache2:
+sudo service apache2 stop
+
+Al bajarse en projecto si al abrirlo genera un error ejecutar el siguiente comando en la carpeta donde te has puesto todo el contenido:
+
+composer update
+
+Si sigue con errores utilitzar el comando:
+
+composer install
