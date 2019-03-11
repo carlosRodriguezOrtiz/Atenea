@@ -1,19 +1,28 @@
 Cosas importantes:
 
-Antes de ejecutarlos,
-poner el punto delante en los ficheros .env y .env-test. Sino generara error  de forma que queden: .env .env-test
+1) Ir a la ubicación donde se descargó la carpeta y entrar dentro. Encontraremos dos archivos: "env" y "env-test", donde le añadiremos un "." al principio de ambas, quedando de la siguiente manera:
 
+    env      -> .env
+    env.test -> .env-test
 
-Antes de nada ejecutar:
-sudo /opt/lampp/xampp start
+2) Ejecutar el siguiente comando para encender el Xampp:
+    
+    $ sudo /opt/lampp/xampp start
 
-Si da error apagar el apache2:
-sudo service apache2 stop
+   Si da error apagar el apache2:
 
-Al bajarse en projecto si al abrirlo genera un error ejecutar el siguiente comando en la carpeta donde te has puesto todo el contenido:
+    $ sudo service apache2 stop
 
-composer update
+3) Al bajarse en proyecto si al abrirlo genera un error ejecutar el siguiente comando en la carpeta donde te has puesto todo el contenido:
 
-Si sigue con errores utilitzar el comando:
+   Cambiarle los permisos (temporalmente) desde la carpeta padre:
 
-composer install
+    $ sudo chmod 777 -R ./Atenea
+
+   Acto seguido, actualizaremos el docker-compose:
+
+    $ composer update
+
+   Si sigue con errores utilitzar el comando:
+
+    $ composer install
