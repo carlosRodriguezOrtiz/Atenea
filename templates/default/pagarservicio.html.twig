@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container-fluid bg-white  pt-5  pb-4 mb-5 mt-1   ">
+<h4 class="text-dark mt-3 text-center mb-3"> Introduzca los datos de su tarjeta</h4>
+
+  <div class="row    justify-content-center">
+              <div class="col-6">
+<form action="#" class="credit-card-div ">
+<div class="panel panel-default" >
+ <div class="panel-heading">
+     
+      <div class="row">
+              <div class="col-md-12">
+                  <input type="text" class="form-control" placeholder="Enter Card Number" />
+              </div>
+          </div>
+     <div class="row ">
+              <div class="col-md-3 col-sm-3 col-xs-3">
+                  <span class="help-block text-muted small-font" >  Month</span>
+                  <input type="text" class="form-control" placeholder="MM" />
+              </div>
+         <div class="col-md-3 col-sm-3 col-xs-3">
+                  <span class="help-block text-muted small-font" >   Year</span>
+                  <input type="text" class="form-control" placeholder="YY" />
+              </div>
+        <div class="col-md-3 col-sm-3 col-xs-3">
+                  <span class="help-block text-muted small-font" >  CCV</span>
+                  <input type="text" class="form-control" placeholder="CCV" />
+              </div>
+         <div class="col-md-2 col-sm-2 col-xs-1">
+<img src="{{ absolute_url(asset ('img/descarga.png')) }}" class="img-rounded" />
+         </div>
+          </div>
+     <div class="row ">
+              <div class="col-md-12 pad-adjust">
+
+                  <input type="text" class="form-control" placeholder="Name On The Card" />
+              </div>
+          </div>
+     <div class="row">
+<div class="col-md-12 pad-adjust">
+    <div class="checkbox">
+    <label>
+      <input type="checkbox" checked class="text-muted">Guardar los datos de la tarjeta<a href="#"> ahora mismo ?</a>
+    </label>
+  </div>
+</div>
+     </div>
+       <div class="row ">
+            <div class="col-md-6 col-sm-6 col-xs-6 pad-adjust">
+                 <input type="submit"  class="btn btn-warning btn-block" value="CANCEL" />
+              </div>
+              <div class="col-md-6 col-sm-6 col-xs-6 pad-adjust">
+                  <input type="submit"  class="btn btn-danger btn-block" value="PAY NOW" />
+              </div>
+          </div>
+     
+                   </div>
+              </div>
+</form>
+  </div>
+              </div>
+  </div>
+{% endblock %}

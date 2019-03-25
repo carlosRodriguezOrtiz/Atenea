@@ -32,6 +32,10 @@ class srcApp_KernelDevDebugContainerUrlGenerator extends Symfony\Component\Routi
         '_profiler_router' => [['token'], ['_controller' => 'web_profiler.controller.router::panelAction'], [], [['text', '/router'], ['variable', '/', '[^/]++', 'token', true], ['text', '/_profiler']], [], []],
         '_profiler_exception' => [['token'], ['_controller' => 'web_profiler.controller.exception::showAction'], [], [['text', '/exception'], ['variable', '/', '[^/]++', 'token', true], ['text', '/_profiler']], [], []],
         '_profiler_exception_css' => [['token'], ['_controller' => 'web_profiler.controller.exception::cssAction'], [], [['text', '/exception.css'], ['variable', '/', '[^/]++', 'token', true], ['text', '/_profiler']], [], []],
+        'login' => [[], ['_controller' => 'App\\Controller\\DefaultController::loginAction'], [], [['text', '/']], [], []],
+        'login_check' => [[], ['_controller' => 'App\\Controller\\DefaultController::loginCheckAction'], [], [['text', '/login_check']], [], []],
+        'user_registration' => [[], ['_controller' => 'App\\Controller\\DefaultController::registerAction'], [], [['text', '/register']], [], []],
+        'logout' => [[], [], [], [['text', '/logout']], [], []],
     ];
         }
     }

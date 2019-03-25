@@ -20,6 +20,10 @@ class srcApp_KernelDevDebugContainerUrlMatcher extends Symfony\Bundle\FrameworkB
             '/_profiler/search_bar' => [[['_route' => '_profiler_search_bar', '_controller' => 'web_profiler.controller.profiler::searchBarAction'], null, null, null, false, false, null]],
             '/_profiler/phpinfo' => [[['_route' => '_profiler_phpinfo', '_controller' => 'web_profiler.controller.profiler::phpinfoAction'], null, null, null, false, false, null]],
             '/_profiler/open' => [[['_route' => '_profiler_open_file', '_controller' => 'web_profiler.controller.profiler::openAction'], null, null, null, false, false, null]],
+            '/' => [[['_route' => 'login', '_controller' => 'App\\Controller\\DefaultController::loginAction'], null, null, null, false, false, null]],
+            '/login_check' => [[['_route' => 'login_check', '_controller' => 'App\\Controller\\DefaultController::loginCheckAction'], null, null, null, false, false, null]],
+            '/register' => [[['_route' => 'user_registration', '_controller' => 'App\\Controller\\DefaultController::registerAction'], null, null, null, false, false, null]],
+            '/logout' => [[['_route' => 'logout'], null, null, null, false, false, null]],
         ];
         $this->regexpList = [
             0 => '{^(?'
