@@ -45,6 +45,7 @@ $a->setNamingStrategy(new \Doctrine\ORM\Mapping\UnderscoreNamingStrategy());
 $a->setQuoteStrategy(new \Doctrine\ORM\Mapping\DefaultQuoteStrategy());
 $a->setEntityListenerResolver(new \Doctrine\Bundle\DoctrineBundle\Mapping\ContainerAwareEntityListenerResolver($this));
 $a->setRepositoryFactory(new \Doctrine\Bundle\DoctrineBundle\Repository\ContainerRepositoryFactory(new \Symfony\Component\DependencyInjection\Argument\ServiceLocator($this->getService, [
+    'App\\Repository\\CargoRepository' => ['privates', 'App\\Repository\\CargoRepository', 'getCargoRepositoryService.php', true],
     'App\\Repository\\TrabajadorRepository' => ['privates', 'App\\Repository\\TrabajadorRepository', 'getTrabajadorRepositoryService.php', true],
     'App\\Repository\\UserRepository' => ['privates', 'App\\Repository\\UserRepository', 'getUserRepositoryService.php', true],
     'App\\Repository\\UsernameRepository' => ['privates', 'App\\Repository\\UsernameRepository', 'getUsernameRepositoryService.php', true],
