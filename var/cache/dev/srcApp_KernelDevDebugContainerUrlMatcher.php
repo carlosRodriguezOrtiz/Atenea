@@ -23,6 +23,9 @@ class srcApp_KernelDevDebugContainerUrlMatcher extends Symfony\Bundle\FrameworkB
             '/' => [[['_route' => 'login', '_controller' => 'App\\Controller\\DefaultController::loginAction'], null, null, null, false, false, null]],
             '/login_check' => [[['_route' => 'login_check', '_controller' => 'App\\Controller\\DefaultController::loginCheckAction'], null, null, null, false, false, null]],
             '/register' => [[['_route' => 'user_registration', '_controller' => 'App\\Controller\\DefaultController::registerAction'], null, null, null, false, false, null]],
+            '/empresa' => [[['_route' => 'empresa', '_controller' => 'App\\Controller\\EmpresaController::index'], null, null, null, false, false, null]],
+            '/empresas/list' => [[['_route' => 'empresas_list', '_controller' => 'App\\Controller\\EmpresaController::list'], null, null, null, false, false, null]],
+            '/empresas/new' => [[['_route' => 'empresas_new', '_controller' => 'App\\Controller\\EmpresaController::new'], null, null, null, false, false, null]],
             '/logout' => [[['_route' => 'logout'], null, null, null, false, false, null]],
         ];
         $this->regexpList = [
