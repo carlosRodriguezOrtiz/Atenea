@@ -43,31 +43,6 @@ class User implements UserInterface, \Serializable
      */
     private $role;
 
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $altaUsuario;
-
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $bajaUsuario;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\corporacion", inversedBy="usuarios")
-     */
-    private $userCorp;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\empresa", inversedBy="usuarios")
-     */
-    private $userEmp;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Centro", inversedBy="usuarios")
-     */
-    private $userCent;
-
 
 
 
@@ -259,66 +234,6 @@ class User implements UserInterface, \Serializable
     public function setRole($role)
     {
         $this->role = $role;
-
-        return $this;
-    }
-
-    public function getAltaUsuario(): ?\DateTimeInterface
-    {
-        return $this->altaUsuario;
-    }
-
-    public function setAltaUsuario(?\DateTimeInterface $altaUsuario): self
-    {
-        $this->altaUsuario = $altaUsuario;
-
-        return $this;
-    }
-
-    public function getBajaUsuario(): ?\DateTimeInterface
-    {
-        return $this->bajaUsuario;
-    }
-
-    public function setBajaUsuario(?\DateTimeInterface $bajaUsuario): self
-    {
-        $this->bajaUsuario = $bajaUsuario;
-
-        return $this;
-    }
-
-    public function getUserCorp(): ?corporacion
-    {
-        return $this->userCorp;
-    }
-
-    public function setUserCorp(?corporacion $userCorp): self
-    {
-        $this->userCorp = $userCorp;
-
-        return $this;
-    }
-
-    public function getUserEmp(): ?empresa
-    {
-        return $this->userEmp;
-    }
-
-    public function setUserEmp(?empresa $userEmp): self
-    {
-        $this->userEmp = $userEmp;
-
-        return $this;
-    }
-
-    public function getUserCent(): ?Centro
-    {
-        return $this->userCent;
-    }
-
-    public function setUserCent(?Centro $userCent): self
-    {
-        $this->userCent = $userCent;
 
         return $this;
     }

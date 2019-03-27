@@ -5,6 +5,10 @@ namespace App\Repository;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
+use Doctrine\ORM\EntityRepository;
 
 /**
  * @method User|null find($id, $lockMode = null, $lockVersion = null)
@@ -14,15 +18,34 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  */
 class UserRepository extends ServiceEntityRepository
 {
+    public function loadUserByUsername($username)
+    {
+        $user = $this->createQueryBuilder('u')
+            ->where('u.username = :username OR u.email = :email')
+            ->setParameter('username', $username)
+            ->setParameter('email', $username)
+            ->getQuery()
+            ->getOneOrNullResult();
+
+        if (null === $user) {
+            $message = sprintf(
+                'Unable to find an active admin AppBundle:User object identified by "%s".',
+                $username
+            );
+            throw new UsernameNotFoundException($message);
+        }
+
+        return $user;
+    }
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, User::class);
     }
 
-    // /**
-    //  * @return User[] Returns an array of User objects
-    //  */
-    /*
+/* 
+      @return User[] Returns an array of User objects
+   
+
     public function findByExampleField($value)
     {
         return $this->createQueryBuilder('u')
@@ -33,10 +56,10 @@ class UserRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult()
         ;
-    }
-    */
+    } */
+    
 
-    /*
+/*     
     public function findOneBySomeField($value): ?User
     {
         return $this->createQueryBuilder('u')
@@ -45,6 +68,6 @@ class UserRepository extends ServiceEntityRepository
             ->getQuery()
             ->getOneOrNullResult()
         ;
-    }
-    */
+    } */
+    
 }
