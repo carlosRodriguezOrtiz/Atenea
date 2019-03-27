@@ -81,7 +81,6 @@ class __TwigTemplate_243e8067c8332032df63c832c79edde6ef75cd5a76dcef0bf3e96704c0b
                 <div class=\"col-md-4\">
                     <div class=\"btn-group float-right mt-2 mb-3\" role=\"group\">
                         <a class=\"btn btn-danger btn-md\">&laquo; Torna</a>
-
                     </div>
                 </div>
             </section>
@@ -91,23 +90,23 @@ class __TwigTemplate_243e8067c8332032df63c832c79edde6ef75cd5a76dcef0bf3e96704c0b
                         <div class=\"card d-flex \">
                             <div class=\"card-header bg-danger text-white\">
                                  <h4>";
-        // line 22
-        echo twig_escape_filter($this->env, (isset($context["title"]) || array_key_exists("title", $context) ? $context["title"] : (function () { throw new Twig_Error_Runtime('Variable "title" does not exist.', 22, $this->source); })()), "html", null, true);
+        // line 21
+        echo twig_escape_filter($this->env, (isset($context["title"]) || array_key_exists("title", $context) ? $context["title"] : (function () { throw new Twig_Error_Runtime('Variable "title" does not exist.', 21, $this->source); })()), "html", null, true);
         echo "</h4>
                             </div>
                             <div class=\"card-body\">
                                 <div class=\"col-12 \">
                                     ";
+        // line 25
+        echo         $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock((isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new Twig_Error_Runtime('Variable "form" does not exist.', 25, $this->source); })()), 'form_start');
+        echo "
+                                    ";
         // line 26
-        echo         $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock((isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new Twig_Error_Runtime('Variable "form" does not exist.', 26, $this->source); })()), 'form_start');
+        echo $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock((isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new Twig_Error_Runtime('Variable "form" does not exist.', 26, $this->source); })()), 'widget');
         echo "
                                     ";
         // line 27
-        echo $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock((isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new Twig_Error_Runtime('Variable "form" does not exist.', 27, $this->source); })()), 'widget');
-        echo "
-                                    ";
-        // line 28
-        echo         $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock((isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new Twig_Error_Runtime('Variable "form" does not exist.', 28, $this->source); })()), 'form_end');
+        echo         $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock((isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new Twig_Error_Runtime('Variable "form" does not exist.', 27, $this->source); })()), 'form_end');
         echo "
                                 </div>
                             </div>
@@ -138,7 +137,7 @@ class __TwigTemplate_243e8067c8332032df63c832c79edde6ef75cd5a76dcef0bf3e96704c0b
 
     public function getDebugInfo()
     {
-        return array (  110 => 28,  106 => 27,  102 => 26,  95 => 22,  77 => 6,  68 => 5,  57 => 3,  48 => 2,  38 => 1,  36 => 4,  15 => 1,);
+        return array (  109 => 27,  105 => 26,  101 => 25,  94 => 21,  77 => 6,  68 => 5,  57 => 3,  48 => 2,  38 => 1,  36 => 4,  15 => 1,);
     }
 
     public function getSourceContext()
@@ -155,7 +154,6 @@ class __TwigTemplate_243e8067c8332032df63c832c79edde6ef75cd5a76dcef0bf3e96704c0b
                 <div class=\"col-md-4\">
                     <div class=\"btn-group float-right mt-2 mb-3\" role=\"group\">
                         <a class=\"btn btn-danger btn-md\">&laquo; Torna</a>
-
                     </div>
                 </div>
             </section>

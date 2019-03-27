@@ -66,7 +66,7 @@ class __TwigTemplate_f4867694281355504cc7a7ccbd0d61366ee7e078e8991ab615030af5a3d
             echo "                        ";
             if ((twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new Twig_Error_Runtime('Variable "app" does not exist.', 27, $this->source); })()), "user", []), "role", []) == "ROLE_ADMIN")) {
                 // line 28
-                echo "                            <a class=\"btn btn-dark btn-md mr-2\" href=\"\">
+                echo "                            <a class=\"btn btn-dark btn-md mr-2\" href=\"logout\">
                                 Usuario :
                                 ";
                 // line 30
@@ -152,7 +152,7 @@ class __TwigTemplate_f4867694281355504cc7a7ccbd0d61366ee7e078e8991ab615030af5a3d
                 <div class=\"form-inline tex-white\">
                     {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                         {% if app.user.role == 'ROLE_ADMIN' %}
-                            <a class=\"btn btn-dark btn-md mr-2\" href=\"\">
+                            <a class=\"btn btn-dark btn-md mr-2\" href=\"logout\">
                                 Usuario :
                                 {{ app.user.username}}
                                 <span class=\"icon-power\" style=\"color:white;\"></span>

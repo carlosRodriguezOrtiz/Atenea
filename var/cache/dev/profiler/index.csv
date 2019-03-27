@@ -231,3 +231,14 @@ ce613d,::1,GET,http://localhost/DUAL/Atenea/public/index.php/empresas/list,15537
 75fdcd,::1,GET,http://localhost/DUAL/Atenea/public/index.php/empresas/list,1553701571,,500
 207f07,::1,GET,http://localhost/DUAL/Atenea/public/index.php/empresas/list,1553701578,,200
 0c6d43,::1,GET,http://localhost/DUAL/Atenea/public/index.php/empresas/list,1553701592,,200
+812057,::1,GET,http://localhost/DUAL/Atenea/public/index.php/,1553701998,,200
+f3d815,::1,POST,http://localhost/DUAL/Atenea/public/index.php/,1553702002,,302
+f5055f,::1,GET,http://localhost/DUAL/Atenea/public/index.php/,1553702002,,200
+ff5749,::1,POST,http://localhost/DUAL/Atenea/public/index.php/,1553702007,,302
+69d8f9,::1,GET,http://localhost/DUAL/Atenea/public/index.php/,1553702007,,200
+dbfc73,::1,GET,http://localhost/DUAL/Atenea/public/index.php/empresas/list,1553702021,,200
+6273e7,::1,GET,http://localhost/DUAL/Atenea/public/index.php/,1553702050,,200
+c36218,::1,POST,http://localhost/DUAL/Atenea/public/index.php/,1553702054,,302
+35659f,::1,GET,http://localhost/DUAL/Atenea/public/index.php/,1553702054,,200
+0e3acd,::1,GET,http://localhost/DUAL/Atenea/public/index.php/empresas/list,1553702072,,200
+c6fa0e,::1,GET,http://localhost/DUAL/Atenea/public/index.php/empresas/new,1553702082,,200
