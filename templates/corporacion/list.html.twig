@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+{% block title %}Llistat de peliculas
+{% endblock %}
+{% block body %}
+    <section class="bg-white text-black mb-0">
+        <section class="container-fluid">
+            <section class="row">
+                <section class="col-md-12">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Fecha de Alta</th>
+                                <th scope="col">Fecha de Baja</th>
+                                <th scope="col">Descripción</th>
+                                <th scope="col">Empresa</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for corporacion in corporaciones %}
+                                <tr>
+                                    <th scope="row">{{corporacion.id}}</th>
+                                    <td>{{ corporacion.nombre }}</td>
+                                    <td>{{ corporacion.fechaAlta|date('d-m-Y')}}</td>
+                                    <td>{{ corporacion.fechaBaja|date('d-m-Y') }}</td>
+                                    <td>{{ corporacion.descripcion }}</td>
+                                    <td>
+                  <a class="btn btn-danger btn-md" href="{{ path('empresas_new', {'id': corporacion.id}) }}">Añadir empresa</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </section>
+            </section>
+        </section>
+    </section>
+{% endblock %}

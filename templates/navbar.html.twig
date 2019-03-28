@@ -8,7 +8,7 @@
     </button>
     <div class="collapse  navbar-collapse" id="navbarsExample06">
         <ul class="navbar-nav mr-auto text-center ">
-            {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
             
                 <li class="nav-item ">
                     <a class="nav-link" href="">Home
@@ -23,7 +23,7 @@
         <form action="" class="form-inline w-100 my-2 my-md-0 pr-3 form-just" method="post">
             <div class="form-inline mr-2">
                 <div class="form-inline tex-white">
-                    {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                         {% if app.user.role == 'ROLE_ADMIN' %}
                             <a class="btn btn-dark btn-md mr-2" href="logout">
                                 Usuario :
@@ -31,7 +31,7 @@
                                 <span class="icon-power" style="color:white;"></span>
                             </a>
                                 <a class="btn btn-danger btn-md" href="">Registro</a>
-                            {% else %}
+                        {% else %}
                             <a class="btn btn-dark btn-sm mr-2" href="">
                                 Usuario :
                                 {{ app.user.username}}

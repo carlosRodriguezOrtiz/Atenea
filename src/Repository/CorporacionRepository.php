@@ -2,25 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\Cargo;
+use App\Entity\Corporacion;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
- * @method Cargo|null find($id, $lockMode = null, $lockVersion = null)
- * @method Cargo|null findOneBy(array $criteria, array $orderBy = null)
- * @method Cargo[]    findAll()
- * @method Cargo[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Corporacion|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Corporacion|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Corporacion[]    findAll()
+ * @method Corporacion[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class CargoRepository extends ServiceEntityRepository
+class CorporacionRepository extends ServiceEntityRepository
 {
     public function __construct(RegistryInterface $registry)
     {
-        parent::__construct($registry, Cargo::class);
+        parent::__construct($registry, Corporacion::class);
     }
 
     // /**
-    //  * @return Cargo[] Returns an array of Cargo objects
+    //  * @return Corporacion[] Returns an array of Corporacion objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class CargoRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Cargo
+    public function findOneBySomeField($value): ?Corporacion
     {
         return $this->createQueryBuilder('c')
             ->andWhere('c.exampleField = :val')
