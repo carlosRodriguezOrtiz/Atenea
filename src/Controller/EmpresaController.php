@@ -13,6 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use App\Entity\Empresa;
+use App\Entity\Corporacion;
 
 
 class EmpresaController extends AbstractController
@@ -43,9 +44,9 @@ class EmpresaController extends AbstractController
     }
 
    /**
-     * @Route("/empresas/new", name="empresas_new")
+     * @Route("/empresas/new/{id<\d+>}", name="empresas_new")
      */
-    public function new(Request $request)
+    public function new($id, Request $request)
     {
         $empresas= new Empresa();
 
@@ -56,6 +57,14 @@ class EmpresaController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $empresas = $form->getData();
+
+
+            $corporaciones = $this->getDoctrine()
+            ->getRepository(Corporacion::class)
+            ->find($id);
+
+            $empresas->setCorporaciones($corporaciones);
+
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($empresas);
