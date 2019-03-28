@@ -21,7 +21,7 @@ class DefaultController extends Controller
     public function loginAction(Request $request, AuthenticationUtils $authenticationUtils)
     {
 
-        
+    $authenticationUtils = $this->get('security.authentication_utils');
        // get the login error if there is one
     $error = $authenticationUtils->getLastAuthenticationError();
 
@@ -76,6 +76,7 @@ class DefaultController extends Controller
             array('form' => $form->createView())
         );
     }
+    
 
 
     

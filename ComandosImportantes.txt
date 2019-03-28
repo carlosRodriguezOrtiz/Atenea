@@ -26,3 +26,14 @@ Cosas importantes:
    Si sigue con errores utilitzar el comando:
 
     $ composer install
+
+
+// Adrià Cambios Imporanteeee!!!!!!!!!!!!
+
+1) Como he ignorado el fichero ".env" en el gitignore no se subira, pero he puesto otro fichero llamado "example.env", tendras que renombrarlo a ".env" y añadir los datos de acceso a la base de datos si es la primera vez que te clonas el proyecto:
+
+    example-env -> .env
+
+2) Tambien esta ignorado el directorio "vendor" por eso cada vez que clonas el proyecto tendras de hacer un composer update!!!!!
+
+3) Tambien he ignorado el directorio "var" para que la cache no nos joda todo el rato!!
