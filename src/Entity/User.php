@@ -43,6 +43,11 @@ class User implements UserInterface, \Serializable
      */
     private $role;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Empresa", inversedBy="users")
+     */
+    private $empresa;
+
 
 
 
@@ -234,6 +239,18 @@ class User implements UserInterface, \Serializable
     public function setRole($role)
     {
         $this->role = $role;
+
+        return $this;
+    }
+
+    public function getEmpresa(): ?Empresa
+    {
+        return $this->empresa;
+    }
+
+    public function setEmpresa(?Empresa $empresa): self
+    {
+        $this->empresa = $empresa;
 
         return $this;
     }

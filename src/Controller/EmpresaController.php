@@ -14,6 +14,7 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use App\Entity\Empresa;
 use App\Entity\Corporacion;
+use App\Entity\User;
 
 
 class EmpresaController extends AbstractController
@@ -65,6 +66,39 @@ class EmpresaController extends AbstractController
 
             $empresas->setCorporaciones($corporaciones);
 
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($empresas);
+            $entityManager->flush();
+
+            $this->addFlash(
+                'notice',
+                'Nova empresas '.$empresas->getNombre() .' creada!'
+            );
+
+            return $this->redirectToRoute('login'); 
+        }
+
+        return $this->render('empresa/empresas.html.twig', array(
+            'form' => $form->createView(),
+            'title' => 'Nova empresa',
+        ));
+    }
+
+       /**
+     * @Route("/empresas/newEmpresa/", name="crearEmpresa")
+     */
+    public function newEmpresa(Request $request)
+    {
+        $empresas= new Empresa();
+
+        $form = $this->createForm(EmpresasType::class , $empresas, array ('submit'=>'Crear Empresa'));
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $empresas = $form->getData();
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($empresas);

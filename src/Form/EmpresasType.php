@@ -13,7 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
-
+use App\Entity\User;
 
 
 class EmpresasType extends AbstractType
@@ -27,6 +27,8 @@ class EmpresasType extends AbstractType
             ->add('FechaAlta', DateType::class)
             ->add('FechaBaja', DateType::class)
             ->add('Descripcion', TextType::class)
+/*             ->add('usuarios', EntityType::class, array('class' => User::class,
+            'choice_label' => 'username')) */
             ->add('save', SubmitType::class, array('label' => $options['submit']));
     }
 
