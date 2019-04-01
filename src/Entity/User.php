@@ -39,14 +39,14 @@ class User implements UserInterface, \Serializable
     private $isActive;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $role;
-
-    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Empresa", inversedBy="users")
      */
     private $empresa;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Rol", inversedBy="users")
+     */
+    private $role;
 
 
 
@@ -221,28 +221,6 @@ class User implements UserInterface, \Serializable
         return $this->isActive;
     }
 
-    
-
-    /**
-     * Get the value of role
-     */ 
-    public function getRole()
-    {
-        return $this->role;
-    }
-
-    /**
-     * Set the value of role
-     *
-     * @return  self
-     */ 
-    public function setRole($role)
-    {
-        $this->role = $role;
-
-        return $this;
-    }
-
     public function getEmpresa(): ?Empresa
     {
         return $this->empresa;
@@ -251,6 +229,18 @@ class User implements UserInterface, \Serializable
     public function setEmpresa(?Empresa $empresa): self
     {
         $this->empresa = $empresa;
+
+        return $this;
+    }
+
+    public function getRole(): ?Rol
+    {
+        return $this->role;
+    }
+
+    public function setRole(?Rol $role): self
+    {
+        $this->role = $role;
 
         return $this;
     }
