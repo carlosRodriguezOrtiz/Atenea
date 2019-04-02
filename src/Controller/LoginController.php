@@ -13,7 +13,7 @@ use App\Form\UserType;
 use App\Entity\User;
 
 
-class DefaultController extends Controller
+class LoginController extends Controller
 {
  /**
      * @Route("/", name="login")

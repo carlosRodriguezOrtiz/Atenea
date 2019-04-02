@@ -25,14 +25,14 @@
                 <div class="form-inline tex-white">
                     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                         {% if app.user.role == 'ROLE_ADMIN' %}
-                            <a class="btn btn-dark btn-md mr-2" href="logout">
+                            <a class="btn btn-dark btn-md mr-2" href="/logout">
                                 Usuario :
                                 {{ app.user.username}}
                                 <span class="icon-power" style="color:white;"></span>
                             </a>
-                                <a class="btn btn-danger btn-md" href="">Registro</a>
+                                <a class="btn btn-danger btn-md" href="{{ path('user_registration') }}">Registro</a>
                         {% else %}
-                            <a class="btn btn-dark btn-sm mr-2" href="">
+                            <a class="btn btn-dark btn-sm mr-2" href="{{ path('logout') }}">
                                 Usuario :
                                 {{ app.user.username}}
                                 <span class="icon-power" style="color:white;"></span>

@@ -5,15 +5,15 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
-class InicioController extends AbstractController
+class ErrorController extends AbstractController
 {
     /**
-     * @Route("/inicio", name="inicio")
+     * @Route("/acces-denied", name="acces-denied")
      */
     public function index()
     {
-        return $this->render('inicio/index.html.twig', [
-            'controller_name' => 'InicioController',
+        return $this->render('error/index.html.twig', [
+            'controller_name' => 'ErrorController',
         ]);
     }
 }
