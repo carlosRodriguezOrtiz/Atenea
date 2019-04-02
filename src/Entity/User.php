@@ -243,9 +243,5 @@ class User implements UserInterface, \Serializable
         $this->role = $role;
 
         return $this;
-    }
-
- 
-
-   
+    }  
 }
