@@ -1,49 +1,60 @@
 <!-- MENU -->
 <nav class="navbar   sticky-top navbar-expand-xl navbar-dark bg-dark " role="navigation">
 
-    <a class="navbar-brand" href="#"><img src="{{ absolute_url(asset ('img/logo.png')) }}"/></a>
+    <a class="navbar-brand" href="#"><img src="{{ absolute_url(asset ('img/logo.png')) }}" /></a>
     <h1 class="text-white">ATENEA</h1>
-    <button aria-controls="navbarsExample06" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-target="#navbarsExample06" data-toggle="collapse" type="button">
+    <button aria-controls="navbarsExample06" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"
+        data-target="#navbarsExample06" data-toggle="collapse" type="button">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse  navbar-collapse" id="navbarsExample06">
         <ul class="navbar-nav mr-auto text-center ">
             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-            
-                <li class="nav-item ">
+            {# <li class="nav-item ">
                     <a class="nav-link" href="">Home
                         <span class="sr-only">(current)</span>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="">Peliculas</a>
-                </li>
+                </li> #}
             {% endif %}
         </ul>
         <form action="" class="form-inline w-100 my-2 my-md-0 pr-3 form-just" method="post">
             <div class="form-inline mr-2">
                 <div class="form-inline tex-white">
                     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                        {% if app.user.role == 'ROLE_ADMIN' %}
-                            <a class="btn btn-dark btn-md mr-2" href="/logout">
-                                Usuario :
-                                {{ app.user.username}}
-                                <span class="icon-power" style="color:white;"></span>
-                            </a>
-                                <a class="btn btn-danger btn-md" href="{{ path('user_registration') }}">Registro</a>
-                        {% else %}
-                            <a class="btn btn-dark btn-sm mr-2" href="{{ path('logout') }}">
-                                Usuario :
-                                {{ app.user.username}}
-                                <span class="icon-power" style="color:white;"></span>
-                            </a>
-                        {% endif %}
-                    
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {{ app.user.username}}
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="{{ path('user_edit', { id : app.user.id })}}">Editar cuenta</a>
+                            <a class="dropdown-item" href="{{ path('logout') }}">Logout</a>
+                        </div>
+                    </div>
+
+
+                    {% if app.user.role.nombre == 'ROLE_ADMIN' %}
+                    {# <a class="btn btn-dark btn-md mr-2" href="/logout">
+                        Usuario :
+                        {{ app.user.username}}
+                        <span class="icon-power" style="color:white;"></span>
+                    </a> #}
+                    <a class="btn btn-danger btn-md" href="{{ path('user_registration') }}">Registro</a>
+                    {% else %}
+                    <a class="btn btn-dark btn-sm mr-2" href="{{ path('logout') }}">
+                        Usuario :
+                        {{ app.user.username}}
+                        <span class="icon-power" style="color:white;"></span>
+                    </a>
+                    {% endif %}
+
 
                     {% endif %}
                 </div>
-            </form>
-        </div>
-    </nav>
-    <!-- FIN MENU -->
-    
+        </form>
+    </div>
+</nav>
+<!-- FIN MENU -->

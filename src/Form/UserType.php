@@ -37,7 +37,9 @@ class UserType extends AbstractType
                 'second_options' => array('label' => 'Repetir Password'),
             ) 
         )
-            ->add('save', SubmitType::class, array('label' => $options['submit']));
+            ->add('Send', SubmitType::class,[
+                'attr' => ['class' => 'b1']
+            ], array('label' => $options['submit']));
     }
 
     public function configureOptions(OptionsResolver $resolver)
