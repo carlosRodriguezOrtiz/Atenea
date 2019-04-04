@@ -37,9 +37,13 @@ class CorporacionController extends AbstractController
             ->getRepository(Corporacion::class)
             ->findAll();
 
-       
+       if(isset($_REQUEST['mensaje']) && $_REQUEST['mensaje'] == 'error'){
+            return $this->render('corporacion/list.html.twig', ['corporaciones' => $corporaciones, 'mensaje' => "Error , no se ha podido eliminar esta corporación. Contiene una o varias empresas, por favor primero elimina esas empresas"]);
+       }else {
+            return $this->render('corporacion/list.html.twig', ['corporaciones' => $corporaciones, 'mensaje' => " "]);
+       }
 
-        return $this->render('corporacion/list.html.twig', ['corporaciones' => $corporaciones]);
+        
     }
 
        /**
@@ -73,5 +77,84 @@ class CorporacionController extends AbstractController
             'form' => $form->createView(),
             'title' => 'Nueva corporacion',
         ));
+    }
+
+    /**
+     * @Route("/corporaciones/edit/{id<\d+>}", name="corporacion_edit")
+     */
+    public function edit($id, Request $request)
+    {
+        $corporaciones = $this->getDoctrine()
+            ->getRepository(Corporacion::class)
+            ->find($id);
+
+       
+        $form = $this->createForm(CorporacionesType::class, $corporaciones, array('submit'=>'Desar'));
+        
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $corporaciones = $form->getData();
+            
+       
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($corporaciones);
+            $entityManager->flush();
+
+            $this->addFlash(
+                'notice',
+                'Corporaciones '.$corporaciones->getNombre().' desada!'
+            );
+
+            return $this->redirectToRoute('corporaciones_list');
+        }
+
+        return $this->render('corporacion/corporaciones.html.twig', array(
+            'form' => $form->createView(),
+            'title' => 'Editar corporaciones',
+        ));
+    }
+
+    /**
+     * @Route("/corporaciones/delete/{id<\d+>}", name="corporacion_delete")
+     */
+    public function delete($id, Request $request)
+    {
+        $mensajeErrorFK="";
+        $corporaciones = $this->getDoctrine()
+            ->getRepository(Corporacion::class)
+            ->find($id);
+
+         $empresitas=$corporaciones->getArrayEmpresa();   
+
+         
+        
+         if(is_null($empresitas)){
+
+
+                                   
+         
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $nomCorporaciones = $corporaciones->getNombre();
+        $entityManager->remove($corporaciones);
+        $entityManager->flush();
+
+        $this->addFlash(
+            'notice',
+            'Corporacion '.$nomCorporaciones.' eliminada!'
+        );
+
+        }else {
+            $mensajeErrorFK="error";
+        }
+    
+        return $this->redirectToRoute('corporaciones_list', array(
+            'mensaje'=>$mensajeErrorFK,
+            )
+        );
     }
 }
