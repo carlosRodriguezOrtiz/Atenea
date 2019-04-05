@@ -7,7 +7,6 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 
 use App\Form\UserEditType;
-use App\Entity\User;
 
 class UserController extends AbstractController
 {
