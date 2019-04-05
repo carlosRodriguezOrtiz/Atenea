@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Controller;
-
+use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -16,4 +16,27 @@ class UserController extends AbstractController
             'controller_name' => 'UserController',
         ]);
     }
+
+
+
+    /**
+     * @Route("/user/list", name="user")
+     */
+    public function list()
+    {
+        $user = $this->getDoctrine()
+            ->getRepository(User::class)
+            ->findAll();
+
+       
+
+        return $this->render('user/list.html.twig', ['user' => $user]);
+    }
+
+
+
+
+
+
+
 }

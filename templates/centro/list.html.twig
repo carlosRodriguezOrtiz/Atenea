@@ -14,24 +14,24 @@
                                 <th scope="col">Fecha de Alta</th>
                                 <th scope="col">Fecha de Baja</th>
                                 <th scope="col">Descripción</th>
-                                <th scope="col">Centro de Trabajo</th>
                                 <th scope="col">Opciones</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {% for empresa in empresas %}
+                            {% for centros in centro %}
                                 <tr>
-                                    <th scope="row">{{empresa.id}}</th>
-                                    <td>{{ empresa.nombre }}</td>
-                                    <td>{{ empresa.fechaAlta|date('d-m-Y')}}</td>
-                                    <td>{{ empresa.fechaBaja|date('d-m-Y') }}</td>
-                                    <td>{{ empresa.descripcion }}</td>
+                                    <th scope="row">{{centros.id}}</th>
+                                    <td>{{ centros.nombre }}</td>
+                                    <td>{{ centros.fechaAlta|date('d-m-Y')}}</td>
+                                    <td>{{ centros.fechaBaja|date('d-m-Y') }}</td>
+                                    <td>{{ centros.descripcion }}</td>
+                                  {#   <td>
+                  <a class="btn btn-danger btn-md" href="{{ path('centros_new', {'id': centros.id}) }}">Añadir centro</a>
+                                    </td> #}
                                     <td>
-                  <a class="btn btn-danger btn-md" href="{{ path('centros_new', {'id': empresa.id}) }}">Añadir centro</a>
-                                    </td>
-                                    <td>
-                         <a </span href="{{ path('empresa_edit', {'id': empresa.id}) }}" <span class="icon-pencil-alt text-black">Edit</a>
-                         <a </span href="{{ path('empresa_delete', {'id': empresa.id}) }}" <span class="icon-trash-empty text-black">Eliminar</a>
+                         <a </span href="{{ path('centro_edit', {'id': centros.id}) }}" <span class="icon-pencil-alt text-black">Edit</a>
+                         <a </span href="{{ path('centro_delete', {'id': centros.id}) }}" <span class="icon-trash-empty text-black">Eliminar</a>
+
                                     </td>
                                 </tr>
                             {% endfor %}

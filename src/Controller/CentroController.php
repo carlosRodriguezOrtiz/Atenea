@@ -64,5 +64,79 @@ class CentroController extends AbstractController
         ));
     }
 
+     /**
+     * @Route("/centros/list", name="centros_list")
+     */
+    public function list()
+    {
+        $centro = $this->getDoctrine()
+            ->getRepository(Centro::class)
+            ->findAll();
 
+       
+
+        return $this->render('centro/list.html.twig', ['centro' => $centro]);
+    }
+
+
+    /**
+     * @Route("/centros/edit/{id<\d+>}", name="centro_edit")
+     */
+    public function edit($id, Request $request)
+    {
+        $centros = $this->getDoctrine()
+            ->getRepository(Centro::class)
+            ->find($id);
+
+       
+        $form = $this->createForm(CentrosType::class, $centros, array('submit'=>'Desar'));
+        
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $centros = $form->getData();
+            
+       
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($centros);
+            $entityManager->flush();
+
+            $this->addFlash(
+                'notice',
+                'Centros '.$centros->getNombre().' desada!'
+            );
+
+            return $this->redirectToRoute('centros_list');
+        }
+
+        return $this->render('centro/centros.html.twig', array(
+            'form' => $form->createView(),
+            'title' => 'Editar centros',
+        ));
+    }
+
+        /**
+     * @Route("/centros/delete/{id<\d+>}", name="centro_delete")
+     */
+    public function delete($id, Request $request)
+    {
+        $centro = $this->getDoctrine()
+            ->getRepository(Centro::class)
+            ->find($id);
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $nomCentro = $centro->getNombre();
+        $entityManager->remove($centro);
+        $entityManager->flush();
+
+        $this->addFlash(
+            'notice',
+            'Centro '.$nomCentro.' eliminada!'
+        );
+
+        return $this->redirectToRoute('centros_list');
+    }
 }
