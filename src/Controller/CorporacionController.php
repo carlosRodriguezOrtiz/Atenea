@@ -128,15 +128,12 @@ class CorporacionController extends AbstractController
             ->getRepository(Corporacion::class)
             ->find($id);
 
-         $empresitas=$corporaciones->getArrayEmpresa();   
+         $empresas=$corporaciones->getArrayEmpresa();   
 
          
         
-         if(is_null($empresitas)){
-
-
-                                   
-         
+         if($empresas->isEmpty()){          
+    
 
         $entityManager = $this->getDoctrine()->getManager();
         $nomCorporaciones = $corporaciones->getNombre();
