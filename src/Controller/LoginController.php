@@ -44,7 +44,7 @@ class LoginController extends Controller
     }
 
     /**
-     * @Route("/register", name="user_registration")
+     * @Route("/app/register", name="user_registration")
      */
     public function registerAction(Request $request)
     {

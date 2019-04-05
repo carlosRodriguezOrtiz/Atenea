@@ -20,6 +20,7 @@ security:
             form_login:
                 login_path: login
                 check_path: login
+                default_target_path: /inicio
             logout:
                 path: /logout
                 target: /
@@ -36,7 +37,9 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        - path: ^/register
+        - path: ^/app
           allow_if: "is_granted('IS_AUTHENTICATED_FULLY') and (user.getRole().getId() == '1')"
        # - { path: ^/peliculas/new, roles: ROLE_ADMIN }
        # - { path: ^/profile, roles: ROLE_USER }
+
+          

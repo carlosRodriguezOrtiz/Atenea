@@ -14,7 +14,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use App\Entity\Rol;
 use App\Entity\Empresa;
 
-class UserType extends AbstractType
+class UserEditType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -27,17 +27,13 @@ class UserType extends AbstractType
         $builder
             ->add('email', EmailType::class )
             ->add('username', TextType::class)
-            ->add('role', EntityType::class, array('class' => Rol::class,
-            'choice_label' => 'nombre'))
-            ->add('empresa', EntityType::class, array('class' => Empresa::class,
-            'choice_label' => 'nombre'))
             ->add('password', RepeatedType::class, array(
                 'type' => PasswordType::class,
                 'first_options'  => array('label' => 'Password'),
                 'second_options' => array('label' => 'Repetir Password'),
-            ) 
-        )
-            ->add('send', SubmitType::class,[
+                ) 
+            )
+            ->add('edit', SubmitType::class,[
                 'attr' => ['class' => 'b1']
             ], array('label' => $options['submit']));
     }

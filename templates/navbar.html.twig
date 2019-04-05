@@ -25,9 +25,10 @@
                 <div class="form-inline tex-white">
                     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                     <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                        <button class="btn btn-secondary dropdown-toggle mx-5" type="button" id="dropdownMenuButton"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            {{ app.user.username}}
+                            Usuario :
+                            {{ app.user.username }}
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <a class="dropdown-item" href="{{ path('user_edit', { id : app.user.id })}}">Editar cuenta</a>
@@ -37,18 +38,7 @@
 
 
                     {% if app.user.role.nombre == 'ROLE_ADMIN' %}
-                    {# <a class="btn btn-dark btn-md mr-2" href="/logout">
-                        Usuario :
-                        {{ app.user.username}}
-                        <span class="icon-power" style="color:white;"></span>
-                    </a> #}
-                    <a class="btn btn-danger btn-md" href="{{ path('user_registration') }}">Registro</a>
-                    {% else %}
-                    <a class="btn btn-dark btn-sm mr-2" href="{{ path('logout') }}">
-                        Usuario :
-                        {{ app.user.username}}
-                        <span class="icon-power" style="color:white;"></span>
-                    </a>
+                        <a class="btn btn-danger btn-md" href="{{ path('user_registration') }}">Registro</a>
                     {% endif %}
 
 
