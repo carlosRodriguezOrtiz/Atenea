@@ -118,28 +118,90 @@ class EmpresaController extends AbstractController
         ));
     }
 
+        /**
+     * @Route("/empresas/edit/{id<\d+>}", name="empresa_edit")
+     */
+    public function edit($id, Request $request)
+    {
+        $empresas = $this->getDoctrine()
+            ->getRepository(Empresa::class)
+            ->find($id);
 
+       
+        $form = $this->createForm(EmpresasType::class, $empresas, array('submit'=>'Desar'));
+        
 
+        $form->handleRequest($request);
 
+        if ($form->isSubmitted() && $form->isValid()) {
 
+            $empresas = $form->getData();
+            
+       
 
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($empresas);
+            $entityManager->flush();
 
+            $this->addFlash(
+                'notice',
+                'Empresas '.$empresas->getNombre().' desada!'
+            );
 
+            return $this->redirectToRoute('empresas_list');
+        }
 
+        return $this->render('empresa/empresas.html.twig', array(
+            'form' => $form->createView(),
+            'title' => 'Editar empresas',
+        ));
+    }
 
+        /**
+     * @Route("/empresas/delete/{id<\d+>}", name="empresa_delete")
+     */
+    public function delete($id, Request $request)
+    {
+        $empresas = $this->getDoctrine()
+            ->getRepository(Empresa::class)
+            ->find($id);
 
+        $entityManager = $this->getDoctrine()->getManager();
+        $nomEmpresas = $empresas->getNombre();
+        $entityManager->remove($empresas);
+        $entityManager->flush();
 
+        $this->addFlash(
+            'notice',
+            'Empresa '.$nomEmpresas.' eliminada!'
+        );
 
-
-
-
-
-
-
-
-
-
-
+        return $this->redirectToRoute('empresas_list');
+    }
 
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
