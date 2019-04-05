@@ -11,15 +11,13 @@
                         <h4>Registrarse</h4>
                     </div>
 <div class="col-6 text-center border border-secondary">
-{{ form_start(form) }}
-    {{ form_row(form.username) }}
-    {{ form_row(form.role) }}
-    {{ form_row(form.email) }}
-    {{ form_row(form.password.first) }}
-    {{ form_row(form.password.second) }}
-
-   
-{{ form_end(form) }}
+    {{ form_start(form) }}
+        {{ form_row(form.username) }}
+        {{ form_row(form.role) }}
+        {{ form_row(form.email) }}
+        {{ form_row(form.password.first) }}
+        {{ form_row(form.password.second) }}
+    {{ form_end(form) }}
 </div>
 </div>
 </div>
