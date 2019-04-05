@@ -132,7 +132,7 @@ class CorporacionController extends AbstractController
 
          
         
-         if(is_null($empresitas)){
+         if($empresitas->isEmpty()){
 
 
                                    
