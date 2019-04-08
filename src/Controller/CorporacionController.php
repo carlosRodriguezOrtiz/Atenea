@@ -128,11 +128,11 @@ class CorporacionController extends AbstractController
             ->getRepository(Corporacion::class)
             ->find($id);
 
-         $empresitas=$corporaciones->getArrayEmpresa();   
+        $empresas=$corporaciones->getArrayEmpresa();   
 
          
         
-         if($empresitas->isEmpty()){
+        if($empresitas->isEmpty()){
 
 
                                    
