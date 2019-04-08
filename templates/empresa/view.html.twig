@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+{% block title %}  {{ empresa.nombre }}
+{% endblock %}
+{% block body %}
+    <section class="bg-white text-black mb-0">
+        <section class="container-fluid">
+            <section class="row">
+                <section class="col-md-12">
+               <h1> {{ empresa.nombre }}</h1>
+               <h2>Información </h2>
+                <a class="btn btn-danger btn-md" href="{{ path('centros_new', {'id': empresa.id}) }}">Añadir centro</a>
+                <section>
+                Nombre: {{ empresa.nombre }}
+                {# Fecha de Alta: {{ empresa.fechaAlta}}
+                Fecha de Baja: {{ empresa.fechaBaja }}
+                Descripcion: {{ empresa.descripcion }} #}
+                 <h3>Centros</h3>
+                </section>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">asda</th>
+                                <th scope="col">Fecha de Alta</th>
+                                <th scope="col">Fecha de Baja</th>
+                                <th scope="col">Descripción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for centro in centros %}
+                                <tr>
+                                    <th scope="row">{{centro.id}}</th>
+                                    <td>{{ centro.nombre }}</td>
+                                    <td>{{ centro.fechaAlta|date('d-m-Y')}}</td>
+                                    <td>{{ centro.fechaBaja|date('d-m-Y') }}</td>
+                                    <td>{{ centro.descripcion }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </section>
+            </section>
+        </section>
+    </section>
+{% endblock %}

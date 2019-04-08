@@ -44,6 +44,18 @@ class EmpresaController extends AbstractController
         return $this->render('empresa/list.html.twig', ['empresas' => $empresas]);
     }
 
+    /**
+     * @Route("/empresa/{id<\d+>}", name="empresa")
+     */
+    public function view($id)
+    {
+        $empresa = $this->getDoctrine()
+        ->getRepository(Empresa::class)
+        ->find($id);
+
+        return $this->render('empresa/view.html.twig', ['empresa'=>$empresa,'centros' => $empresa->getArrayCentros()]);
+    }
+
    /**
      * @Route("/empresas/new/{id<\d+>}", name="empresas_new")
      */
