@@ -68,7 +68,7 @@ class LoginController extends Controller
             // ... hacer cualquier otra cosa, como enviar un email, etc
             // establecer un mensaje "flash" de éxito para el usuario
 
-            return $this->redirectToRoute('login');
+            return $this->redirectToRoute('user_registration');
         }
 
         return $this->render(
