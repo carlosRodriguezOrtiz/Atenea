@@ -5,9 +5,6 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
-
-
-
 use App\Form\EmpresasType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -40,7 +37,7 @@ class EmpresaController extends AbstractController
             ->findAll();
 
         if(isset($_REQUEST['mensaje']) && $_REQUEST['mensaje'] == 'error'){
-                return $this->render('empresa/list.html.twig', ['empresas' => $empresas, 'mensaje' => "Error , no se ha podido eliminar esta corporación. Contiene una o varias empresas, por favor primero elimina esas empresas"]);
+            return $this->render('empresa/list.html.twig', ['empresas' => $empresas, 'mensaje' => $_REQUEST['mensaje']]);
         } else {
                 return $this->render('empresa/list.html.twig', ['empresas' => $empresas, 'mensaje' => " "]);
         }
@@ -180,24 +177,26 @@ class EmpresaController extends AbstractController
         $empresas = $this->getDoctrine()
             ->getRepository(Empresa::class)
             ->find($id);
-        
-        $centros=$empresas->getArrayCentros();   
-        if($centros->isEmpty()){ 
+            $centros=$empresas->getArrayCentros();
+            $usuarios = $empresas->getUsers();   
+        if(!$centros->isEmpty()){
+            $mensajeErrorFK="Error , no se ha podido eliminar esta empresa. Contiene una o varios centros, por favor primero elimina esos centros";
+        }elseif(!$usuarios->isEmpty()){
+            $mensajeErrorFK="Error , no se ha podido eliminar esta empresa. Contiene una o varios usuarios, por favor primero elimina esos usuarios";
+        }else{
             $entityManager = $this->getDoctrine()->getManager();
+            $nomEmpresas = $empresas->getNombre();
             $entityManager->remove($empresas);
             $entityManager->flush();
-            $nomEmpresas = $empresas->getNombre();
+    
             $this->addFlash(
                 'notice',
                 'Empresa '.$nomEmpresas.' eliminada!'
             );
-        } else {
-            $mensajeErrorFK="error";
         }
-        
 
-        return $this->redirectToRoute('empresas_list', array(
-            'mensaje'=>$mensajeErrorFK,
+        return $this->redirectToRoute('corporaciones_list', array(
+            'mensaje'=>$mensajeErrorFK
             )
         );
     }

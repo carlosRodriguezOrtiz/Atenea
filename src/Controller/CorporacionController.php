@@ -129,15 +129,8 @@ class CorporacionController extends AbstractController
             ->find($id);
 
         $empresas=$corporaciones->getArrayEmpresa();   
-
-         
-        
-        if($empresitas->isEmpty()){
-
-
-                                   
-         
-
+  
+        if($empresas->isEmpty()){
         $entityManager = $this->getDoctrine()->getManager();
         $nomCorporaciones = $corporaciones->getNombre();
         $entityManager->remove($corporaciones);

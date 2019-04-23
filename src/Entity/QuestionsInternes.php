@@ -20,7 +20,7 @@ class QuestionsInternes
      * @ORM\Column(type="string", length=255)
      */
     private $nombre;
-
+    
     /**
      * @ORM\Column(type="datetime")
      */
