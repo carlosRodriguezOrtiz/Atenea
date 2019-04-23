@@ -1,11 +1,13 @@
 {% extends 'base.html.twig' %}
-{% block title %}Llistat de peliculas
+{% block title %}Listado de usuarios
 {% endblock %}
 {% block body %}
     <section class="bg-white text-black mb-0">
         <section class="container-fluid">
             <section class="row">
                 <section class="col-md-12">
+                {#<a class="btn btn-primary btn-lg" href="{{ path('crearEmpresa') }}" style="margin: 10px;">Crear Usuario</a>#}
+                <a class="btn btn-danger btn-md" href="{{ path('inicio') }}" style="margin: 10px;">&laquo; Torna</a>
                     <table class="table">
                         <thead>
                             <tr>

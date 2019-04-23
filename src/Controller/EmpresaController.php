@@ -87,7 +87,7 @@ class EmpresaController extends AbstractController
                 'Nova empresas '.$empresas->getNombre() .' creada!'
             );
 
-            return $this->redirectToRoute('login'); 
+            return $this->redirectToRoute('corporaciones_list'); 
         }
 
         return $this->render('empresa/empresas.html.twig', array(
@@ -120,7 +120,7 @@ class EmpresaController extends AbstractController
                 'Nova empresas '.$empresas->getNombre() .' creada!'
             );
 
-            return $this->redirectToRoute('login'); 
+            return $this->redirectToRoute('crearEmpresa'); 
         }
 
         return $this->render('empresa/empresas.html.twig', array(

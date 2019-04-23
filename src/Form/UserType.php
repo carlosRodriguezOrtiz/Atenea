@@ -38,7 +38,7 @@ class UserType extends AbstractType
             ) 
         )
             ->add('send', SubmitType::class,[
-                'attr' => ['class' => 'b1']
+                'attr' => ['class' => 'btn-success']
             ], array('label' => $options['submit']));
     }
 

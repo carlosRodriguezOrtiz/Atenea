@@ -55,12 +55,12 @@ class CentroController extends AbstractController
                 'Nuevos centros '.$centros->getNombre() .' creada!'
             );
 
-            return $this->redirectToRoute('login'); 
+            return $this->redirectToRoute('empresas_list'); 
         }
 
         return $this->render('centro/centros.html.twig', array(
             'form' => $form->createView(),
-            'title' => 'Nuevo centro',
+            'title' => 'Nuevo Centro',
         ));
     }
 
@@ -72,9 +72,6 @@ class CentroController extends AbstractController
         $centro = $this->getDoctrine()
             ->getRepository(Centro::class)
             ->findAll();
-
-       
-
         return $this->render('centro/list.html.twig', ['centro' => $centro]);
     }
 

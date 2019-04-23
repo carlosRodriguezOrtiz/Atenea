@@ -1,12 +1,15 @@
 {% extends 'base.html.twig' %}
-{% block title %}Llistat de peliculas
+{% block title %}Listado de Empresas
 {% endblock %}
 {% block body %}
     <section class="bg-white text-black mb-0">
         <section class="container-fluid">
+        <h3 style="margin: 10px; text-align: center; text-decoration: underline;">Listado de Empresas</h3>
             <section class="row">
                 <section class="col-md-12">
                     <table class="table">
+                    <a class="btn btn-primary btn-lg" href="{{ path('crearEmpresa') }}" style="margin: 10px;">Crear Empresa</a>
+                    <a class="btn btn-danger btn-md" href="{{ path('inicio') }}">&laquo; Torna</a>
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
@@ -22,7 +25,7 @@
                             {% for empresa in empresas %}
                                 <tr>
                                     <th scope="row">{{empresa.id}}</th>
-                                    <td>{{ empresa.nombre }}</td>
+                                    <td><a href="{{ path('empresa', {'id': empresa.id}) }}"> {{ empresa.nombre }}</a></td>
                                     <td>{{ empresa.fechaAlta|date('d-m-Y')}}</td>
                                     <td>{{ empresa.fechaBaja|date('d-m-Y') }}</td>
                                     <td>{{ empresa.descripcion }}</td>
