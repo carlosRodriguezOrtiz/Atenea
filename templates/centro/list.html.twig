@@ -1,12 +1,15 @@
 {% extends 'base.html.twig' %}
-{% block title %}Llistat de peliculas
+{% block title %}Listado de Centros
 {% endblock %}
 {% block body %}
     <section class="bg-white text-black mb-0">
         <section class="container-fluid">
+        <h3 style="margin: 10px; text-align: center; text-decoration: underline;">Listado de Centros</h3>
             <section class="row">
                 <section class="col-md-12">
                     <table class="table">
+                    <a class="btn btn-danger btn-md" href="{{ path('inicio') }}">&laquo; Torna</a>
+                    {#<a class="btn btn-primary btn-lg" href="{{ path('corporaciones_new') }}" style="margin: 10px;">Crear Centro</a>#}
                         <thead>
                             <tr>
                                 <th scope="col">#</th>

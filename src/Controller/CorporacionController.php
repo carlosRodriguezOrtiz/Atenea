@@ -53,7 +53,7 @@ class CorporacionController extends AbstractController
     {
         $corporaciones= new Corporacion();
 
-        $form = $this->createForm(CorporacionesType::class , $corporaciones, array ('submit'=>'Crear Corporacion'));
+        $form = $this->createForm(CorporacionesType::class , $corporaciones, array ('submit'=>'Crear Corporación'));
 
         $form->handleRequest($request);
 
@@ -70,7 +70,7 @@ class CorporacionController extends AbstractController
                 'Nueva corporacion '.$corporaciones->getNombre() .' creada!'
             );
 
-            return $this->redirectToRoute('login'); 
+            return $this->redirectToRoute('corporaciones_new'); 
         }
 
         return $this->render('corporacion/corporaciones.html.twig', array(
@@ -132,7 +132,7 @@ class CorporacionController extends AbstractController
 
          
         
-        if($empresitas->isEmpty()){
+        if($empresas->isEmpty()){
 
 
                                    
