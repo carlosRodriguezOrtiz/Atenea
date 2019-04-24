@@ -37,8 +37,8 @@ class CorporacionController extends AbstractController
             ->getRepository(Corporacion::class)
             ->findAll();
 
-       if(isset($_REQUEST['mensaje']) && $_REQUEST['mensaje'] == 'error'){
-            return $this->render('corporacion/list.html.twig', ['corporaciones' => $corporaciones, 'mensaje' => "Error , no se ha podido eliminar esta corporación. Contiene una o varias empresas, por favor primero elimina esas empresas"]);
+       if(isset($_REQUEST['mensaje']) && $_REQUEST['mensaje']!=""){
+            return $this->render('corporacion/list.html.twig', ['corporaciones' => $corporaciones, 'mensaje' => $_REQUEST['mensaje']]);
        }else {
             return $this->render('corporacion/list.html.twig', ['corporaciones' => $corporaciones, 'mensaje' => " "]);
        }
@@ -124,34 +124,31 @@ class CorporacionController extends AbstractController
     public function delete($id, Request $request)
     {
         $mensajeErrorFK="";
-        $corporaciones = $this->getDoctrine()
+        $corporacion = $this->getDoctrine()
             ->getRepository(Corporacion::class)
             ->find($id);
 
-        $empresas=$corporaciones->getArrayEmpresa();   
+        $empresas=$corporacion->getArrayEmpresa();   
+        //$usuarios = $corporacion->getUsuarios();
+       // if(!$usuarios->isEmpty()){
+         //   $mensajeErrorFK="Error, no se ha podido eliminar esta corporación. Contiene uno o varios usuarios, por favor primero elimina esos usuarios.";
+        //} else{
+            if($empresas->isEmpty()){
 
-         
+                $entityManager = $this->getDoctrine()->getManager();
+                $nomCorporacion = $corporacion->getNombre();
+                $entityManager->remove($corporacion);
+                $entityManager->flush();
         
-        if($empresas->isEmpty()){
-
-
-                                   
-         
-
-        $entityManager = $this->getDoctrine()->getManager();
-        $nomCorporaciones = $corporaciones->getNombre();
-        $entityManager->remove($corporaciones);
-        $entityManager->flush();
-
-        $this->addFlash(
-            'notice',
-            'Corporacion '.$nomCorporaciones.' eliminada!'
-        );
-
-        }else {
-            $mensajeErrorFK="error";
-        }
-    
+                $this->addFlash(
+                    'notice',
+                    'Corporacion '.$nomCorporacion.' eliminada!'
+                );
+        
+                }else {
+                    $mensajeErrorFK="Error, no se ha podido eliminar esta corporación. Contiene una o varias empresas, por favor primero elimina esas empresas.";
+                }
+        //}
         return $this->redirectToRoute('corporaciones_list', array(
             'mensaje'=>$mensajeErrorFK,
             )

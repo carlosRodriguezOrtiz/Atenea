@@ -36,7 +36,7 @@ class EmpresaController extends AbstractController
             ->getRepository(Empresa::class)
             ->findAll();
 
-        if(isset($_REQUEST['mensaje']) && $_REQUEST['mensaje'] == 'error'){
+        if(isset($_REQUEST['mensaje']) && $_REQUEST['mensaje']!=""){
             return $this->render('empresa/list.html.twig', ['empresas' => $empresas, 'mensaje' => $_REQUEST['mensaje']]);
         } else {
                 return $this->render('empresa/list.html.twig', ['empresas' => $empresas, 'mensaje' => " "]);
@@ -182,7 +182,7 @@ class EmpresaController extends AbstractController
         if(!$centros->isEmpty()){
             $mensajeErrorFK="Error , no se ha podido eliminar esta empresa. Contiene una o varios centros, por favor primero elimina esos centros";
         }elseif(!$usuarios->isEmpty()){
-            $mensajeErrorFK="Error , no se ha podido eliminar esta empresa. Contiene una o varios usuarios, por favor primero elimina esos usuarios";
+            $mensajeErrorFK="Error , no se ha podido eliminar esta empresa. Contiene uno o varios usuarios, por favor primero elimina esos usuarios";
         }else{
             $entityManager = $this->getDoctrine()->getManager();
             $nomEmpresas = $empresas->getNombre();
@@ -195,7 +195,7 @@ class EmpresaController extends AbstractController
             );
         }
 
-        return $this->redirectToRoute('corporaciones_list', array(
+        return $this->redirectToRoute('empresas_list', array(
             'mensaje'=>$mensajeErrorFK
             )
         );
