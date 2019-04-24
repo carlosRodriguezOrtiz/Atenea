@@ -36,6 +36,11 @@ class QuestionsExternes
      */
     private $tipus;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\DafoTipusQE", mappedBy="questioExterna", cascade={"persist", "remove"})
+     */
+    private $tipusDafo;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -85,6 +90,24 @@ class QuestionsExternes
     public function setTipus(?TipusQE $tipus): self
     {
         $this->tipus = $tipus;
+
+        return $this;
+    }
+
+    public function getTipusDafo(): ?DafoTipusQE
+    {
+        return $this->tipusDafo;
+    }
+
+    public function setTipusDafo(?DafoTipusQE $tipusDafo): self
+    {
+        $this->tipusDafo = $tipusDafo;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newQuestioExterna = $tipusDafo === null ? null : $this;
+        if ($newQuestioExterna !== $tipusDafo->getQuestioExterna()) {
+            $tipusDafo->setQuestioExterna($newQuestioExterna);
+        }
 
         return $this;
     }
