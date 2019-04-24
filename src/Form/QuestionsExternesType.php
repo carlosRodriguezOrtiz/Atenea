@@ -13,6 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use App\Entity\TipusQE;
+use App\Entity\SubTipusQE;
 
 
 
@@ -24,11 +25,16 @@ class QuestionsExternesType extends AbstractType
         $builder
         
             ->add('Nombre', TextType::class)
-            ->add('FechaAlta', DateType::class)
-            ->add('FechaBaja', DateType::class)
             ->add('tipus', EntityType::class, array('class' => TipusQE::class,
             'choice_label' => 'nombre'))
+
+             ->add('tipus', EntityType::class, array('class' => SubTipusQE::class,
+              'choice_label' => 'descripcion' 
+              ))  
+
             ->add('save', SubmitType::class, array('label' => $options['submit']));
+
+
     }
 
     public function configureOptions(OptionsResolver $resolver)
