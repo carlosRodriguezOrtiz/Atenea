@@ -1,15 +1,12 @@
 {% extends 'base.html.twig' %}
-{% block title %}Listado de Corporaciones
+{% block title %}Llistat de peliculas
 {% endblock %}
 {% block body %}
     <section class="bg-white text-black mb-0">
         <section class="container-fluid">
-        <h3 style="margin: 10px; text-align: center; text-decoration: underline;">Listado de Corporaciones</h3>
             <section class="row">
                 <section class="col-md-12">
                     <table class="table">
-                    <a class="btn btn-primary btn-lg" href="{{ path('corporaciones_new') }}" style="margin: 10px;">Crear Corporación</a>
-                    <a class="btn btn-danger btn-md" href="{{ path('inicio') }}">&laquo; Torna</a>
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
@@ -17,7 +14,7 @@
                                 <th scope="col">Fecha de Alta</th>
                                 <th scope="col">Fecha de Baja</th>
                                 <th scope="col">Descripción</th>
-                                <th scope="col">Empresa</th>
+                                <th scope="col">corporacion</th>
                                 <th scope="col">Opciones</th>
                             </tr>
                         </thead>
@@ -42,7 +39,6 @@
                                                             
 
                         </tbody>
-                        
 
                     </table>
                     <span class=" text-black">{{ mensaje }}</span>

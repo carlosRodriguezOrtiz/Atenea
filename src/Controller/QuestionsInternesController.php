@@ -16,7 +16,23 @@ class QuestionsInternesController extends AbstractController
     {
         return $this->render('questions_internes/index.html.twig', [
             'controller_name' => 'QuestionsInternesController',
+            
         ]);
+    }
+
+
+    /**
+     * @Route("/qi/list/", name="qi_list")
+     */
+    public function list()
+    {
+        $qi = $this->getDoctrine()
+            ->getRepository(QuestionsInternes::class)
+            ->findAll();
+
+            return $this->render('questions_internes/list.html.twig', ['qis' => $qi]);
+
+
     }
 
 

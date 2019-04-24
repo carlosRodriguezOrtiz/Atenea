@@ -6,16 +6,25 @@
         <section class="container-fluid">
             <section class="row">
                 <section class="col-md-12">
-               <h1> {{ empresa.nombre }}</h1>
-               <h2>Información </h2>
-                <a class="btn btn-danger btn-md" href="{{ path('centros_new', {'id': empresa.id}) }}">Añadir centro</a>
+               <h1 style="margin: 10px; text-align: center; text-decoration: underline;"> {{ empresa.nombre }}</h1>
+               <h3 style="text-decoration: underline;">Información </h3>
+                
                 <section>
                 Nombre: {{ empresa.nombre }}
+                </section>
+                <section>
+                Fecha de alta: {{ empresa.fechaAlta|date('d-m-Y') }}
+                </section>
+                <section>
+                Descripción: {{ empresa.descripcion }}
                 {# Fecha de Alta: {{ empresa.fechaAlta}}
                 Fecha de Baja: {{ empresa.fechaBaja }}
                 Descripcion: {{ empresa.descripcion }} #}
-                 <h3>Centros</h3>
                 </section>
+                <a class="btn btn-primary btn-lg" href="{{ path('centros_new', {'id': empresa.id}) }}" style="margin: 10px;">Añadir centro</a>
+                <a class="btn btn-danger btn-md" href="{{ path('empresas_list') }}">&laquo; Torna</a>
+                 <h4 style="text-decoration: underline;">Centros</h4>
+                
                     <table class="table">
                         <thead>
                             <tr>
@@ -24,6 +33,7 @@
                                 <th scope="col">Fecha de Alta</th>
                                 <th scope="col">Fecha de Baja</th>
                                 <th scope="col">Descripción</th>
+                                <th scope="col">Opciones</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -34,6 +44,10 @@
                                     <td>{{ centro.fechaAlta|date('d-m-Y')}}</td>
                                     <td>{{ centro.fechaBaja|date('d-m-Y') }}</td>
                                     <td>{{ centro.descripcion }}</td>
+                                    <td>
+                                        <a </span href="{{ path('centro_edit', {'id': centro.id}) }}" <span class="icon-pencil-alt text-black">Edit</a>
+                                        <a </span href="{{ path('centro_delete', {'id': centro.id}) }}" <span class="icon-trash-empty text-black">Eliminar</a>
+                                    </td>
                                 </tr>
                             {% endfor %}
                         </tbody>

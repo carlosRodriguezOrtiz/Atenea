@@ -4,8 +4,12 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
-use App\Form\QuestionsExternesType;
 use App\Entity\QuestionsExternes;
+
+
+
+use App\Form\QuestionsExternesType;
+
 
 class QuestionsExternesController extends AbstractController
 {
@@ -18,6 +22,22 @@ class QuestionsExternesController extends AbstractController
             'controller_name' => 'QuestionsExternesController',
         ]);
     }
+
+    /**
+     * @Route("/qe/list/", name="qe_list")
+     */
+    public function list()
+    {
+        $qe = $this->getDoctrine()
+            ->getRepository(QuestionsExternes::class)
+            ->findAll();
+
+            return $this->render('questions_externes/list.html.twig', ['qes' => $qe]);
+
+
+    }
+
+
 
     /**
      * @Route("/questionsexternes/newQE/", name="crearQE")
