@@ -31,10 +31,10 @@ class QuestionsInternes
      */
     private $tipus;
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\DafoTipusQI", mappedBy="questioInterna", cascade={"persist", "remove"})
+     */
+    private $tipusDafo;
 
     public function getNombre(): ?string
     {
@@ -71,4 +71,23 @@ class QuestionsInternes
 
         return $this;
     }
+
+    public function getTipusDafo(): ?DafoTipusQI
+    {
+        return $this->tipusDafo;
+    }
+
+    public function setTipusDafo(?DafoTipusQI $tipusDafo): self
+    {
+        $this->tipusDafo = $tipusDafo;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newQuestioInterna = $tipusDafo === null ? null : $this;
+        if ($newQuestioInterna !== $tipusDafo->getQuestioInterna()) {
+            $tipusDafo->setQuestioInterna($newQuestioInterna);
+        }
+
+        return $this;
+    }
+
 }

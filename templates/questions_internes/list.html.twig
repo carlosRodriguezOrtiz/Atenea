@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+{% block title %}Llistat de QE
+{% endblock %}
+{% block body %}
+    <section class="bg-white text-black mb-0">
+        <section class="container-fluid">
+            <section class="row">
+                <section class="col-md-12">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Tipo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            {% for questions_internes in qis %}
+                                <tr>
+                                    <th scope="row">{{questions_internes.id}}</th>
+                                    <th scope="row">{{questions_internes.nombre}}</th>
+
+                                    <th scope="row">{{questions_internes.tipus.descripcion}}</th>
+ 
+                               
+
+                                    <td>
+                         {# <a </span href="{{ path('empresa_edit', {'id': empresa.id}) }}" <span class="icon-pencil-alt text-black">Edit</a>
+                         <a </span href="{{ path('empresa_delete', {'id': empresa.id}) }}" <span class="icon-trash-empty text-black">Eliminar</a> #}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </section>
+            </section>
+        </section>
+    </section>
+{% endblock %}
