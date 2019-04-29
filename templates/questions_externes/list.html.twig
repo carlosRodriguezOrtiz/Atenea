@@ -19,24 +19,10 @@
                             
                             {% for questions_externes in qes %}
                                 <tr>
-<<<<<<< HEAD
                                     <td>{{ questions_externes.id }}</td>
                                     <td>{{ questions_externes.nombre }}</td>
                                     <td>{{ questions_externes.getTipus().getNombre() }}</td>
                                     <td>{{ questions_externes.getTipus().getSubtipus() }}</td>
-=======
-                                
-                                                       {#    {{ dump(questions_externes) }} #}
-
-
-
-
-                                    <td>{{ questions_externes.id }}</td>
-                                    <td>{{ questions_externes.fechaAlta|date('d-m-Y')}}</td>
-                                    <td>{{ questions_externes.fechaBaja|date('d-m-Y') }}</td>
-                                    <td>{{ questions_externes.nombre }}</td>
-                                 
->>>>>>> 9fd98459a7d3b8104e304a75dbe68d323d925384
 
                                     <td>
                                     {#  <a </span href="{{ path('empresa_edit', {'id': empresa.id}) }}" <span class="icon-pencil-alt text-black">Edit</a>
