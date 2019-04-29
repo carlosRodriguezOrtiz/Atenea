@@ -28,10 +28,10 @@ class QuestionsExternesType extends AbstractType
             ->add('tipus', EntityType::class, array('class' => TipusQE::class,
             'choice_label' => 'nombre'))
 
-             ->add('tipus', EntityType::class, array('class' => SubTipusQE::class,
+              ->add('subtipus', EntityType::class, array('class' => SubTipusQE::class,
               'choice_label' => 'descripcion' 
               ))  
-
+ 
             ->add('save', SubmitType::class, array('label' => $options['submit']));
 
 
