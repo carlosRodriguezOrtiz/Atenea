@@ -25,7 +25,7 @@
                             {% for corporacion in corporaciones %}
                                 <tr>
                                     <th scope="row">{{corporacion.id}}</th>
-                                    <td>{{ corporacion.nombre }}</td>
+                                    <td><a href="{{ path('corporacion', {'id': corporacion.id}) }}"> {{ corporacion.nombre }}</a></td>
                                     <td>{{ corporacion.fechaAlta|date('d-m-Y')}}</td>
                                     <td>{{ corporacion.fechaBaja|date('d-m-Y') }}</td>
                                     <td>{{ corporacion.descripcion }}</td>
