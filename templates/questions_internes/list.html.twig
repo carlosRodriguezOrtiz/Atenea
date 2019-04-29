@@ -18,8 +18,10 @@
 
                             {% for questions_internes in qis %}
                                 <tr>
-                                    <th scope="row">{{qis.id}}</th>
-                                    <th scope="row">{{qis.nombre}}</th>
+                                    {{ dump(qis) }}
+
+                                    <th scope="row">{{questions_internes.id}}</th>
+                                    <th scope="row">{{questions_internes.nombre}}</th>
 
                                     <th scope="row">{{qis.tipus.descripcion}}</th>
  

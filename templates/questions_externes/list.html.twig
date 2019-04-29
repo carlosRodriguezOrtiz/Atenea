@@ -18,10 +18,17 @@
                         <tbody>
                             {% for questions_externes in qes %}
                                 <tr>
-                                    <th scope="row">{{qes.id}}</th>
-                                    <td>{{ qes.nombre }}</td>
-                                    <td>{{ qes.tipus.subtipus }}</td>
-                                    <td>{{ qes.subtipus }}</td>
+                                
+                                                       {#    {{ dump(questions_externes) }} #}
+
+
+
+
+                                    <td>{{ questions_externes.id }}</td>
+                                    <td>{{ questions_externes.fechaAlta|date('d-m-Y')}}</td>
+                                    <td>{{ questions_externes.fechaBaja|date('d-m-Y') }}</td>
+                                    <td>{{ questions_externes.nombre }}</td>
+                                 
 
                                     <td>
                          {# <a </span href="{{ path('empresa_edit', {'id': empresa.id}) }}" <span class="icon-pencil-alt text-black">Edit</a>
