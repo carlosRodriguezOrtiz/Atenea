@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
 use App\Entity\Dafo;
+use App\Entity\Binomio;
 
 class DafoController extends AbstractController
 {
@@ -95,31 +96,29 @@ class DafoController extends AbstractController
         ->getRepository(Dafo::class)
         ->find(1);
 
-        $supervivencia = [];
-        $ofensiva = [];
-        $reorientacion = [];
-        $defensiva = [];
+        $binomios = [];
 
         foreach ($dafo->getQuestionsInternes() as $qi) {
             
             foreach ($dafo->getQuestionsExternes() as $qe) {
                 if($qi->getTipus()== "debilidad" && $qe->getTipus() == "amenaza"){
-                    array_push($supervivencia,[$qi,$qe]);
+                    $bi= new Binomio($qi,$qe);
+                    array_push($binomios,$bi);
                 }else if($qi->getTipus()== "fortaleza" && $qe->getTipus() == "oportunidad"){
-                    array_push($ofensiva,[$qi,$qe]);
+                    $bi= new Binomio($qi,$qe);
+                    array_push($binomios,$bi);
                 }else if($qi->getTipus()== "debilidad" && $qe->getTipus() == "oportunidad"){
-                    array_push($reorientacion,[$qi,$qe]);
+                    $bi= new Binomio($qi,$qe);
+                    array_push($binomios,$bi);
                 }else if($qi->getTipus()== "fortaleza" && $qe->getTipus() == "amenaza"){
-                    array_push($defensiva,[$qi,$qe]);
+                    $bi= new Binomio($qi,$qe);
+                    array_push($binomios,$bi);
                 }
             }
         }
         
-        return $this->render('dafo/binomio.html.twig', [
-            'supervivencia' => $supervivencia,
-            'ofensiva' => $ofensiva,
-            'reorientacion' => $reorientacion,
-            'defensiva' => $defensiva
+        return $this->render('dafo/binomio2.html.twig', [
+            'binomios' => $binomios
         ]);
     }
 }
