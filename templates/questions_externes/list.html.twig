@@ -16,16 +16,17 @@
                             </tr>
                         </thead>
                         <tbody>
+                            
                             {% for questions_externes in qes %}
                                 <tr>
-                                    <th scope="row">{{qes.id}}</th>
-                                    <td>{{ qes.nombre }}</td>
-                                    <td>{{ qes.tipus.subtipus }}</td>
-                                    <td>{{ qes.subtipus }}</td>
+                                    <td>{{ questions_externes.id }}</td>
+                                    <td>{{ questions_externes.nombre }}</td>
+                                    <td>{{ questions_externes.getTipus().getNombre() }}</td>
+                                    <td>{{ questions_externes.getTipus().getSubtipus() }}</td>
 
                                     <td>
-                         {# <a </span href="{{ path('empresa_edit', {'id': empresa.id}) }}" <span class="icon-pencil-alt text-black">Edit</a>
-                         <a </span href="{{ path('empresa_delete', {'id': empresa.id}) }}" <span class="icon-trash-empty text-black">Eliminar</a> #}
+                                    {#  <a </span href="{{ path('empresa_edit', {'id': empresa.id}) }}" <span class="icon-pencil-alt text-black">Edit</a>
+                                        <a </span href="{{ path('empresa_delete', {'id': empresa.id}) }}" <span class="icon-trash-empty text-black">Eliminar</a> #}
                                     </td>
                                 </tr>
                             {% endfor %}
