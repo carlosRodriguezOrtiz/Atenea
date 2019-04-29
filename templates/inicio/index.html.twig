@@ -6,9 +6,14 @@
         <section class="container ">
             <section class="row text-center">
                 <section class="col-md-12 mt-5">
-                <a class="btn btn-primary btn-lg" href="{{ path('corporaciones_list') }}">Gestión de Corporaciones</a>
-                <a class="btn btn-secondary btn-lg"  href="{{ path('empresas_list') }}">Gestión de Empresas</a>
-                <a class="btn btn-success btn-lg"  href="{{ path('user_list') }}">Gestión de Usuarios</a>
+                {% if app.user.role.nombre == 'ROLE_ADMIN' %}
+                        <a class="btn btn-primary btn-lg" href="{{ path('corporaciones_list') }}">Gestión de Corporaciones</a>
+                        <a class="btn btn-secondary btn-lg"  href="{{ path('empresas_list') }}">Gestión de Empresas</a>
+                        <a class="btn btn-success btn-lg"  href="{{ path('user_list') }}">Gestión de Usuarios</a>
+                {% else %}
+                        <a class="btn btn-primary btn-lg" href="{{ path('gestion_contexto') }}">Gestionar Contexto de la organización</a>
+                        <a class="btn btn-secondary btn-lg" href="">Gestionar Personal</a>
+                {% endif %} 
                 <!-- Arreglar el inicio empresas/new para que se pueda entrar sin tener id-->
                 </section>
             </section>

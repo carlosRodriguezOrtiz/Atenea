@@ -1,23 +1,38 @@
 {% extends 'base.html.twig' %}
-{% block title %}Listado de Empresas
+{% block title %}  {{ corporacion.nombre }}
 {% endblock %}
 {% block body %}
     <section class="bg-white text-black mb-0">
         <section class="container-fluid">
-        <h3 style="margin: 10px; text-align: center; text-decoration: underline;">Listado de Empresas</h3>
             <section class="row">
                 <section class="col-md-12">
+               <h1 style="margin: 10px; text-align: center; text-decoration: underline;"> {{ corporacion.nombre }}</h1>
+               <h3 style="text-decoration: underline;">Información </h3>
+                
+                <section>
+                Nombre: {{ corporacion.nombre }}
+                </section>
+                <section>
+                Fecha de alta: {{ corporacion.fechaAlta|date('d-m-Y') }}
+                </section>
+                <section>
+                Descripción: {{ corporacion.descripcion }}
+                {# Fecha de Alta: {{ empresa.fechaAlta}}
+                Fecha de Baja: {{ empresa.fechaBaja }}
+                Descripcion: {{ empresa.descripcion }} #}
+                </section>
+                <a class="btn btn-primary btn-lg" href="{{ path('empresas_new', {'id': corporacion.id}) }}" style="margin: 10px;">Añadir empresa</a>
+                <a class="btn btn-danger btn-md" href="{{ path('corporaciones_list') }}">&laquo; Torna</a>
+                 <h4 style="text-decoration: underline;">Empresas</h4>
+                
                     <table class="table">
-                    <a class="btn btn-primary btn-lg" href="{{ path('crearEmpresa') }}" style="margin: 10px;">Crear Empresa</a>
-                    <a class="btn btn-danger btn-md" href="{{ path('inicio') }}">&laquo; Torna</a>
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
-                                <th scope="col">Nombre</th>
+                                <th scope="col">Nombre de la Empresa</th>
                                 <th scope="col">Fecha de Alta</th>
                                 <th scope="col">Fecha de Baja</th>
                                 <th scope="col">Descripción</th>
-                                <th scope="col">Centro de Trabajo</th>
                                 <th scope="col">Opciones</th>
                             </tr>
                         </thead>
@@ -25,13 +40,10 @@
                             {% for empresa in empresas %}
                                 <tr>
                                     <th scope="row">{{empresa.id}}</th>
-                                    <td><a href="{{ path('empresa', {'id': empresa.id}) }}"> {{ empresa.nombre }}</a></td>
+                                    <td>{{ empresa.nombre }}</td>
                                     <td>{{ empresa.fechaAlta|date('d-m-Y')}}</td>
                                     <td>{{ empresa.fechaBaja|date('d-m-Y') }}</td>
                                     <td>{{ empresa.descripcion }}</td>
-                                    <td>
-                                        <a class="btn btn-danger btn-md" href="{{ path('centros_new', {'id': empresa.id}) }}">Añadir centro</a>
-                                    </td>
                                     <td>
                                         <a </span href="{{ path('empresa_edit', {'id': empresa.id}) }}" <span class="icon-pencil-alt text-black">Edit</a>
                                         <a </span href="{{ path('empresa_delete', {'id': empresa.id}) }}" <span class="icon-trash-empty text-black">Eliminar</a>
@@ -40,7 +52,6 @@
                             {% endfor %}
                         </tbody>
                     </table>
-                    <span class=" text-black">{{ mensaje }}</span>
                 </section>
             </section>
         </section>
