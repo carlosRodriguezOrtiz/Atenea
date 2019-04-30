@@ -31,7 +31,7 @@ class QuestionsExternesController extends AbstractController
         $qe = $this->getDoctrine()
             ->getRepository(QuestionsExternes::class)
             ->findAll();
-
+        
             return $this->render('questions_externes/list.html.twig', ['qes' => $qe]);
 
 

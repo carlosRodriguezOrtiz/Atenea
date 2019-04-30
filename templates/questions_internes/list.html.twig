@@ -1,5 +1,5 @@
 {% extends 'base.html.twig' %}
-{% block title %}Llistat de QE
+{% block title %}Listado de las Cuestiones Internas
 {% endblock %}
 {% block body %}
     <section class="bg-white text-black mb-0">
@@ -18,15 +18,12 @@
 
                             {% for questions_internes in qis %}
                                 <tr>
-                                    {{ dump(qis) }}
-
+                                
                                     <th scope="row">{{questions_internes.id}}</th>
                                     <th scope="row">{{questions_internes.nombre}}</th>
 
-                                    <th scope="row">{{questions_internes.tipus.descripcion}}</th>
+                                    <th scope="row">{{qis.tipus.descripcion}}</th>
  
-                               
-
                                     <td>
                          {# <a </span href="{{ path('empresa_edit', {'id': empresa.id}) }}" <span class="icon-pencil-alt text-black">Edit</a>
                          <a </span href="{{ path('empresa_delete', {'id': empresa.id}) }}" <span class="icon-trash-empty text-black">Eliminar</a> #}

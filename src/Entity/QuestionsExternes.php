@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -14,7 +16,7 @@ class QuestionsExternes
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    private $id;
+    public $id;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -40,6 +42,16 @@ class QuestionsExternes
      * @ORM\OneToOne(targetEntity="App\Entity\DafoTipusQE", mappedBy="questioExterna", cascade={"persist", "remove"})
      */
     private $tipusDafo;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Binomio", mappedBy="QuestionExterna")
+     */
+    private $binomio;
+
+    public function __construct()
+    {
+        $this->binomio = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -107,6 +119,37 @@ class QuestionsExternes
         $newQuestioExterna = $tipusDafo === null ? null : $this;
         if ($newQuestioExterna !== $tipusDafo->getQuestioExterna()) {
             $tipusDafo->setQuestioExterna($newQuestioExterna);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Binomio[]
+     */
+    public function getBinomio(): Collection
+    {
+        return $this->binomio;
+    }
+
+    public function addBinomio(Binomio $binomio): self
+    {
+        if (!$this->binomio->contains($binomio)) {
+            $this->binomio[] = $binomio;
+            $binomio->setQuestionExterna($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBinomio(Binomio $binomio): self
+    {
+        if ($this->binomio->contains($binomio)) {
+            $this->binomio->removeElement($binomio);
+            // set the owning side to null (unless already changed)
+            if ($binomio->getQuestionExterna() === $this) {
+                $binomio->setQuestionExterna(null);
+            }
         }
 
         return $this;

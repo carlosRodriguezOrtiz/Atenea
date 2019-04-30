@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -35,6 +37,16 @@ class QuestionsInternes
      * @ORM\OneToOne(targetEntity="App\Entity\DafoTipusQI", mappedBy="questioInterna", cascade={"persist", "remove"})
      */
     private $tipusDafo;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Binomio", mappedBy="QuestionInterna")
+     */
+    private $binomio;
+
+    public function __construct()
+    {
+        $this->binomio = new ArrayCollection();
+    }
 
     public function getNombre(): ?string
     {
@@ -85,6 +97,37 @@ class QuestionsInternes
         $newQuestioInterna = $tipusDafo === null ? null : $this;
         if ($newQuestioInterna !== $tipusDafo->getQuestioInterna()) {
             $tipusDafo->setQuestioInterna($newQuestioInterna);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Binomio[]
+     */
+    public function getBinomio(): Collection
+    {
+        return $this->binomio;
+    }
+
+    public function addBinomio(Binomio $binomio): self
+    {
+        if (!$this->binomio->contains($binomio)) {
+            $this->binomio[] = $binomio;
+            $binomio->setQuestionInterna($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBinomio(Binomio $binomio): self
+    {
+        if ($this->binomio->contains($binomio)) {
+            $this->binomio->removeElement($binomio);
+            // set the owning side to null (unless already changed)
+            if ($binomio->getQuestionInterna() === $this) {
+                $binomio->setQuestionInterna(null);
+            }
         }
 
         return $this;

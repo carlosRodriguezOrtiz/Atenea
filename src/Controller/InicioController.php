@@ -16,4 +16,12 @@ class InicioController extends AbstractController
             'controller_name' => 'InicioController',
         ]);
     }
+
+    /**
+     * @Route("/gestion-contexto", name="gestion_contexto")
+     */
+    public function gestionContexto()
+    {
+        return $this->render('gestion_contexto/index.html.twig');
+    }
 }

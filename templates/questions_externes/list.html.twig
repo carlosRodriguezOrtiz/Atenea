@@ -1,5 +1,5 @@
 {% extends 'base.html.twig' %}
-{% block title %}Llistat de QE
+{% block title %}Listado de las Cuestiones Externas
 {% endblock %}
 {% block body %}
     <section class="bg-white text-black mb-0">
@@ -16,23 +16,17 @@
                             </tr>
                         </thead>
                         <tbody>
+                            
                             {% for questions_externes in qes %}
                                 <tr>
-                                
-                                                       {#    {{ dump(questions_externes) }} #}
-
-
-
-
                                     <td>{{ questions_externes.id }}</td>
-                                    <td>{{ questions_externes.fechaAlta|date('d-m-Y')}}</td>
-                                    <td>{{ questions_externes.fechaBaja|date('d-m-Y') }}</td>
                                     <td>{{ questions_externes.nombre }}</td>
-                                 
+                                    <td>{{ questions_externes.getTipus().getNombre() }}</td>
+                                    {# <td>{{ questions_externes.getTipus().getSubtipus() }}</td> #}
 
                                     <td>
-                         {# <a </span href="{{ path('empresa_edit', {'id': empresa.id}) }}" <span class="icon-pencil-alt text-black">Edit</a>
-                         <a </span href="{{ path('empresa_delete', {'id': empresa.id}) }}" <span class="icon-trash-empty text-black">Eliminar</a> #}
+                                    {#  <a </span href="{{ path('empresa_edit', {'id': empresa.id}) }}" <span class="icon-pencil-alt text-black">Edit</a>
+                                        <a </span href="{{ path('empresa_delete', {'id': empresa.id}) }}" <span class="icon-trash-empty text-black">Eliminar</a> #}
                                     </td>
                                 </tr>
                             {% endfor %}
