@@ -41,8 +41,7 @@
         }
         .colorOportunidades {
             background-color: #134D16;
-            padding: 3px;
-
+            padding: 3px;                                   
 
         }
 
@@ -142,18 +141,17 @@
 
         .options {
     padding-top: 1%;
-
+    width: 20%;
         }
 
         .titulo{
-                width: 85%;
+                width: 80%;
     float: left;
         }
 
 
 @media (max-width: 600px) {
-  .facet_sidebar {
-    display: none;
+  .options {
   }
 }
     </style>
@@ -168,12 +166,15 @@
                 </div>
                 <div class="list">
                     <div class="item">
+
+                           <div class="row">
+ 
                         {% for qi in debilitats %}
 
                             <div class="titulo">
 
-                                <p class="ml-4">{{ qi.getQuestioInterna().getNombre() }}
-                                </p>
+                                <p class="ml-5">{{ qi.getQuestioInterna().getNombre() }}
+                              
                             </div>
                             <div class="options">
 
@@ -187,6 +188,10 @@
 
 
                                 {% endfor %}
+
+                            </div>
+
+
                                 <input class="boton-debilidades" href="" type="button" value="+ Nueva debilidad"></input>
 
                         </div>
@@ -201,10 +206,12 @@
                     </div>
                     <div class="list">
                         <div class="item">
+                                                   <div class="row">
+
                             {% for qe in amenaces %}
                                                         <div class="titulo">
 
-                                <p class="ml-4">{{ qe.getQuestioExterna().getNombre() }} </p>
+                                <p class="ml-5">{{ qe.getQuestioExterna().getNombre() }} </p>
 </div>
 
 
@@ -219,6 +226,8 @@
 
                                        
                                     {% endfor %}
+                                    </div>
+
                                     <input class="boton-amenazas" href="" type="button" value="+  Nueva amenaza"></input>
 
 
@@ -239,11 +248,12 @@
                         <div class="list">
                             <div class="item">
 
+                           <div class="row">
 
                                 {% for qi in fortaleses %}
                                                                                         <div class="titulo">
 
-                                    <p class="ml-4">{{ qi.getQuestioInterna().getNombre() }}</p>
+                                    <p class="ml-5">{{ qi.getQuestioInterna().getNombre() }}</p>
                                     </div>
 
                                                                                         <div class="options">
@@ -257,6 +267,8 @@
                                                                                     </div>
 
                                         {% endfor %}
+                                                                </div>
+
                                         <input class="boton-fortalezas" href="" type="button" value="+ Nueva fortaleza"></input>
 
                                 </div>
@@ -273,10 +285,12 @@
 
                             <div class="list">
                                 <div class="item">
+                                                           <div class="row">
+
                                     {% for qe in oportunitats %}
                                                                                                                             <div class="titulo">
 
-                                        <p class="ml-4">{{ qe.getQuestioExterna().getNombre() }}</p>
+                                        <p class="ml-5">{{ qe.getQuestioExterna().getNombre() }}</p>
 
                                         </div>
                                         
@@ -293,6 +307,8 @@
 
                                                 
                                             {% endfor %}
+                                                                                                                                        </div>
+
 
                                             <input class="boton-oportunidades" href="" type="button" value="+ Nueva oportunidad"></input>
 

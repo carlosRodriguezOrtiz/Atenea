@@ -49,6 +49,8 @@ class DafoController extends AbstractController
         ]);
     }
 
+    
+
         /**
      * @Route("/dafo/binomio", name="binomio")
      */
