@@ -31,6 +31,11 @@ class Binomio
      */
     private $selected;
 
+    public function __constructor($qi,$qe){
+        $this.setQuestionInterna($qi);
+        $this.setQuestionExterna($qe);
+    }
+
     public function getId(): ?int
     {
         return $this->id;

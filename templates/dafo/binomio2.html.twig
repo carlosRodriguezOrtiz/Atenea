@@ -11,9 +11,12 @@
     }
 </style>
 <div class="example-wrapper">
+<form method="post" action="{{ path('binomio3') }}">
     {% for binomio in binomios %}
-        {{ binomio.getQuestionInterna().getNombre() }} x {{ binomio.getQuestionExterna().getNombre() }} <br>
+     {{  binomio.getQuestionInterna().getTipusDafo().getTipus()}} {{binomio.getQuestionInterna().getNombre() }} x {{  binomio.getQuestionExterna().getTipusDafo().getTipus()}} {{ binomio.getQuestionExterna().getNombre() }} <input type="checkbox" name="{{binomio.id}}" value="{{binomio.id}}"><br /> 
     {% endfor %}
 
+    <input type="submit" value="Enviar"/>
+</form>
 </div>
 {% endblock %}
