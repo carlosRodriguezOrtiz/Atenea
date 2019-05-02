@@ -173,13 +173,30 @@ class DafoController extends AbstractController
      */
     public function binomio3()
     {
+        $binomios = [];
         if(isset($_POST)){
-            var_dump($_POST);
-            die();
+           foreach ($_POST as $bin) {
+            $binomio = $this->getDoctrine()
+            ->getRepository(Binomio::class)
+            ->find($bin);
+            $binomio->setSelected(true);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($binomio);
+            $entityManager->flush();
+           }
         }
+        $binomiosBBDD = $this->getDoctrine()
+        ->getRepository(Binomio::class)->findBySelected();
 
+        foreach ($binomiosBBDD as $key ) {
+            var_dump($key->getId());
+        }
+       
+        die();
+
+        
         return $this->render('dafo/binomio2.html.twig', [
-            'binomios' => $binomios2
+            'binomios' => $binomios
         ]);
     }
 
