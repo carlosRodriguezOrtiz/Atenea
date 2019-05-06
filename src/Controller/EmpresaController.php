@@ -9,7 +9,9 @@ use App\Form\EmpresasType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use App\Entity\Empresa;
+use App\Entity\Centro;
 use App\Entity\Corporacion;
 use App\Entity\User;
 
@@ -140,7 +142,12 @@ class EmpresaController extends AbstractController
 
        
         $form = $this->createForm(EmpresasType::class, $empresas, array('submit'=>'Desar'));
-        
+        $form->add('FechaAlta', DateType::class, array(
+            "widget" => 'single_text',
+            "format" => 'yyyy-MM-dd'));
+        $form->add('FechaBaja', DateType::class, array(
+                "widget" => 'single_text',
+                "format" => 'yyyy-MM-dd'));
 
         $form->handleRequest($request);
 
@@ -202,6 +209,24 @@ class EmpresaController extends AbstractController
     }
 
 
+        /**
+     * @Route("/empresas/contexto", name="contexto")
+     */
+    public function contexto()
+    {
+        $empresas = $this->getDoctrine()
+            ->getRepository(Empresa::class)
+            ->findAll();
+            $centros = $this->getDoctrine()
+            ->getRepository(Centro::class)
+            ->findAll();
+
+        if(isset($_REQUEST['mensaje']) && $_REQUEST['mensaje']!=""){
+            return $this->render('emergente/list.html.twig', ['empresas' => $empresas, 'mensaje' => $_REQUEST['mensaje']]);
+        } else {
+                return $this->render('emergente/list.html.twig', ['empresas' => $empresas, 'centros' => $centros]);
+        }
+    }
 }
 
 

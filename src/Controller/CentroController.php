@@ -8,6 +8,7 @@ use App\Form\CentrosType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use App\Entity\Centro;
 use App\Entity\Empresa;
 
@@ -23,6 +24,29 @@ class CentroController extends AbstractController
             'controller_name' => 'CentroController',
         ]);
     }
+ /**
+     * @Route("/centro/{id<\d+>}", name="centro")
+     */
+    public function view($id)
+    {
+        $centro = $this->getDoctrine()
+        ->getRepository(Centro::class)
+        ->find($id);
+
+        return $this->render('centro/view.html.twig', ['centro'=>$centro]);
+    }
+
+
+
+
+
+
+    /*     return $this->render('empresa/view.html.twig', ['empresa'=>$empresa,'centros' => $empresa->getArrayCentros()]);
+    }
+ */
+
+
+
 
    /**
      * @Route("/centros/new/{id<\d+>}", name="centros_new")
@@ -87,7 +111,12 @@ class CentroController extends AbstractController
 
        
         $form = $this->createForm(CentrosType::class, $centros, array('submit'=>'Desar'));
-        
+        $form->add('FechaAlta', DateType::class, array(
+            "widget" => 'single_text',
+            "format" => 'yyyy-MM-dd'));
+        $form->add('FechaBaja', DateType::class, array(
+                "widget" => 'single_text',
+                "format" => 'yyyy-MM-dd'));
 
         $form->handleRequest($request);
 
