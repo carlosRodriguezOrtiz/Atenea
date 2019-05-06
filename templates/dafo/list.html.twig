@@ -161,6 +161,193 @@
             <div class="list">
                 <div class="item">
                     <div class="row" style="overflow-y:scroll; height: 250px; max-width: 100%;">
+{% extends 'base.html.twig' %}
+
+{% block title %}Ejemplo DAFO
+{% endblock %}
+
+{% block body %}
+    <style>
+        .example-wrapper {
+            margin: 1em auto;
+            max-width: 800px;
+            width: 95%;
+            font: 18px / 1.5 sans-serif;
+        }
+        .example-wrapper code {
+            background: #F5F5F5;
+            padding: 2px 6px;
+        }
+
+        .colorDebilidades {
+            background-color: #005095;
+            padding: 3px;
+
+        }
+
+        .colorDentroDebilidades {
+            opacity: 0.8;
+
+        }
+
+        .colorAmenazas {
+            background-color: #800080;
+            padding: 3px;
+
+
+        }
+        .colorFortalezas {
+            background-color: #B50000;
+            padding: 3px;
+
+
+        }
+        .colorOportunidades {
+            background-color: #134D16;
+            padding: 3px;                                   
+
+        }
+
+        p {
+            padding-top: 7px;
+        }
+
+        h3 {
+            color: white;
+        }
+
+        .item {}
+
+        .tabladafoDebilidades {
+            background: #A1BED8;
+        }
+        .tabladafoAmenazas {
+            background: #E2BFDC;
+
+        }
+        .tabladafoFortalezas {
+            background: #E09E8E;
+        }
+
+        .tabladafoOportunidades {
+            background: #D1E082;
+        }
+
+        .container {
+            margin: 50px auto;
+
+        }
+
+        .btn-amenazas {
+            background-color: #E2BFDC;
+        }
+
+        .boton-debilidades {
+            height: 48px;
+            min-width: 48px;
+            background: #005095;
+            color: #fff;
+            font-size: 1.2em;
+            border: 0;
+            border-radius: 0.2em;
+            text-align: center;
+            margin: 1em 1em 1.5em;
+            cursor: pointer;
+            padding: 0 1em;
+
+        }
+
+                .boton-debilidades:hover {
+            transform: scale(1.1);
+        }
+
+        .boton-amenazas {
+            height: 48px;
+            min-width: 48px;
+            background: #800080;
+            color: #fff;
+            font-size: 1.2em;
+            border: 0;
+            border-radius: 0.2em;
+            text-align: center;
+            margin: 1em 1em 1.5em;
+            cursor: pointer;
+            padding: 0 1em;
+        }
+
+        .boton-amenazas:hover {
+            transform: scale(1.1);
+        }
+
+        .boton-fortalezas {
+            height: 48px;
+            min-width: 48px;
+            background: #B50000;
+            color: #fff;
+            font-size: 1.2em;
+            border: 0;
+            border-radius: 0.2em;
+            text-align: center;
+            margin: 1em 1em 1.5em;
+            cursor: pointer;
+            padding: 0 1em;
+
+        }
+
+        .boton-fortalezas:hover {
+            transform: scale(1.1);
+        }
+
+        .boton-oportunidades {
+            height: 48px;
+            min-width: 48px;
+            background: #134D16;
+            color: #fff;
+            font-size: 1.2em;
+            border: 0;
+            border-radius: 0.2em;
+            text-align: center;
+            margin: 1em 1em 1.5em;
+            cursor: pointer;
+            padding: 0 1em;
+
+        }
+
+
+        .boton-oportunidades:hover {
+            transform: scale(1.1);
+        }        
+
+        .options {
+    padding-top: 1%;
+    width: 20%;
+        }
+
+        .titulo{
+                width: 80%;
+    float: left;
+        }
+
+
+@media (max-width: 600px) {
+  .options {
+  }
+}
+    </style>
+
+
+    <div class="container ">
+        <div class="row">
+            <div class="col md-6 pr-0 pl-0  tabladafoDebilidades">
+                <div class=" colorDebilidades">
+                    <h3 class="ml-3">
+                        Debilidades</h3>
+                </div>
+                <div class="list">
+                    <div class="item">
+
+                           <div class="row">
+ 
                         {% for qi in debilitats %}
                         <div class="titulo">
                             <p class="ml-5">{{ qi.getQuestioInterna().getNombre() }}</p>
