@@ -1,0 +1,117 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ejemplo DAFO
+{% endblock %}
+
+{% block body %}
+
+    <style>
+
+        .primeraCol {
+
+            padding-top: 12px;
+
+        }
+
+        .segundaCol {
+            padding-top: 12px;
+        }
+
+        .nomEmpresa {
+            width: 80%;
+            text-align: center;
+
+        }
+
+        .boton {
+            width: 20%;
+            float: left;
+            text-align: center;
+
+        }
+
+        .nomCentro {
+
+            width: 80%;
+            text-align: center;
+        }
+
+        .botones-down {
+            text-align: center;
+            text-decoration: none;
+            padding-top: 15px;
+        }
+
+        .titulo{
+                        border: solid black 1px;
+    border-radius: 5px;
+            text-align: center;
+            background: #005095;
+            color: white;
+            font-weight: bold;
+
+        }
+    </style>
+
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-6 primeraCol">
+
+                {% if empresas|length > 0 %}
+
+                    <p class="titulo">EMPRESAS</p>
+                    {% for empresa in empresas %}
+
+
+                        <div class="boton">
+                            <a href="">Selector</a>
+
+                        </div>
+                        <div class="nomEmpresa">
+
+                            <p>{{ empresa.nombre }}</p>
+                        </div>
+
+                    {% endfor %}
+
+
+                </div>
+
+
+                <div class="col-md-6 segundaCol">
+                    <p class="titulo">CENTROS</p>
+
+                    {% for centro in centros %}
+
+                        <div class="boton">
+                            <a href="">Selector</a>
+
+                        </div>
+                        <div class="nomCentro">
+
+                            <p>{{ centro.nombre }}</p>
+                        </div>
+
+                    {% endfor %}
+                {% else %}
+                    <p>No hay empresas</p>
+                {% endif %}
+
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 botones-down">
+                <a class="btn btn-dark" href="">Seleccionar todo</a>
+            </div>
+            <div class="col-md-6 botones-down">
+                <a class="btn btn-dark" href="">Gestionar cuestiones</a>
+            </div>
+        </div>
+
+
+    </div>
+
+
+{% endblock %}
