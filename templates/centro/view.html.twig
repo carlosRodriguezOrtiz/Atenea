@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+{% block title %}  {{ centro.nombre }}
+{% endblock %}
+{% block body %}
+    <section class="bg-white text-black mb-0">
+        <section class="container-fluid">
+            <section class="row">
+                <section class="col-md-12">
+               <h1 style="margin: 10px; text-align: center; text-decoration: underline;"> {{ centro.nombre }}</h1>
+               <h3 style="text-decoration: underline;">Información </h3>
+                
+                <section>
+                Nombre: {{ centro.nombre }}
+                </section>
+                <section>
+                Fecha de alta: {{ centro.fechaAlta|date('d-m-Y') }}
+                </section>
+                <section>
+                Descripción: {{ centro.descripcion }}
+                {# Fecha de Alta: {{ centro.fechaAlta}}
+                Fecha de Baja: {{ centro.fechaBaja }}
+                Descripcion: {{ centro.descripcion }} #}
+                </section>
+               
+              {#   <a class="btn btn-danger btn-md" href="{{ path('centro') }}">&laquo; Torna</a> #}
+                 
+                </section>
+            </section>
+        </section>
+    </section>
+{% endblock %}

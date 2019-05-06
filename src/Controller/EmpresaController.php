@@ -9,6 +9,7 @@ use App\Form\EmpresasType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use App\Entity\Empresa;
 use App\Entity\Corporacion;
 use App\Entity\User;
@@ -140,7 +141,12 @@ class EmpresaController extends AbstractController
 
        
         $form = $this->createForm(EmpresasType::class, $empresas, array('submit'=>'Desar'));
-        
+        $form->add('FechaAlta', DateType::class, array(
+            "widget" => 'single_text',
+            "format" => 'yyyy-MM-dd'));
+        $form->add('FechaBaja', DateType::class, array(
+                "widget" => 'single_text',
+                "format" => 'yyyy-MM-dd'));
 
         $form->handleRequest($request);
 

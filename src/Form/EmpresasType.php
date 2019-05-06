@@ -12,6 +12,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use App\Entity\User;
 
@@ -24,8 +25,14 @@ class EmpresasType extends AbstractType
         $builder
         
             ->add('Nombre', TextType::class)
-            ->add('FechaAlta', DateType::class)
-            ->add('FechaBaja', DateType::class)
+            ->add('FechaAlta', DateType::class, array(
+                "widget" => 'single_text',
+                "format" => 'yyyy-MM-dd',
+                "data" => new \DateTime()))
+            ->add('FechaBaja', DateType::class, array(
+                    "widget" => 'single_text',
+                    "format" => 'yyyy-MM-dd',
+                    "data" => new \DateTime()))     
             ->add('Descripcion', TextType::class)
             ->add('save', SubmitType::class, array('label' => $options['submit']));
     }

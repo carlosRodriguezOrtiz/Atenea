@@ -40,7 +40,7 @@
                             {% for centro in centros %}
                                 <tr>
                                     <th scope="row">{{centro.id}}</th>
-                                    <td>{{ centro.nombre }}</td>
+                                    <td><a href="{{ path('centro', {'id': centro.id}) }}"> {{ centro.nombre }}</a></td>                                  
                                     <td>{{ centro.fechaAlta|date('d-m-Y')}}</td>
                                     <td>{{ centro.fechaBaja|date('d-m-Y') }}</td>
                                     <td>{{ centro.descripcion }}</td>

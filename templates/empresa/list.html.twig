@@ -22,11 +22,13 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {% for empresa in empresas %}
+                
+                            {% for empresa in empresas %}                   
                                 <tr>
                                     <th scope="row">{{empresa.id}}</th>
                                     <td><a href="{{ path('empresa', {'id': empresa.id}) }}"> {{ empresa.nombre }}</a></td>
-                                    <td>{{ empresa.fechaAlta|date('d-m-Y')}}</td>
+                                    
+                                    <td>{{ empresa.getFechaAlta()|date('d-m-Y')}}</td>
                                     <td>{{ empresa.fechaBaja|date('d-m-Y') }}</td>
                                     <td>{{ empresa.descripcion }}</td>
                                     <td>

@@ -5,9 +5,7 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
-
-
-
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use App\Form\CorporacionesType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -102,7 +100,12 @@ class CorporacionController extends AbstractController
 
        
         $form = $this->createForm(CorporacionesType::class, $corporaciones, array('submit'=>'Desar'));
-        
+        $form->add('FechaAlta', DateType::class, array(
+            "widget" => 'single_text',
+            "format" => 'yyyy-MM-dd'));
+        $form->add('FechaBaja', DateType::class, array(
+                "widget" => 'single_text',
+                "format" => 'yyyy-MM-dd'));
 
         $form->handleRequest($request);
 

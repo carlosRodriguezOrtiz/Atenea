@@ -23,8 +23,14 @@ class CentrosType extends AbstractType
         $builder
         
             ->add('Nombre', TextType::class)
-            ->add('FechaAlta', DateType::class)
-            ->add('FechaBaja', DateType::class)
+            ->add('FechaAlta', DateType::class, array(
+                "widget" => 'single_text',
+                "format" => 'yyyy-MM-dd',
+                "data" => new \DateTime()))
+            ->add('FechaBaja', DateType::class, array(
+                    "widget" => 'single_text',
+                    "format" => 'yyyy-MM-dd',
+                    "data" => new \DateTime())) 
             ->add('Descripcion', TextType::class)
             ->add('save', SubmitType::class, array('label' => $options['submit']));
     }
