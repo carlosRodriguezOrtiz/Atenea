@@ -9,6 +9,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 //USE DE REGISTRAR
 use App\Form\UserType;
+use App\Form\UserTypeEmpresa;
 
 use App\Entity\User;
 
@@ -78,6 +79,39 @@ class LoginController extends Controller
     }
     
 
+    /**
+     * @Route("/register_empresa", name="user_empresa")
+     */
+    public function registerEmpresa(Request $request)
+    {
+        // 1) Construimos el formulario
+        $user = new User();
+        $form = $this->createForm(UserTypeEmpresa::class, $user);
+
+        // 2) Manejamos el envío (sólo pasará con POST)
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            // 3) Codificamos el password (también se puede hacer a través de un Doctrine listener)
+            $password = $this->get('security.password_encoder')
+                ->encodePassword($user, $user->getPassword());
+            $user->setPassword($password);
+
+            // 4) Guardar el User!
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
+            $em->flush();
+
+            // ... hacer cualquier otra cosa, como enviar un email, etc
+            // establecer un mensaje "flash" de éxito para el usuario
+
+            return $this->redirectToRoute('user_empresa');
+        }
+
+        return $this->render(
+            'registration/register_empresa.html.twig',
+            array('form' => $form->createView())
+        );
+    }
 
     
 }

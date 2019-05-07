@@ -48,6 +48,11 @@ class User implements AdvancedUserInterface, \Serializable
      */
     private $role;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Corporacion", inversedBy="users")
+     */
+    private $corporacion;
+
 
 
 
@@ -243,6 +248,18 @@ class User implements AdvancedUserInterface, \Serializable
     public function setRole(?Rol $role): self
     {
         $this->role = $role;
+
+        return $this;
+    }
+
+    public function getCorporacion(): ?Corporacion
+    {
+        return $this->corporacion;
+    }
+
+    public function setCorporacion(?Corporacion $corporacion): self
+    {
+        $this->corporacion = $corporacion;
 
         return $this;
     }  

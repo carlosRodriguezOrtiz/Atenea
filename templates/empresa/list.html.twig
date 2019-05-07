@@ -10,6 +10,9 @@
                     <table class="table">
                     <a class="btn btn-primary btn-lg" href="{{ path('crearEmpresa') }}" style="margin: 10px;">Crear Empresa</a>
                     <a class="btn btn-danger btn-md" href="{{ path('inicio') }}">&laquo; Torna</a>
+                     {% if app.user.role.nombre == 'ROLE_ADMIN' %}
+                        <a class="btn btn-danger btn-md ml-3" href="{{ path('user_empresa') }}">Registrar usuario Empresa</a>
+                    {% endif %}
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
@@ -22,7 +25,9 @@
                             </tr>
                         </thead>
                         <tbody>
-                
+                            {% if app.user.role.nombre == 'ROLE_ADMIN' %}
+                                
+                            
                             {% for empresa in empresas %}                   
                                 <tr>
                                     <th scope="row">{{empresa.id}}</th>
@@ -40,6 +45,23 @@
                                     </td>
                                 </tr>
                             {% endfor %}
+                            {% else %}
+                                <tr>
+                                    <th scope="row">{{empresa.id}}</th>
+                                    <td><a href="{{ path('empresa', {'id': empresa.id}) }}"> {{ empresa.nombre }}</a></td>
+                                    
+                                    <td>{{ empresa.getFechaAlta()|date('d-m-Y')}}</td>
+                                    <td>{{ empresa.fechaBaja|date('d-m-Y') }}</td>
+                                    <td>{{ empresa.descripcion }}</td>
+                                    <td>
+                                        <a class="btn btn-danger btn-md" href="{{ path('centros_new', {'id': empresa.id}) }}">Añadir centro</a>
+                                    </td>
+                                    <td>
+                                        <a </span href="{{ path('empresa_edit', {'id': empresa.id}) }}" <span class="icon-pencil-alt text-black">Edit</a>
+                                        <a </span href="{{ path('empresa_delete', {'id': empresa.id}) }}" <span class="icon-trash-empty text-black">Eliminar</a>
+                                    </td>
+                                </tr>
+                            {% endif %}
                         </tbody>
                     </table>
                     <span class=" text-black">{{ mensaje }}</span>

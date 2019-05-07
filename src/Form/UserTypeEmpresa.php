@@ -12,8 +12,8 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use App\Entity\Rol;
-use App\Entity\Corporacion;
-class UserType extends AbstractType
+use App\Entity\Empresa;
+class UserTypeEmpresa extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -28,7 +28,7 @@ class UserType extends AbstractType
             ->add('username', TextType::class)
             ->add('role', EntityType::class, array('class' => Rol::class,
             'choice_label' => 'nombre'))
-            ->add('corporacion', EntityType::class, array('class' => Corporacion::class,
+            ->add('empresa', EntityType::class, array('class' => Empresa::class,
             'choice_label' => 'nombre'))
             ->add('password', RepeatedType::class, array(
                 'type' => PasswordType::class,

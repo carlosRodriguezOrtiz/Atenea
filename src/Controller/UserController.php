@@ -25,6 +25,7 @@ class UserController extends AbstractController
             ]);
         } else {
             $form = $this->createForm(UserEditType::class, $user);
+            
 
             // 2) Manejamos el envío (sólo pasará con POST)
             $form->handleRequest($request);
@@ -82,9 +83,6 @@ class UserController extends AbstractController
         );
         return $this->redirectToRoute('user_list');
     }
-
-
-
 
 
 

@@ -16,6 +16,7 @@ use App\Entity\Corporacion;
 use App\Entity\User;
 
 
+
 class EmpresaController extends AbstractController
 {
     /**
@@ -34,16 +35,34 @@ class EmpresaController extends AbstractController
      */
     public function list()
     {
-        $empresas = $this->getDoctrine()
+        $usuariActual= $this->getUser();
+
+  
+        $userDB = $this->getDoctrine()
+        ->getRepository(User::class)
+        ->find($usuariActual->getId()); 
+
+   
+
+        if($userDB->getRole()->getNombre()=="ROLE_ADMIN"){
+
+            $empresas = $this->getDoctrine()
             ->getRepository(Empresa::class)
             ->findAll();
 
-        if(isset($_REQUEST['mensaje']) && $_REQUEST['mensaje']!=""){
-            return $this->render('empresa/list.html.twig', ['empresas' => $empresas, 'mensaje' => $_REQUEST['mensaje']]);
-        } else {
+            if(isset($_REQUEST['mensaje']) && $_REQUEST['mensaje']!=""){
+                return $this->render('empresa/list.html.twig', ['empresas' => $empresas, 'mensaje' => $_REQUEST['mensaje']]);
+            } else {
                 return $this->render('empresa/list.html.twig', ['empresas' => $empresas, 'mensaje' => " "]);
+            }
+
+        }else{
+           return $this->render('empresa/list.html.twig', ['empresa' => $userDB->getEmpresa(),'mensaje' => " "]);
+
         }
+
     }
+     
 
     /**
      * @Route("/empresa/{id<\d+>}", name="empresa")
