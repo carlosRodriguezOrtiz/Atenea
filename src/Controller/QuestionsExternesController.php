@@ -13,18 +13,9 @@ use App\Form\QuestionsExternesType;
 
 class QuestionsExternesController extends AbstractController
 {
+   
     /**
-     * @Route("/questions/externes", name="questions_externes")
-     */
-    public function index()
-    {
-        return $this->render('questions_externes/index.html.twig', [
-            'controller_name' => 'QuestionsExternesController',
-        ]);
-    }
-
-    /**
-     * @Route("/qe/list/", name="qe_list")
+     * @Route("/questionsexternes", name="qe_list")
      */
     public function list()
     {
@@ -40,7 +31,7 @@ class QuestionsExternesController extends AbstractController
 
 
     /**
-     * @Route("/questionsexternes/newQE/", name="crearQE")
+     * @Route("/questionsexternes/new/", name="crearQE")
      */
     public function newQE(Request $request)
     {

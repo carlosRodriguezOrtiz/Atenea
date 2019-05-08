@@ -9,20 +9,10 @@ use App\Entity\QuestionsInternes;
 
 class QuestionsInternesController extends AbstractController
 {
-    /**
-     * @Route("/questions/internes", name="questions_internes")
-     */
-    public function index()
-    {
-        return $this->render('questions_internes/index.html.twig', [
-            'controller_name' => 'QuestionsInternesController',
-            
-        ]);
-    }
-
+   
 
     /**
-     * @Route("/qi/list/", name="qi_list")
+     * @Route("/questionsinternes", name="qi_list")
      */
     public function list()
     {
@@ -37,7 +27,7 @@ class QuestionsInternesController extends AbstractController
 
 
     /**
-     * @Route("/questionsinternes/newQI/", name="crearQI")
+     * @Route("/questionsinternes/new/", name="crearQI")
      */
     public function newQI(Request $request)
     {

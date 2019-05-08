@@ -118,7 +118,7 @@ class EmpresaController extends AbstractController
     }
 
        /**
-     * @Route("/empresas/newEmpresa/", name="crearEmpresa")
+     * @Route("/empresas/new/", name="crearEmpresa")
      */
     public function newEmpresa(Request $request)
     {
