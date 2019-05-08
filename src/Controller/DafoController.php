@@ -53,7 +53,7 @@ class DafoController extends AbstractController
         ]);
     }
 
-        /**
+    /**
      * @Route("/dafo/binomio", name="binomio")
      */
     public function binomio()
@@ -150,7 +150,7 @@ class DafoController extends AbstractController
                 }
             }
         } 
-
+        //Descomentar una vez para crear binomios
         // foreach ($binomios as $bin){
         //     $entityManager = $this->getDoctrine()->getManager();
         //     $entityManager->persist($bin);
@@ -169,7 +169,7 @@ class DafoController extends AbstractController
     }
 
      /**
-     * @Route("/dafo/binomio3", name="binomio3")
+     * @Route("/dafo/dafoFinal", name="binomio3")
      */
     public function binomio3()
     {
@@ -185,18 +185,13 @@ class DafoController extends AbstractController
             $entityManager->flush();
            }
         }
+
         $binomiosBBDD = $this->getDoctrine()
         ->getRepository(Binomio::class)->findBySelected();
 
-        foreach ($binomiosBBDD as $key ) {
-            var_dump($key->getId());
-        }
-       
-        die();
-
         
         return $this->render('dafo/binomio2.html.twig', [
-            'binomios' => $binomios
+            'binomios' => $binomiosBBDD
         ]);
     }
 

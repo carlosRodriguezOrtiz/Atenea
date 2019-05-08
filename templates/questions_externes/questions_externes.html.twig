@@ -1,7 +1,8 @@
 {% extends 'base.html.twig' %}
 {% block title %}
-    {{ title }}{% endblock %}
-{% form_theme form 'bootstrap_4_layout.html.twig' %}
+    {{ title }}
+{% endblock %}
+{# {% form_theme form 'bootstrap_4_layout.html.twig' %} #}
 {% block body %}
     <section class="bg-white text-black mt-3 mb-3">
         <div class="container ">
@@ -18,13 +19,36 @@
                     <div class="col-sm-8">
                         <div class="card d-flex ">
                             <div class="card-header bg-danger text-white">
-                                 <h4>{{ title }}</h4>
+                                <h4>{{ title }}</h4>
                             </div>
                             <div class="card-body">
-                                <div class="col-12 ">
-                                    {{ form_start(form) }}
-                                    {{ form_widget(form) }}
-                                    {{  form_end(form ) }}
+                                <div
+                                    class="col-12 ">
+                                    {# {{ form_start(form) }}
+                                                                        {{ form_widget(form) }}
+                                                                        {{  form_end(form ) }} #}
+                                    <form action="{{path('crearQE')}}" method="post">
+                                        <label>Nombre</label><input name="Nombre" type="text"/>
+                                        <div class="form-group">
+                                            <label>Tipus</label>
+                                            <select id="tipusQE" name="tipus" id="tipusQE">
+                                                <option value="null">-- Elije tipus QE --</option>
+                                                {% for tipo in tiposQE %}
+                                                    <option value="{{tipo.id}}">{{tipo.nombre}}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Subtipus</label>
+                                            <select id="subtipusQE" name="subtipus">
+                                                <option value="null">-- Elije tipus QE --</option>
+                                                {% for subptipu in subtipus %}
+                                                    <option value="{{subptipu.id}}">{{subptipu.descripcion}}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                        <input type="submit" value="Enviar">
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -33,4 +57,50 @@
             </div>
         </div>
     </section>
+
+    <script>
+        window.onload = function () {
+            console.log("HOla");
+            $('#tipusQE').change(cargaSubcat);
+        } 
+
+{#          function cargaSubcat() {
+            var form = $(this).closest('form');
+            var data = {};
+            data['idcategoria'] = $('#categoria option:selected').val();
+            $.ajax({
+                url : form.attr('action'),
+                type : form.attr('method'),
+                data : data,
+                succes : function(html){
+                    $('#subcategoria').replaceWith(
+                        $(html).find('#subcategoria')
+                    );
+                }
+            });
+        }  #}
+        function cargaSubcat() {
+            
+            var form = $(this).closest('form');
+            var data = {};
+            data['idtipusQE'] = $('#tipusQE option:selected').val();
+            if($('#tipusQE option:selected').val()!="null"){
+                console.log("cargaSubcat");
+            $.ajax({
+                url : form.attr('action'),
+                type : form.attr('method'),
+                data : data,
+                success : function(html){
+                    console.log(html);
+                    $('#subtipusQE').replaceWith(
+                        $(html).find('#subtipusQE')
+                    );
+                    $("#test").html(html);
+                }
+            });
+            }
+
+        } 
+
+    </script>
 {% endblock %}

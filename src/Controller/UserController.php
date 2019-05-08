@@ -84,7 +84,21 @@ class UserController extends AbstractController
     }
 
 
+    /**
+     * @Route("/user/userinfo", name="contexto")
+     */
+    public function infouser()
+    {
+        $usr= $this->getUser();
 
+  
+        $user = $this->getDoctrine()
+        ->getRepository(User::class)
+        ->find($usr->getId());
+        var_dump($user->getRole()->getNombre());
+        var_dump($user->getEmpresa()->getNombre());
+        exit();
+    }
 
 
 

@@ -37,7 +37,7 @@ class QuestionsInternesController extends AbstractController
 
 
     /**
-     * @Route("/questionsinternes/newQI/", name="crearQI")
+     * @Route("/qi/new", name="crearQI")
      */
     public function newQI(Request $request)
     {

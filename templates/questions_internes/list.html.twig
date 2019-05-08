@@ -6,6 +6,7 @@
         <section class="container-fluid">
             <section class="row">
                 <section class="col-md-12">
+                    <a href="{{ path('crearQI') }}" <span class="icon-pencil-alt text-black">Crear QI</span></a>
                     <table class="table">
                         <thead>
                             <tr>
@@ -17,9 +18,9 @@
                         <tbody>
                             {% for questions_internes in qis %}
                                 <tr>
-                                    <th scope="row">{{questions_internes.id}}</th>
-                                    <th scope="row">{{questions_internes.nombre}}</th>
-                                    <th scope="row">{{qis.tipus.descripcion}}</th>
+                                    <td scope="row">{{questions_internes.id}}</td>
+                                    <td scope="row">{{questions_internes.nombre}}</td>
+                                    <td scope="row">{{questions_internes.tipus.descripcion}}</td>
                                     <td>
                          {# <a </span href="{{ path('empresa_edit', {'id': empresa.id}) }}" <span class="icon-pencil-alt text-black">Edit</a>
                          <a </span href="{{ path('empresa_delete', {'id': empresa.id}) }}" <span class="icon-trash-empty text-black">Eliminar</a> #}
