@@ -36,48 +36,6 @@ class QuestionsExternesController extends AbstractController
             return $this->render('questions_externes/list.html.twig', ['qes' => $qe]);
     }
 
-
-    /**
-     * @Route("/qe/getTipsus", name="getTipusQE")
-     */
-    public function getTipus(){
-        foreach ($qes as $qe) {
-            $id = $qe->getId();
-            $nombre = $qe->getNombre();   
-            $elementos_json[] = "\"$id\": $nombre\"\"";
-        }
-        $string = "{" . implode(",", $elementos_json) . "}";
-        return $this->handleView($string);
-    }
-
-     /**
-     * @Route("/qe/getSubTipus", name="getSubTipusQE")
-     */
-    public function getSubTipus(Request $request){
-        if($request->request){
-            $qes = $this->getDoctrine()
-            ->getRepository(TipusQE::class)
-            ->find($id);
-           
-            foreach ($qes->getSubtipus() as $qe) {
-                $id = $qe->getId();
-                $nombre = $qe->getDescripcion();
-                
-                $elementos_json[] = "\"$id\": $nombre\"\"";
-            }
-            var_dump($elementos_json);
-            die();
-    
-            $string = "{" . implode(",", $elementos_json) . "}";
-            
-            return new JsonRespones($string);
-        }
-
-        return $this->render('app/main/index.html.twig');
-    }
-
-
-
     /**
      * @Route("/qe/new", name="crearQE")
      */
@@ -113,17 +71,34 @@ class QuestionsExternesController extends AbstractController
         $tiposQE = $this->getDoctrine()
         ->getRepository(TipusQE::class)
         ->findAll();
-        if(isset($_POST['tipus'])){
-            var_dump("<div id='pp'>".$_POST['tipus']."</div>");
-            $qes = $this->getDoctrine()
-            ->getRepository(TipusQE::class)
-            ->find($_POST['tipus']);
-            $subtipus = $qes->getSubtipus();
-        }
 
         return $this->render('questions_externes/questions_externes.html.twig', array(
             // 'form' => $form->createView(),
             'title' => 'Nova QE',
+            'tiposQE' => $tiposQE,
+            'subtipus' => $subtipus
+        ));
+    }
+
+    /**
+     * @Route("/qe/getQE/{id<\d+>}", name="getSubTipusQE")
+     */
+    public function getQE($id, Request $request){
+        $subtipus = null;
+        $tiposQE = $this->getDoctrine()
+        ->getRepository(TipusQE::class)
+        ->findAll();
+        
+        $qes = $this->getDoctrine()
+        ->getRepository(TipusQE::class)
+        ->find($id);
+        $subtipus = $qes->getSubtipus();
+        
+        
+        
+        return $this->render('questions_externes/questions_externes.html.twig', array(
+            // 'form' => $form->createView(),
+            'title' => "POST",
             'tiposQE' => $tiposQE,
             'subtipus' => $subtipus
         ));
