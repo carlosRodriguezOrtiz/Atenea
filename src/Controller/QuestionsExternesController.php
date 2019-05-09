@@ -81,14 +81,15 @@ class QuestionsExternesController extends AbstractController
     }
 
     /**
-     * @Route("/qe/getQE/{id<\d+>}", name="getSubTipusQE")
+     * @Route("/qe/getQE", name="getSubTipusQE")
      */
-    public function getQE($id, Request $request){
+    public function getQE(Request $request){
         $subtipus = null;
         $tiposQE = $this->getDoctrine()
         ->getRepository(TipusQE::class)
         ->findAll();
         
+        $id = $request->request->get('idtipusQE');
         $qes = $this->getDoctrine()
         ->getRepository(TipusQE::class)
         ->find($id);

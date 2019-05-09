@@ -28,7 +28,7 @@
                                     {# {{ form_start(form) }}
                                                                         {{ form_widget(form) }}
                                                                         {{  form_end(form ) }} #}
-                                    <form action="{{path('getSubTipusQE',{ id : 1})}}" method="GET">
+                                    <form action="{{path('getSubTipusQE')}}" method="POST">
                                         <label>Nombre</label><input name="Nombre" type="text"/>
                                         <div class="form-group">
                                             <label>Tipus</label>
@@ -98,7 +98,7 @@
                 console.log("cargaSubcat");
                 
                 $.ajax({
-                    url : '/dual/Atenea/public/index.php/qe/getQE/'+data['idtipusQE'],
+                    url : form.attr('action'),
                     type : form.attr('method'),
                     data : data,
                     success : function(html){
