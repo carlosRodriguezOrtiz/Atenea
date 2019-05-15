@@ -77,7 +77,7 @@ class EmpresaController extends AbstractController
     }
 
    /**
-     * @Route("/empresas/new/{id<\d+>}", name="empresas_new")
+     * @Route("/empresa/new/{id<\d+>}", name="empresas_new")
      */
     public function new($id, Request $request)
     {
@@ -117,8 +117,8 @@ class EmpresaController extends AbstractController
         ));
     }
 
-       /**
-     * @Route("/empresas/new/", name="crearEmpresa")
+    /**
+     * @Route("/empresa/new", name="crearEmpresa")
      */
     public function newEmpresa(Request $request)
     {
@@ -150,8 +150,8 @@ class EmpresaController extends AbstractController
         ));
     }
 
-        /**
-     * @Route("/empresas/edit/{id<\d+>}", name="empresa_edit")
+    /**
+     * @Route("/empresa/edit/{id<\d+>}", name="empresa_edit")
      */
     public function edit($id, Request $request)
     {
@@ -194,8 +194,8 @@ class EmpresaController extends AbstractController
         ));
     }
 
-        /**
-     * @Route("/empresas/delete/{id<\d+>}", name="empresa_delete")
+    /**
+     * @Route("/empresa/delete/{id<\d+>}", name="empresa_delete")
      */
     public function delete($id, Request $request)
     {
@@ -228,8 +228,8 @@ class EmpresaController extends AbstractController
     }
 
 
-        /**
-     * @Route("/empresas/contexto", name="contexto")
+    /**
+     * @Route("/empresa/contexto", name="contexto")
      */
     public function contexto()
     {

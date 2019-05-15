@@ -36,18 +36,6 @@ class CentroController extends AbstractController
         return $this->render('centro/view.html.twig', ['centro'=>$centro]);
     }
 
-
-
-
-
-
-    /*     return $this->render('empresa/view.html.twig', ['empresa'=>$empresa,'centros' => $empresa->getArrayCentros()]);
-    }
- */
-
-
-
-
    /**
      * @Route("/centros/new/{id<\d+>}", name="centros_new")
      */

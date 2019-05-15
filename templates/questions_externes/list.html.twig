@@ -21,12 +21,12 @@
                                 <tr>
                                     <td>{{ questions_externes.id }}</td>
                                     <td>{{ questions_externes.nombre }}</td>
-                                    <td>{{ questions_externes.getTipus().getNombre() }}</td>
-                                    {# <td>{{ questions_externes.getTipus().getSubtipus() }}</td> #}
+                                    <td>{{ questions_externes.getSubTipus().getDescripcion() }}</td>
+                                    <td>{{ questions_externes.getSubTipus().getTipusQE().getNombre() }}</td>
 
                                     <td>
-                                    {#  <a </span href="{{ path('empresa_edit', {'id': empresa.id}) }}" <span class="icon-pencil-alt text-black">Edit</a>
-                                        <a </span href="{{ path('empresa_delete', {'id': empresa.id}) }}" <span class="icon-trash-empty text-black">Eliminar</a> #}
+                                        <a </span href="{{ path('qe_edit', {'id': questions_externes.id}) }}" <span class="icon-pencil-alt text-black">Edit</a>
+                                        <a </span href="{{ path('qe_delete', {'id': questions_externes.id}) }}" <span class="icon-trash-empty text-black">Eliminar</a>
                                     </td>
                                 </tr>
                             {% endfor %}
