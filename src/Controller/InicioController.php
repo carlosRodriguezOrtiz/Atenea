@@ -20,7 +20,7 @@ class InicioController extends AbstractController
 
 
     /**
-     * @Route("/gestion-contextoEmpresa/{id}", name="gestion_contextoEmpresa")
+     * @Route("/gestion-contextoEmpresa/{id<\d+>}", name="gestion_contextoEmpresa")
      */
     public function gestionContexto($id)
     {
@@ -32,7 +32,7 @@ class InicioController extends AbstractController
 
 
         /**
-     * @Route("/gestion-contextoCentros/{id}", name="gestion_contextoCentros")
+     * @Route("/gestion-contextoCentros/{id<\d+>}", name="gestion_contextoCentros")
      */
     public function gestionContextoCentros($id)
     {

@@ -8,7 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class EmergenteController extends AbstractController
 {
     /**
-     * @Route("/emergente/dafo/{id}", name="dafo")
+     * @Route("/emergente/dafo/{id<\d+>}", name="dafo")
      */
     public function list($id)
     {

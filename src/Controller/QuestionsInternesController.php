@@ -12,7 +12,7 @@ class QuestionsInternesController extends AbstractController
    
 
     /**
-     * @Route("/questionsinternes/{id}", name="qi_list")
+     * @Route("/questionsinternes/{id<\d+>}", name="qi_list")
      */
     public function list($id)
     {

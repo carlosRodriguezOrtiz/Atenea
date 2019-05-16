@@ -17,7 +17,7 @@ class QuestionsExternesController extends AbstractController
 {
    
     /**
-     * @Route("/questionsexternes/{id}", name="qe_list")
+     * @Route("/questionsexternes/{id<\d+>}", name="qe_list")
      */
     public function list($id)
     {
@@ -29,14 +29,10 @@ class QuestionsExternesController extends AbstractController
 
     }
 
-    
-
-
-
     /**
      * @Route("/questionsexternes/new", name="crearQE")
      */
-    public function newQE(Request $request)
+    public function newQE()
     {
         
         $subtipus = null;
@@ -70,7 +66,7 @@ class QuestionsExternesController extends AbstractController
     }
 
     /**
-     * @Route("/questionsexternes/edit/{id}", name="qe_edit")
+     * @Route("/questionsexternes/edit/{id<\d+>}", name="qe_edit")
      */
     public function edit($id)
     {
@@ -82,7 +78,7 @@ class QuestionsExternesController extends AbstractController
     }
 
     /**
-     * @Route("/questionsexternes/delete/{id}", name="qe_delete")
+     * @Route("/questionsexternes/delete/{id<\d+>}", name="qe_delete")
      */
     public function delete($id)
     {
