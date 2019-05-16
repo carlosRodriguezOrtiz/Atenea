@@ -1,0 +1,39 @@
+Cosas importantes:
+
+1) Ir a la ubicación donde se descargó la carpeta y entrar dentro. Encontraremos dos archivos: "env" y "env-test", donde le añadiremos un "." al principio de ambas, quedando de la siguiente manera:
+
+    env      -> .env
+    env.test -> .env-test
+
+2) Ejecutar el siguiente comando para encender el Xampp:
+    
+    $ sudo /opt/lampp/xampp start
+
+   Si da error apagar el apache2:
+
+    $ sudo service apache2 stop
+
+3) Al bajarse en proyecto si al abrirlo genera un error ejecutar el siguiente comando en la carpeta donde te has puesto todo el contenido:
+
+   Cambiarle los permisos (temporalmente) desde la carpeta padre:
+
+    $ sudo chmod 777 -R ./Atenea
+
+   Acto seguido, actualizaremos el docker-compose:
+
+    $ composer update
+
+   Si sigue con errores utilitzar el comando:
+
+    $ composer install
+
+
+// Adrià Cambios Imporanteeee!!!!!!!!!!!!
+
+1) Como he ignorado el fichero ".env" en el gitignore no se subira, pero he puesto otro fichero llamado "example.env", tendras que renombrarlo a ".env" y añadir los datos de acceso a la base de datos si es la primera vez que te clonas el proyecto:
+
+    example-env -> .env
+
+2) Tambien esta ignorado el directorio "vendor" por eso cada vez que clonas el proyecto tendras de hacer un composer update!!!!!
+
+3) Tambien he ignorado el directorio "var" para que la cache no nos joda todo el rato!!

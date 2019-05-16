@@ -65,7 +65,7 @@
 
 
                         <div class="boton">
-                                <a class="btn btn-danger btn-md ml-3" href="{{ path('gestion_contexto') }}">Seleccionar</a>
+                                <a class="btn btn-danger btn-md ml-3" href="{{ path('gestion_contextoEmpresa', {id : empresa.id}) }}">Seleccionar</a>
 
                         </div>
                         <div class="nomEmpresa">
@@ -85,7 +85,7 @@
                     {% for centro in centros %}
 
                         <div class="boton">
-                                <a class="btn btn-danger btn-md ml-3" href="{{ path('gestion_contexto') }}">Seleccionar</a>
+                                <a class="btn btn-danger btn-md ml-3" href="{{ path('gestion_contextoCentros' , {id : centro.id}) }}">Seleccionar</a>
                         </div>
                         <div class="nomCentro">
 

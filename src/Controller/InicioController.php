@@ -17,11 +17,31 @@ class InicioController extends AbstractController
         ]);
     }
 
+
+
     /**
-     * @Route("/gestion-contexto", name="gestion_contexto")
+     * @Route("/gestion-contextoEmpresa/{id}", name="gestion_contextoEmpresa")
      */
-    public function gestionContexto()
+    public function gestionContexto($id)
     {
-        return $this->render('gestion_contexto/index.html.twig');
+        return $this->render('gestion_contexto/index.html.twig', array(
+
+            'id' => $id,
+        ));
     }
+
+
+        /**
+     * @Route("/gestion-contextoCentros/{id}", name="gestion_contextoCentros")
+     */
+    public function gestionContextoCentros($id)
+    {
+        return $this->render('gestion_contexto/index.html.twig', array(
+
+            'id' => $id,
+        ));
+    }
+
+    
+
 }

@@ -10,7 +10,7 @@ use App\Entity\Dafo;
 class DafoController extends AbstractController
 {
     /**
-     * @Route("/dafo/list", name="dafo")
+     * @Route("/dafo/list", name="dafo2")
      */
     public function list()
     {

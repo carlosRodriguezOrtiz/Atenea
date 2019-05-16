@@ -15,18 +15,19 @@ class QuestionsExternesController extends AbstractController
 {
    
     /**
-     * @Route("/questionsexternes", name="qe_list")
+     * @Route("/questionsexternes/{id}", name="qe_list")
      */
-    public function list()
+    public function list($id)
     {
         $qe = $this->getDoctrine()
             ->getRepository(QuestionsExternes::class)
-            ->findAll();
+            ->find($id);
         
             return $this->render('questions_externes/list.html.twig', ['qes' => $qe]);
 
-
     }
+
+    
 
 
 
