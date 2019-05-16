@@ -8,13 +8,13 @@ use Symfony\Component\Routing\Annotation\Route;
 class EmergenteController extends AbstractController
 {
     /**
-     * @Route("/dafo/list", name="dafo")
+     * @Route("/emergente/dafo/{id}", name="dafo")
      */
-    public function list()
+    public function list($id)
     {
         $dafo = $this->getDoctrine()
         ->getRepository(Dafo::class)
-        ->find(1);
+        ->find($id);
 
         $debilitats = [];
         $amenaces = [];
