@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -25,6 +27,16 @@ class SubTipusQE
      * @ORM\ManyToOne(targetEntity="App\Entity\TipusQE", inversedBy="subtipus")
      */
     private $tipusQE;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\QuestionsExternes", mappedBy="subtipus")
+     */
+    private $questionsExternes;
+
+    public function __construct()
+    {
+        $this->questionsExternes = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -51,6 +63,37 @@ class SubTipusQE
     public function setTipusQE(?TipusQE $tipusQE): self
     {
         $this->tipusQE = $tipusQE;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|QuestionsExternes[]
+     */
+    public function getQuestionsExternes(): Collection
+    {
+        return $this->questionsExternes;
+    }
+
+    public function addQuestionsExterne(QuestionsExternes $questionsExterne): self
+    {
+        if (!$this->questionsExternes->contains($questionsExterne)) {
+            $this->questionsExternes[] = $questionsExterne;
+            $questionsExterne->setSubtipus($this);
+        }
+
+        return $this;
+    }
+
+    public function removeQuestionsExterne(QuestionsExternes $questionsExterne): self
+    {
+        if ($this->questionsExternes->contains($questionsExterne)) {
+            $this->questionsExternes->removeElement($questionsExterne);
+            // set the owning side to null (unless already changed)
+            if ($questionsExterne->getSubtipus() === $this) {
+                $questionsExterne->setSubtipus(null);
+            }
+        }
 
         return $this;
     }

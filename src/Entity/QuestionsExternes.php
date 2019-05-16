@@ -34,11 +34,6 @@ class QuestionsExternes
     private $fechaBaja;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\TipusQE", inversedBy="questionsExternes")
-     */
-    private $tipus;
-
-    /**
      * @ORM\OneToOne(targetEntity="App\Entity\DafoTipusQE", mappedBy="questioExterna", cascade={"persist", "remove"})
      */
     private $tipusDafo;
@@ -47,6 +42,11 @@ class QuestionsExternes
      * @ORM\OneToMany(targetEntity="App\Entity\Binomio", mappedBy="QuestionExterna")
      */
     private $binomio;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\SubTipusQE", inversedBy="questionsExternes")
+     */
+    private $subtipus;
 
     public function __construct()
     {
@@ -90,18 +90,6 @@ class QuestionsExternes
     public function setFechaBaja(\DateTimeInterface $fechaBaja): self
     {
         $this->fechaBaja = $fechaBaja;
-
-        return $this;
-    }
-
-    public function getTipus(): ?TipusQE
-    {
-        return $this->tipus;
-    }
-
-    public function setTipus(?TipusQE $tipus): self
-    {
-        $this->tipus = $tipus;
 
         return $this;
     }
@@ -151,6 +139,18 @@ class QuestionsExternes
                 $binomio->setQuestionExterna(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getSubtipus(): ?SubTipusQE
+    {
+        return $this->subtipus;
+    }
+
+    public function setSubtipus(?SubTipusQE $subtipus): self
+    {
+        $this->subtipus = $subtipus;
 
         return $this;
     }

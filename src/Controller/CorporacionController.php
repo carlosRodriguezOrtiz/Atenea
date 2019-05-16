@@ -57,7 +57,7 @@ class CorporacionController extends AbstractController
     }
 
        /**
-     * @Route("/corporaciones/new", name="corporaciones_new")
+     * @Route("/corporacion/new", name="corporaciones_new")
      */
     public function new(Request $request)
     {
@@ -90,7 +90,7 @@ class CorporacionController extends AbstractController
     }
 
     /**
-     * @Route("/corporaciones/edit/{id<\d+>}", name="corporacion_edit")
+     * @Route("/corporacion/edit/{id<\d+>}", name="corporacion_edit")
      */
     public function edit($id, Request $request)
     {
@@ -134,7 +134,7 @@ class CorporacionController extends AbstractController
     }
 
     /**
-     * @Route("/corporaciones/delete/{id<\d+>}", name="corporacion_delete")
+     * @Route("/corporacion/delete/{id<\d+>}", name="corporacion_delete")
      */
     public function delete($id, Request $request)
     {

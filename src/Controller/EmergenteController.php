@@ -21,13 +21,16 @@ class EmergenteController extends AbstractController
         $fortaleses = [];
         $oportunitats = [];
 
-        foreach ($dafo->getQuestionsInternes() as $qi) {
+        if($dafo != null){
+                    foreach ($dafo->getQuestionsInternes() as $qi) {
             if($qi->getTipus() == 'debilidad'){
                 array_push($debilitats, $qi);
             } else {
                 array_push($fortaleses, $qi);
             }
         }
+    
+
 
         foreach ($dafo->getQuestionsExternes() as $qe) {
             if($qe->getTipus() == 'amenaza'){
@@ -36,6 +39,9 @@ class EmergenteController extends AbstractController
                 array_push($oportunitats, $qe);
             }
         }
+    }
+        
+
         
 
         
