@@ -66,13 +66,8 @@ class EmpresaController extends AbstractController
         return $this->render('empresa/view.html.twig', ['empresa' => $empresa, 'centros' => $empresa->getArrayCentros()]);
     }
 
-<<<<<<< HEAD
-    /**
-     * @Route("/empresas/new/{id<\d+>}", name="empresas_new")
-=======
    /**
      * @Route("/empresa/new/{id<\d+>}", name="empresas_new")
->>>>>>> ce1f237a28227b4fa03bd52c2d742732bf8e3fe2
      */
     function new ($id, Request $request) {
         $empresas = new Empresa();
@@ -110,11 +105,7 @@ class EmpresaController extends AbstractController
     }
 
     /**
-<<<<<<< HEAD
-     * @Route("/empresas/new/", name="crearEmpresa")
-=======
      * @Route("/empresa/new", name="crearEmpresa")
->>>>>>> ce1f237a28227b4fa03bd52c2d742732bf8e3fe2
      */
     public function newEmpresa(Request $request)
     {
@@ -147,11 +138,7 @@ class EmpresaController extends AbstractController
     }
 
     /**
-<<<<<<< HEAD
-     * @Route("/empresas/edit/{id<\d+>}", name="empresa_edit")
-=======
      * @Route("/empresa/edit/{id<\d+>}", name="empresa_edit")
->>>>>>> ce1f237a28227b4fa03bd52c2d742732bf8e3fe2
      */
     public function edit($id, Request $request)
     {
@@ -192,11 +179,7 @@ class EmpresaController extends AbstractController
     }
 
     /**
-<<<<<<< HEAD
-     * @Route("/empresas/delete/{id<\d+>}", name="empresa_delete")
-=======
      * @Route("/empresa/delete/{id<\d+>}", name="empresa_delete")
->>>>>>> ce1f237a28227b4fa03bd52c2d742732bf8e3fe2
      */
     public function delete($id, Request $request)
     {
@@ -228,14 +211,9 @@ class EmpresaController extends AbstractController
         );
     }
 
-<<<<<<< HEAD
-    /**
-     * @Route("/empresas/contexto", name="contexto")
-=======
 
     /**
      * @Route("/empresa/contexto", name="contexto")
->>>>>>> ce1f237a28227b4fa03bd52c2d742732bf8e3fe2
      */
     public function contexto()
     {
