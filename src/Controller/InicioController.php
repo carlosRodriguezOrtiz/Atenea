@@ -24,7 +24,7 @@ class InicioController extends AbstractController
      */
     public function gestionContexto($id)
     {
-        return $this->render('gestion_contexto/index.html.twig', array(
+        return $this->render('gestion_contexto/indexEmpresa.html.twig', array(
 
             'id' => $id,
         ));
@@ -36,7 +36,7 @@ class InicioController extends AbstractController
      */
     public function gestionContextoCentros($id)
     {
-        return $this->render('gestion_contexto/index.html.twig', array(
+        return $this->render('gestion_contexto/indexCentro.html.twig', array(
 
             'id' => $id,
         ));

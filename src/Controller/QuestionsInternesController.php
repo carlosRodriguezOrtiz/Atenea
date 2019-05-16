@@ -11,10 +11,23 @@ class QuestionsInternesController extends AbstractController
 {
    
 
-    /**
-     * @Route("/questionsinternes/{id}", name="qi_list")
+        /**
+     * @Route("/questionsinternesEmpresas/{id}", name="qi_listEmpresas")
      */
-    public function list($id)
+    public function listEmpresasInternes($id)
+    {
+            $qi = $this->getDoctrine()
+            ->getRepository(QuestionsInternes::class)
+            ->find($id);
+        
+            return $this->render('questions_internes/list.html.twig', ['qis' => $qi]);
+
+    }
+
+        /**
+     * @Route("/questionsinternesCentros/{id}", name="qi_listCentros")
+     */
+    public function listCentrosInternes($id)
     {
         $qi = $this->getDoctrine()
             ->getRepository(QuestionsInternes::class)
