@@ -251,9 +251,11 @@ class EmpresaController extends AbstractController
                 }
             } else if($userDB->getCorporacion() != null){
                 $empresas = $userDB->getCorporacion()->getArrayEmpresa();
-                $centros = null;
-                if($empresas != null){
-                    $centros =  $empresas[0]->getArrayCentros();    
+                $centros = [];
+                foreach($empresas as $empresa){
+                    foreach($empresa->getArrayCentros() as $centro){
+                        array_push($centros, $centro);
+                    }
                 }
             }
 
@@ -264,7 +266,7 @@ class EmpresaController extends AbstractController
         } else if ($centros != null){
             return $this->render('emergente/list.html.twig', ['empresas' => $empresas, 'centros' => $centros]);
         } else {
-            return $this->render('emergente/list.html.twig', ['empresas' => $empresas]);
+            return $this->render('emergente/list.html.twig', ['empresas' => $empresas,  'centros' => $centros]);
         }
     }
 

@@ -48,6 +48,11 @@ class QuestionsExternes
      */
     private $subtipus;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Empresa", inversedBy="questionsExternes")
+     */
+    private $empresa;
+
     public function __construct()
     {
         $this->binomio = new ArrayCollection();
@@ -151,6 +156,18 @@ class QuestionsExternes
     public function setSubtipus(?SubTipusQE $subtipus): self
     {
         $this->subtipus = $subtipus;
+
+        return $this;
+    }
+
+    public function getEmpresa(): ?Empresa
+    {
+        return $this->empresa;
+    }
+
+    public function setEmpresa(?Empresa $empresa): self
+    {
+        $this->empresa = $empresa;
 
         return $this;
     }

@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+{% block title %}Inicio
+{% endblock %}
+{% block body %}
+    <section class="bg-white text-black text-center">
+        <section class="container ">
+            <section class="row ">
+                <div class="col-md-8"></div>
+                <div class="col-md-4">
+                    <div class="btn-group float-right mt-2 mb-3" role="group">
+                        <a class="btn btn-danger btn-md" href="{{ path('inicio') }}">&laquo; Torna</a>
+                    </div>
+                </div>
+            </section>
+            <section class="row text-center">
+                <section class="col-md-12 mt-5">
+                        <a class="btn btn-primary btn-lg gestion-contexto" href="{{ path('qe_listCentros' , {id : id}) }}">Gestionar cuestiones externas</a><br><br>
+                       <a class="btn btn-secondary btn-lg gestion-contexto"  href="{{ path('qi_listCentros', {id : id}) }}">Gestionar cuestiones internas</a><br><br>
+                          <a class="btn btn-success btn-lg gestion-contexto"  href="">Gestionar partes interesadas</a><br><br>
+                        <a class="btn btn-primary btn-lg gestion-contexto" href="">Gestionar aspectos favorables y desfavorables</a><br><br>
+                        <a class="btn btn-secondary btn-lg gestion-contexto" href="{{ path('dafo', {id : id}) }}">DAFO</a><br><br>
+                        <a class="btn btn-success btn-lg gestion-contexto" href="">Gestionar potenciales factores críticos de éxito</a> 
+                        
+                <!-- Arreglar el inicio empresas/new para que se pueda entrar sin tener id-->
+                </section>
+                
+            </section>
+        </section>
+    </section>
+{% endblock %}
