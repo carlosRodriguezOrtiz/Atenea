@@ -251,23 +251,23 @@ class Empresa
         return $this->questionsExternes;
     }
 
-    public function addQuestionsExterne(QuestionsExternes $questionsExterne): self
+    public function addQuestionsExternes(QuestionsExternes $questionsExternes): self
     {
-        if (!$this->questionsExternes->contains($questionsExterne)) {
-            $this->questionsExternes[] = $questionsExterne;
-            $questionsExterne->setEmpresa($this);
+        if (!$this->questionsExternes->contains($questionsExternes)) {
+            $this->questionsExternes[] = $questionsExternes;
+            $questionsExternes->setEmpresa($this);
         }
 
         return $this;
     }
 
-    public function removeQuestionsExterne(QuestionsExternes $questionsExterne): self
+    public function removeQuestionsExternes(QuestionsExternes $questionsExternes): self
     {
-        if ($this->questionsExternes->contains($questionsExterne)) {
-            $this->questionsExternes->removeElement($questionsExterne);
+        if ($this->questionsExternes->contains($questionsExternes)) {
+            $this->questionsExternes->removeElement($questionsExternes);
             // set the owning side to null (unless already changed)
-            if ($questionsExterne->getEmpresa() === $this) {
-                $questionsExterne->setEmpresa(null);
+            if ($questionsExternes->getEmpresa() === $this) {
+                $questionsExternes->setEmpresa(null);
             }
         }
 
