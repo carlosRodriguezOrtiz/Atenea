@@ -80,4 +80,5 @@ class QuestionsExternesRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
+
 }

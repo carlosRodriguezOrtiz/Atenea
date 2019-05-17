@@ -47,4 +47,37 @@ class QuestionsInternesRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function findByEmpresaId($value)
+    {
+        return $this->createQueryBuilder('q')
+            ->andWhere('q.empresa = :val')
+            ->setParameter('val', $value)
+            ->orderBy('q.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function findByCentroId($value)
+    {
+        return $this->createQueryBuilder('q')
+            ->andWhere('q.centro = :val')
+            ->setParameter('val', $value)
+            ->orderBy('q.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function findByCorporacionId($value)
+    {
+        return $this->createQueryBuilder('q')
+            ->andWhere('q.corporacion = :val')
+            ->setParameter('val', $value)
+            ->orderBy('q.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }

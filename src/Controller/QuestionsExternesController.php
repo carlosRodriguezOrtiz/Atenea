@@ -8,6 +8,7 @@ use App\Entity\QuestionsExternes;
 use App\Entity\SubTipusQE;
 use App\Entity\TipusQE;
 use App\Entity\Empresa;
+use App\Entity\Centro;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use App\Form\QuestionsExternesType;
 
@@ -16,7 +17,7 @@ class QuestionsExternesController extends AbstractController
 {
    
     /**
-     * @Route("/questionsexternesEmpresas/{id}", name="qe_listEmpresas")
+     * @Route("/questionsexternesEmpresas/{id<\d+>}", name="qe_listEmpresas")
      */
     public function listEmpresasExternes($id)
     {
@@ -32,7 +33,7 @@ class QuestionsExternesController extends AbstractController
     }
 
     /**
-     * @Route("/questionsexternesCorporacion/{id}", name="qe_listCorporacion")
+     * @Route("/questionsexternesCorporacion/{id<\d+>}", name="qe_listCorporacion")
      */
     public function listCorporacionExternes($id)
     {
@@ -45,20 +46,24 @@ class QuestionsExternesController extends AbstractController
     }
 
        /**
-     * @Route("/questionsexternesCentros/{id}", name="qe_listCentros")
+     * @Route("/questionsexternesCentro/{id<\d+>}", name="qe_listCentros")
      */
     public function listCentrosExternes($id)
     {
+            // $qe = $this->getDoctrine()
+            // ->getRepository(QuestionsExternes::class)
+            // ->find($id);
+
             $qe = $this->getDoctrine()
             ->getRepository(QuestionsExternes::class)
-            ->find($id);
+            ->findByCentroId($id);
         
             return $this->render('questions_externes/list.centro.html.twig', ['qes' => $qe, 'id' => $id]);
 
     }
 
     /**
-     * @Route("/questionsexternesEmpresas/new/{id}", name="crearQeEmpresa")
+     * @Route("/questionsexternesEmpresas/new/{id<\d+>}", name="crearQeEmpresa")
      */
     public function newQeEmpresa($id)
     {
@@ -72,7 +77,6 @@ class QuestionsExternesController extends AbstractController
         // POST Form Subir los datos a la BBDD
         if (isset($_POST['nombre'])) {
 
-            $entityManager = $this->getDoctrine()->getManager();
             $empresa = $this->getDoctrine()
             ->getRepository(Empresa::class)
             ->find($id);
@@ -93,6 +97,49 @@ class QuestionsExternesController extends AbstractController
         }
 
         return $this->render('questions_externes/create.qe.empresa.html.twig', array(
+            'title' => 'Nova QE',
+            'tiposQE' => $tiposQE,
+            'subtipus' => $subtipus,
+            'id' => $id,
+        ));
+    }
+
+    /**
+     * @Route("/questionsexternesCentro/new/{id<\d+>}", name="crearQeCentro")
+     */
+    public function newQeCentro($id)
+    {
+        
+        $subtipus = null;
+
+        $tiposQE = $this->getDoctrine()
+        ->getRepository(TipusQE::class)
+        ->findAll();
+    
+        // POST Form Subir los datos a la BBDD
+        if (isset($_POST['nombre'])) {
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $centro = $this->getDoctrine()
+            ->getRepository(Centro::class)
+            ->find($id);
+
+            $qe = new QuestionsExternes();
+            $qe->setCentro($centro);
+            $qe->setNombre($_POST['nombre']);
+            $qe->setFechaAlta(new \DateTime($_POST['dateA']));
+            $qe->setFechaBaja(new \DateTime($_POST['dateB']));
+            $subtipus = $this->getDoctrine()
+            ->getRepository(SubTipusQE::class)
+            ->find($_POST['subtipus']);
+            $qe->setSubtipus($subtipus);
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($qe);
+            $entityManager->flush();
+        }
+
+        return $this->render('questions_externes/create.qe.centro.html.twig', array(
             'title' => 'Nova QE',
             'tiposQE' => $tiposQE,
             'subtipus' => $subtipus,
