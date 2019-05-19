@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+{% block title %}Listado de las Cuestiones Externas
+{% endblock %}
+{% block body %}
+    <section class="bg-white text-black mb-0">
+        <section class="container-fluid">
+            <section class="row">
+                <section class="col-md-12">
+                    <a  href="{{ path('crearQeCentro', {'id': id }) }}" >New</a>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Tipo</th>
+                                <th scope="col">Subtipo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                            {% for questions_externes in qes %}
+                                <tr>
+                                    <td>{{ questions_externes.id }}</td>
+                                    <td>{{ questions_externes.nombre }}</td>
+                                    <td>{{ questions_externes.getSubTipus().getDescripcion() }}</td>
+                                    <td>{{ questions_externes.getSubTipus().getTipusQE().getNombre() }}</td>
+
+                                    <td>
+                                        <a </span href="{{ path('qe_edit', {'id': questions_externes.id}) }}" <span class="icon-pencil-alt text-black">Edit</a>
+                                        <a </span href="{{ path('qe_delete', {'id': questions_externes.id}) }}" <span class="icon-trash-empty text-black">Eliminar</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </section>
+            </section>
+        </section>
+    </section>
+{% endblock %}

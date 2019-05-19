@@ -21,7 +21,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="col-12 ">
-                                    <form action="{{path('crearQE')}}" method="POST">
+                                    <form action="{{path('crearQeEmpresa', { 'id' : id })}}" method="POST">
                                         <label>Nombre</label><input name="nombre" type="text"/>
                                         <div class="form-group">
                                             <label>Fecha Alta</label>
@@ -79,7 +79,7 @@
                 console.log("cargaSubcat");
     
                 $.ajax({
-                    url : '{{ path('getSubTipusQE') }}',
+                    url : "{{ path('getSubTipusQE', { 'id' : id }) }}",
                     type : form.attr('method'),
                     data : data,
                     success : function(html){

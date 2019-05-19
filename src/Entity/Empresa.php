@@ -60,11 +60,17 @@ class Empresa
      */
     private $users;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\QuestionsExternes", mappedBy="empresa")
+     */
+    private $questionsExternes;
+
     public function __construct()
     {
         $this->usuarios = new ArrayCollection();
         $this->arrayCentros = new ArrayCollection();
         $this->users = new ArrayCollection();
+        $this->questionsExternes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -231,6 +237,37 @@ class Empresa
             // set the owning side to null (unless already changed)
             if ($user->getEmpresa() === $this) {
                 $user->setEmpresa(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|QuestionsExternes[]
+     */
+    public function getQuestionsExternes(): Collection
+    {
+        return $this->questionsExternes;
+    }
+
+    public function addQuestionsExternes(QuestionsExternes $questionsExternes): self
+    {
+        if (!$this->questionsExternes->contains($questionsExternes)) {
+            $this->questionsExternes[] = $questionsExternes;
+            $questionsExternes->setEmpresa($this);
+        }
+
+        return $this;
+    }
+
+    public function removeQuestionsExternes(QuestionsExternes $questionsExternes): self
+    {
+        if ($this->questionsExternes->contains($questionsExternes)) {
+            $this->questionsExternes->removeElement($questionsExternes);
+            // set the owning side to null (unless already changed)
+            if ($questionsExternes->getEmpresa() === $this) {
+                $questionsExternes->setEmpresa(null);
             }
         }
 

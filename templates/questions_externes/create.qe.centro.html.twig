@@ -1,0 +1,98 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+    {{ title }}{% endblock %}
+{% block body %}
+    <section class="bg-white text-black mt-3 mb-3">
+        <div class="container ">
+            <section class="row ">
+                <div class="col-md-8"></div>
+                <div class="col-md-4">
+                    <div class="btn-group float-right mt-2 mb-3" role="group">
+                        <a class="btn btn-danger btn-md">&laquo; Torna</a>
+                    </div>
+                </div>
+            </section>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-sm-8">
+                        <div class="card d-flex ">
+                            <div class="card-header bg-danger text-white">
+                                 <h4>{{ title }}</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="col-12 ">
+                                    <form action="{{path('crearQeCentro', { 'id' : id })}}" method="POST">
+                                        <label>Nombre</label><input name="nombre" type="text"/>
+                                        <div class="form-group">
+                                            <label>Fecha Alta</label>
+                                            <input type="date" value="" name="dateA"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Fecha Alta</label>
+                                            <input type="date" value="" name="dateB"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Tipus</label>
+                                            <select id="tipusQE" name="tipus" id="tipusQE">
+                                                <option value="null">-- Elije tipus QE --</option>
+                                                {% for tipo in tiposQE %}
+                                                    <option value="{{tipo.id}}">{{tipo.nombre}}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Subtipus</label>
+                                            <select id="subtipusQE" name="subtipus">
+                                                <option value="null">-- Elije tipus QE --</option>
+                                                {% for subptipu in subtipus %}
+                                                    <option value="{{subptipu.id}}">{{subptipu.descripcion}}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                        <input type="submit" value="Enviar">
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script>
+        window.onload = function () {
+            console.log("Hola");
+            $('#tipusQE').change(cargaSubcat);
+        } 
+        
+        function cargaSubcat() {
+            
+            var form = $(this).closest('form');
+            form.attr('',)
+
+            var data = {};
+            
+            data['idtipusQE'] = $('#tipusQE option:selected').val();
+           
+            console.log(form.attr('action'));
+            if($('#tipusQE option:selected').val()!="null"){
+                console.log("cargaSubcat");
+    
+                $.ajax({
+                    url : "{{ path('getSubTipusQE', { 'id' : id }) }}",
+                    type : form.attr('method'),
+                    data : data,
+                    success : function(html){
+                        console.log(html);
+                        $('#subtipusQE').replaceWith(
+                            $(html).find('#subtipusQE')
+                        );
+
+                        $("#test").html($(html).find('#title'));
+                    }
+                });
+            }
+
+        } 
+    </script>
+{% endblock %}
