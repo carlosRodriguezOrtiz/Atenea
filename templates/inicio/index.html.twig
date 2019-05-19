@@ -12,17 +12,11 @@
                         <a class="btn btn-success btn-lg" href="{{ path('user_list') }}">Gestión de Usuarios</a>
                     {% else %}
                         {% if app.user.empresa != null %}
-<<<<<<< HEAD
                             <h1>{{app.user.empresa.nombre}}</h1>
                             <a class="btn btn-primary btn-lg" href="{{ path('gestion_contextoEmpresa', {id : app.user.empresa.id}) }}">Gestionar Contexto de la organización Empresa</a>
                             <a class="btn btn-secondary btn-lg" href="">Gestionar Personal</a>
                         {% elseif app.user.corporacion != null %}
                         <h1>{{app.user.corporacion.nombre}}</h1>
-=======
-                            <a class="btn btn-primary btn-lg" href="{{ path('gestion_contextoEmpresa', {id : app.user.empresa.id}) }}">Gestionar Contexto de la organización Empresa</a>
-                            <a class="btn btn-secondary btn-lg" href="">Gestionar Personal</a>
-                        {% elseif app.user.corporacion != null %}
->>>>>>> 74a27956ea5499fe8ac8ae10f54ef2ceb6cb80bf
                             <a class="btn btn-primary btn-lg" href="{{ path('gestion_contextoEmpresa', {id : app.user.corporacion.id}) }}">Gestionar Contexto de la organización Corporación</a>
                             <a class="btn btn-secondary btn-lg" href="">Gestionar Personal</a>
                         {% endif %}
