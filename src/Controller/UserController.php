@@ -2,6 +2,9 @@
 
 namespace App\Controller;
 use App\Entity\User;
+use App\Entity\Corporacion;
+use App\Entity\Empresa;
+
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -61,6 +64,56 @@ class UserController extends AbstractController
             ->findAll();
 
        
+
+        return $this->render('user/list.html.twig', ['user' => $user]);
+    }
+
+    /**
+     * @Route("/users/corporacion/{id<\d+>}", name="users_corp")
+     */
+    public function usersCorp($id)
+    {
+        $user = [];
+        if($this->getUser()->getCorporacion()->getId() == $id){
+        $corp = $this->getDoctrine()
+            ->getRepository(Corporacion::class)
+            ->find($id);
+
+        $user = $corp->getUsers();
+        
+        foreach ($corp->getArrayEmpresa() as $empresa) {
+            array_combine($user,$empresa->getUsers());
+            foreach($empresa->getArrayCentros() as $centro ){
+                array_combine($user,$centro->getUsuarios());
+            }
+        }
+        
+        return $this->render('user/list.html.twig', ['user' => $user]);
+        }
+
+        return $this->render('user/list.html.twig', ['user' => $user]);
+    }
+
+    /**
+     * @Route("/users/empresa/{id<\d+>}", name="users_emp")
+     */
+    public function usersEmp($id)
+    {
+        $user = [];
+        if($this->getUser()->getEmpresa()->getId() == $id){
+            $empresa = $this->getDoctrine()
+            ->getRepository(Empresa::class)
+            ->find($id);
+
+        $user = $empresa->getUsers();
+        
+
+        foreach($empresa->getArrayCentros() as $centro ){
+                array_combine($user,$centro->getUsuarios());
+        }
+        
+        return $this->render('user/list.html.twig', ['user' => $user]);
+        }
 
         return $this->render('user/list.html.twig', ['user' => $user]);
     }
