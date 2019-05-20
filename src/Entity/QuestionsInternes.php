@@ -61,6 +61,7 @@ class QuestionsInternes
     public function __construct()
     {
         $this->binomio = new ArrayCollection();
+        $this->aspecteQ = new ArrayCollection();
     }
 
     public function getNombre(): ?string

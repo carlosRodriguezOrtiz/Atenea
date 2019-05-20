@@ -138,11 +138,7 @@
 
 
     <div class="container ">
-<<<<<<< HEAD
         <section class="row ">
-=======
-    <section class="row ">
->>>>>>> d139f2844bee455159f263b1d0a7b3f1a3a3a0e4
             <div class="col-md-8"></div>
             <div class="col-md-4">
                 <div class="btn-group float-right mt-2 mb-3" role="group">
@@ -156,6 +152,7 @@
                     <h3 class="ml-3">
                         Debilidades</h3>
                 </div>
+                {# ============== #}
                 <div class="list">
                     <div class="item">
 
@@ -167,21 +164,16 @@
 
                                     <p class="ml-5">{{ qi.getQuestioInterna().getNombre() }}
 
-                                    </div>
-                                    <div class="options">
+                                </div>
+                                <div class="options">
 
 
-                                        <a>
-                                            <span class="icon-pencil-alt text-white"></a>
-                                            <a>
-                                                <span class="icon-trash-empty text-white"></a>
-
-                                            </div>
+                                </div>
 
 
-                                        {% endfor %}
+                            {% endfor %}
 
-                                    </div>
+                                </div>
 
 
                                     <input class="boton-debilidades" href="" type="button" value="+ Nueva debilidad"></input>
@@ -189,7 +181,7 @@
                             </div>
                         </div>
                     </div>
-
+                {# END LIST #}
 
                     <div class="col md-6  pr-0 pl-0 tabladafoAmenazas">
                         <div class=" colorAmenazas">
@@ -318,41 +310,41 @@
 
 
             {# 
-                                            <table>
-                                                <thead>
-                                                    <tr>
-                                                        <th>Questiones Internas</th>
-                                                        <th>Questiones Externas</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td>
-                                                            <h1>Debilidades</h1>
-                                                            {% for qi in debilitats %}
-                                                                <p>{{ qi.getQuestioInterna().getNombre() }}</p>
-                                                            {% endfor %}
-                                                        </td>
-                                                        <td>
-                                                            <h1>Amenazas</h1>
-                                                            {% for qe in amenaces %}
-                                                                <p>{{ qe.getQuestioExterna().getNombre() }}</p>
-                                                            {% endfor %}
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <h1>Fortalezas</h1>
-                                                            {% for qi in fortaleses %}
-                                                                <p>{{ qi.getQuestioInterna().getNombre() }}</p>
-                                                            {% endfor %}
-                                                        </td>
-                                                        <td>
-                                                            <h1>Oportunidades</h1>
-                                                            {% for qe in oportunitats %}
-                                                                <p>{{ qe.getQuestioExterna().getNombre() }}</p>
-                                                            {% endfor %}
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table> #}
+                                                        <table>
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Questiones Internas</th>
+                                                                    <th>Questiones Externas</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>
+                                                                        <h1>Debilidades</h1>
+                                                                        {% for qi in debilitats %}
+                                                                            <p>{{ qi.getQuestioInterna().getNombre() }}</p>
+                                                                        {% endfor %}
+                                                                    </td>
+                                                                    <td>
+                                                                        <h1>Amenazas</h1>
+                                                                        {% for qe in amenaces %}
+                                                                            <p>{{ qe.getQuestioExterna().getNombre() }}</p>
+                                                                        {% endfor %}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        <h1>Fortalezas</h1>
+                                                                        {% for qi in fortaleses %}
+                                                                            <p>{{ qi.getQuestioInterna().getNombre() }}</p>
+                                                                        {% endfor %}
+                                                                    </td>
+                                                                    <td>
+                                                                        <h1>Oportunidades</h1>
+                                                                        {% for qe in oportunitats %}
+                                                                            <p>{{ qe.getQuestioExterna().getNombre() }}</p>
+                                                                        {% endfor %}
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table> #}
