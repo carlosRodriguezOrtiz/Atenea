@@ -159,16 +159,16 @@
                                             <div class="row">{# MODIFICAR EL FOR ============ #}
                                                 {# {% for qi in debilitats %}
                 <div class="titulo">
-                                                                                    <p class="ml-5">{{ qi.getQuestioInterna().getNombre() }}
-                                                                                </div>
-                                                                                <div class="options"></div>
+        <p class="ml-5">{{ qi.getQuestioInterna().getNombre() }}
+    </div>
+    <div class="options"></div>
             {% endfor %} #}
                                             </div>
                                             <form action="{{ path('aspectes_ce_corporacionCrear', { 'id' : id }) }}" method="post">
                                                 <input name="debilidad" type="text" value=""/>
                                                 <input class="hidden" name="hidden" type="hidden" value=""/>
                                                 <input class="boton-debilidades" href="" type="submit" value="+ Nueva debilidad"></input>
-                                        </form>
+                                            </form>
                                     </div>
                                 </div>
                             </div>
@@ -190,7 +190,7 @@
                                             <input name="fortaleza" type="text" value=""/>
                                             <input class="hidden" name="hidden" type="hidden" value=""/>
                                             <input class="boton-fortalezas" href="" type="submit" value="+ Nueva fortaleza"></input>
-                                    </form>
+                                        </form>
                                 </div>
                             </div>
                         </div>
@@ -216,7 +216,7 @@
                                         <input name="amenaza" type="text" value=""/>
                                         <input class="hidden" name="hidden" type="hidden" value=""/>
                                         <input class="boton-amenazas" href="" type="submit" value="+  Nueva amenaza"></input>
-                                </form>
+                                    </form>
                             </div>
                         </div>
                     </div>
@@ -235,7 +235,6 @@
                                 {% endfor %} #}
                                 </div>
                                 <form action="{{ path('aspectes_ce_corporacionCrear', { 'id' : id }) }}" method="post">
-
                                     <input name="oportunidad" type="text" value=""/>
                                     <input class="hidden" name="hidden" type="hidden" value=""/>
                                     <input class="boton-oportunidades" href="" type="submit" value="+ Nueva oportunidad"></input>

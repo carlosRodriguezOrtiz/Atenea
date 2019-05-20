@@ -158,18 +158,16 @@ class AspectesQController extends AbstractController
 
         if (isset($_POST['hidden'])) {
 
-            var_dump($_POST);
-            exit();
-            $empresas = $form->getData();
+            var_dump($_POST['amenaza']);
 
-            $empresa2 = $this->getDoctrine()->getRepository(Empresa::class)->findByNombre($empresas->getNombre());
+            $aspectoQ->setDescripcio($_POST['amenaza']);
+            $aspectoQ->setNom($_POST['amenaza']);
+            $aspectoQ->setDafo("A");
+            $aspectoQ->setDafo("A");
+                $corporacion=$this->getDoctrine()->getRepository(QuestionsExternes::class)->find($id);
 
-
-            if (sizeof($empresa2) == 0) {
-                $corporacion=$this->getDoctrine()->getRepository(Corporacion::class)->find($id);
-                $empresas->setCorporaciones($corporacion);
                 $entityManager = $this->getDoctrine()->getManager();
-                $entityManager->persist($empresas);
+                $entityManager->persist($aspectoQ);
                 $entityManager->flush();
 
                 $this->addFlash(
@@ -199,4 +197,3 @@ class AspectesQController extends AbstractController
 
 
 
-}
