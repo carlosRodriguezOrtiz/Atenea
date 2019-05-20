@@ -49,7 +49,7 @@ class User implements AdvancedUserInterface, \Serializable
     private $role;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Corporacion", inversedBy="users")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Corporacion", inversedBy="usuarios")
      */
     private $corporacion;
 
