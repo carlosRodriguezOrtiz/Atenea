@@ -114,7 +114,7 @@ class CorporacionController extends AbstractController
         $corporaciones = $this->getDoctrine()
             ->getRepository(Corporacion::class)
             ->find($id);
-
+            $avisoCreacion = "";
        
         $form = $this->createForm(CorporacionesType::class, $corporaciones, array('submit'=>'Desar'));
         $form->add('FechaAlta', DateType::class, array(
