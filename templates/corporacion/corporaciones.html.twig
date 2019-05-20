@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 {% block title %}
-    {{ title }}{% endblock %}
+    {{ title }}
+{% endblock %}
 {% form_theme form 'bootstrap_4_layout.html.twig' %}
 {% block body %}
     <section class="bg-white text-black mt-3 mb-3">
@@ -9,7 +10,7 @@
                 <div class="col-md-8"></div>
                 <div class="col-md-4">
                     <div class="btn-group float-right mt-2 mb-3" role="group">
-                        <a class="btn btn-danger btn-md" href="{{ path('corporaciones_list') }}">&laquo; Torna</a>
+                        <a class="btn btn-danger btn-md" href="{{ path('corporaciones_list') }}">&laquo; Volver</a>
                     </div>
                 </div>
             </section>
@@ -18,7 +19,7 @@
                     <div class="col-sm-8">
                         <div class="card d-flex ">
                             <div class="card-header bg-danger text-white">
-                                 <h4>{{ title }}</h4>
+                                <h4>{{ title }}</h4>
                             </div>
                             <div class="card-body">
                                 <div class="col-12 ">
@@ -26,15 +27,14 @@
                                     {{ form_widget(form) }}
                                     {{ form_end(form ) }}
                                 </div>
-                                   {% if mensaje == "La corporacion ha sido creada" %}
-                        <p class=" text-success pl-3">{{mensaje}}</p>
-                            {% else %}
-                            <p class=" text-danger pl-3">{{mensaje}}</p>
+                                    {% if mensaje == "La corporacion ha sido creada" %}
+                                        <p class=" text-success pl-3">{{mensaje}}</p>
+                                    {% else %}
+                                        <p class=" text-danger pl-3">{{mensaje}}</p>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                                         
-                {% endif %}
+                        {% endif %}
                 </div>
             </div>
         </div>

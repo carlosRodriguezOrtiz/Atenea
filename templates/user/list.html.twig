@@ -7,12 +7,14 @@
             <section class="row">
                 <section class="col-md-12">
                 {#<a class="btn btn-primary btn-lg" href="{{ path('crearEmpresa') }}" style="margin: 10px;">Crear Usuario</a>#}
-                <a class="btn btn-danger btn-md" href="{{ path('inicio') }}" style="margin: 10px;">&laquo; Torna</a>
+                <a class="btn btn-danger btn-md" href="{{ path('inicio') }}" style="margin: 10px;">&laquo; Volver</a>
                     <table class="table">
                         <thead>
                             <tr>
                                 <th scope="col">ID</th>
                                 <th scope="col">Nombre Empresa</th>
+                                <th scope="col">Nombre Corporación</th>
+                                <th scope="col">Nombre Centro</th>
                                 <th scope="col">Nombre</th>
                                 <th scope="col">role</th>
                                 <th scope="col">email</th>
@@ -26,6 +28,16 @@
                                     <th scope="row">{{user.id}}</th>
                                 {% if user.empresa != null %}
                                     <td>{{ user.empresa.nombre}}</td>
+                                {% else %}
+                                <td></td>
+                                {% endif %}
+                                {% if user.corporacion != null %}
+                                    <td>{{ user.corporacion.nombre}}</td>
+                                {% else %}
+                                <td></td>
+                                {% endif %}
+                                {% if user.centro != null %}
+                                    <td>{{ user.centro.nombre}}</td>
                                 {% else %}
                                     <td></td>
                                 {% endif %}

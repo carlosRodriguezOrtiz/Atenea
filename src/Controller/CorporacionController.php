@@ -81,11 +81,11 @@ class CorporacionController extends AbstractController
     
                 $this->addFlash(
                     'notice',
-                    'Nova corporaciones ' . $corporaciones->getNombre() . ' creada!'
+                    'Nueva corporaciones ' . $corporaciones->getNombre() . ' creada!'
                 );
     
                 $corporacionCreada=true;
-                $avisoCreacion = "La corporacion ha sido creada";
+                $avisoCreacion = "La corporación ha sido creada con éxito.";
 
                 $corporaciones = new Corporacion();
                 $form = $this->createForm(corporacionesType::class, $corporaciones, array('submit' => 'Crear Corporación'));
@@ -93,17 +93,14 @@ class CorporacionController extends AbstractController
 
             } else {
                 $corporacionCreada=false;
-                $avisoCreacion = "La empresa ya existe , porfavor introduzca una nueva";
-
-              
-    
+                $avisoCreacion = "La empresa ya existe, porfavor introduzca una nueva.";
             }
           
         }
 
         return $this->render('corporacion/corporaciones.html.twig', array(
             'form' => $form->createView(),
-            'title' => 'Nueva corporacion',
+            'title' => 'Nueva corporación',
             'mensaje' => $avisoCreacion,
         ));
            
@@ -117,7 +114,7 @@ class CorporacionController extends AbstractController
         $corporaciones = $this->getDoctrine()
             ->getRepository(Corporacion::class)
             ->find($id);
-
+            $avisoCreacion = "";
        
         $form = $this->createForm(CorporacionesType::class, $corporaciones, array('submit'=>'Desar'));
         $form->add('FechaAlta', DateType::class, array(
@@ -132,8 +129,9 @@ class CorporacionController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $corporaciones = $form->getData();
-            
-       
+            $corporacionModificada = $this->getDoctrine()->getRepository(Corporacion::class)->findByNombre($corporaciones->getNombre());
+
+            if(sizeof($corporacionModificada)== 0 ){
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($corporaciones);
@@ -141,15 +139,24 @@ class CorporacionController extends AbstractController
 
             $this->addFlash(
                 'notice',
-                'Corporaciones '.$corporaciones->getNombre().' desada!'
+                'Corporaciones '.$corporaciones->getNombre().' modificadas!'
             );
 
-            return $this->redirectToRoute('corporaciones_list');
+            $corporacionModificada=true;
+                $avisoCreacion = "La corporación ha sido modificada con éxito.";
+
+            } else {
+                $corporacionModificada=false;
+                $avisoCreacion = "La empresa no se ha podido modificar.";
+            }
+
+            // return $this->redirectToRoute('corporaciones_list');
         }
 
         return $this->render('corporacion/corporaciones.html.twig', array(
             'form' => $form->createView(),
             'title' => 'Editar corporaciones',
+            'mensaje' => $avisoCreacion,
         ));
     }
 
@@ -164,9 +171,9 @@ class CorporacionController extends AbstractController
             ->find($id);
 
         $empresas=$corporacion->getArrayEmpresa();   
-        $usuarios = $corporacion->getUsuarios();
-       if(!$usuarios == null){
-           $mensajeErrorFK="Error, no se ha podido eliminar esta corporación. Contiene uno o varios usuarios, por favor primero elimina esos usuarios.";
+        $usuarios = $corporacion->getUsers();
+       if(sizeof($usuarios) !=0){
+           $mensajeErrorFK="Error, no se ha podido eliminar esta corporación. Contiene uno o varios usuarios, por favor elimine préviamente los usuarios.";
         } else{
             if($empresas->isEmpty()){
 
@@ -181,7 +188,7 @@ class CorporacionController extends AbstractController
                 );
         
                 }else {
-                    $mensajeErrorFK="Error, no se ha podido eliminar esta corporación. Contiene una o varias empresas, por favor primero elimina esas empresas.";
+                    $mensajeErrorFK="Error, no se ha podido eliminar esta corporación. Contiene una o varias empresas, por favor elimine préviamente las empresas.";
                 }
         }
         return $this->redirectToRoute('corporaciones_list', array(
