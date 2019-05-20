@@ -112,7 +112,7 @@ class CentroController extends AbstractController
         $centros = $this->getDoctrine()
             ->getRepository(Centro::class)
             ->find($id);
-
+            $avisoCreacion = "";
        
         $form = $this->createForm(CentrosType::class, $centros, array('submit'=>'Desar'));
         $form->add('FechaAlta', DateType::class, array(

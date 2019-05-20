@@ -29,14 +29,16 @@
                                 {% if user.empresa != null %}
                                     <td>{{ user.empresa.nombre}}</td>
                                 {% else %}
+                                <td></td>
                                 {% endif %}
                                 {% if user.corporacion != null %}
                                     <td>{{ user.corporacion.nombre}}</td>
                                 {% else %}
-                                {# {% endif %}
+                                <td></td>
+                                {% endif %}
                                 {% if user.centro != null %}
                                     <td>{{ user.centro.nombre}}</td>
-                                {% else %} #}
+                                {% else %}
                                     <td></td>
                                 {% endif %}
                                     <td>{{ user.username }}</td>
