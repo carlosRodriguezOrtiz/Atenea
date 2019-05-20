@@ -42,14 +42,15 @@ class AspecteQ
     private $descripcio;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\QuestionsExternes", inversedBy="aspecteQ")
+     * @ORM\OneToOne(targetEntity="App\Entity\QuestionsExternes", inversedBy="aspecteQ", cascade={"persist", "remove"})
      */
-    private $questionsExternes;
+    private $questioExterna;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\QuestionsInternes", inversedBy="aspecteQ")
+     * @ORM\OneToOne(targetEntity="App\Entity\QuestionsInternes", inversedBy="aspecteQ", cascade={"persist", "remove"})
      */
-    private $questionsInternes;
+    private $questioInterna;
+
 
     public function getId(): ?int
     {
@@ -116,26 +117,26 @@ class AspecteQ
         return $this;
     }
 
-    public function getQuestionsExternes(): ?QuestionsExternes
+    public function getQuestioExterna(): ?QuestionsExternes
     {
-        return $this->questionsExternes;
+        return $this->questioExterna;
     }
 
-    public function setQuestionsExternes(?QuestionsExternes $questionsExternes): self
+    public function setQuestioExterna(?QuestionsExternes $questioExterna): self
     {
-        $this->questionsExternes = $questionsExternes;
+        $this->questioExterna = $questioExterna;
 
         return $this;
     }
 
-    public function getQuestionsInternes(): ?QuestionsInternes
+    public function getQuestioInterna(): ?QuestionsInternes
     {
-        return $this->questionsInternes;
+        return $this->questioInterna;
     }
 
-    public function setQuestionsInternes(?QuestionsInternes $questionsInternes): self
+    public function setQuestioInterna(?QuestionsInternes $questioInterna): self
     {
-        $this->questionsInternes = $questionsInternes;
+        $this->questioInterna = $questioInterna;
 
         return $this;
     }

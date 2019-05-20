@@ -320,7 +320,7 @@ class QuestionsExternesController extends AbstractController
 
         }
     
-        return $this->render('questions_externes/edit.qe.centro.html.twig', [
+        return $this->render('questions_externes/edit.qe.corporacion.html.twig', [
             'title' => 'Edit QE',
             'qe' => $qe,
             'tiposQE' => $tiposQE,
@@ -331,16 +331,20 @@ class QuestionsExternesController extends AbstractController
     }
     
     /**
-     * @Route("/questionsexternes/dte/{id<\d+>}/{idQe<\d+>}", name="qe_delete")
+     * @Route("/questionsexternes/deleteCorporacion/{id<\d+>}/{idQe<\d+>}", name="qe_delete_corporacion")
      */
-    public function delete($id, $idQe)
+    public function deleteCorporacion($id, $idQe)
     {
-            $qe = $this->getDoctrine()
-            ->getRepository(QuestionsExternes::class)
-            ->findAll();
+        $qeCorporacion = $this->getDoctrine()
+        ->getRepository(QuestionsExternes::class)
+        ->find($idQe);
         
-            // return $this->render('questions_externes/list.html.twig', ['qes' => $qe]);
-            return $this->render('questions_externes/delete.qe.empresa.html.twig', ['qes' => $qe, 'id' => $id]);
+   
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($qeCorporacion);
+        $entityManager->flush();
+        // return $this->render('questions_externes/list.html.twig', ['qes' => $qe]);
+        return $this->redirectToRoute('qe_listCorporacion', ['qes' => $qeCorporacion, 'id' => $id]);
 
 
             

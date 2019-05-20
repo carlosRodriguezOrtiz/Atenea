@@ -122,7 +122,7 @@
                 <div class="col-md-8"></div>
                 <div class="col-md-4">
                     <div class="btn-group float-right mt-2 mb-3" role="group">
-                        <a class="btn btn-danger btn-md" href="">&laquo; Volver</a>
+                        <a class="btn btn-danger btn-md" href="{{ path('gestion_contextoEmpresa', { 'id' : id }) }}">&laquo; Volver</a>
                     </div>
                 </div>
             </section>
@@ -164,7 +164,7 @@
     <div class="options"></div>
             {% endfor %} #}
                                             </div>
-                                            <form action="{{ path('aspectes_ce_corporacionCrear', { 'id' : id }) }}" method="post">
+                                            <form action="{{ path('aspectes_ci_empresaCrear', { 'id' : id }) }}" method="post">
                                                 <input name="debilidad" type="text" value=""/>
                                                 <input class="hidden" name="hidden" type="hidden" value=""/>
                                                 <input class="boton-debilidades" href="" type="submit" value="+ Nueva debilidad"></input>
@@ -186,7 +186,7 @@
                                             <div class="options"></div>
                                         {% endfor %} #}
                                         </div>
-                                        <form action="{{ path('aspectes_ce_corporacionCrear', { 'id' : id }) }}" method="post">
+                                        <form action="{{ path('aspectes_ci_empresaCrear', { 'id' : id }) }}" method="post">
                                             <input name="fortaleza" type="text" value=""/>
                                             <input class="hidden" name="hidden" type="hidden" value=""/>
                                             <input class="boton-fortalezas" href="" type="submit" value="+ Nueva fortaleza"></input>
@@ -212,7 +212,7 @@
                                         <div class="options"></div>
                                     {% endfor %} #}
                                     </div>
-                                    <form action="{{ path('aspectes_ce_corporacionCrear', { 'id' : id }) }}" method="post">
+                                    <form action="{{ path('aspectes_ce_empresaCrear', { 'id' : id }) }}" method="post">
                                         <input name="amenaza" type="text" value=""/>
                                         <input class="hidden" name="hidden" type="hidden" value=""/>
                                         <input class="boton-amenazas" href="" type="submit" value="+  Nueva amenaza"></input>
@@ -234,7 +234,7 @@
                                     <div class="options"></div>
                                 {% endfor %} #}
                                 </div>
-                                <form action="{{ path('aspectes_ce_corporacionCrear', { 'id' : id }) }}" method="post">
+                                <form action="{{ path('aspectes_ce_empresaCrear', { 'id' : id }) }}" method="post">
                                     <input name="oportunidad" type="text" value=""/>
                                     <input class="hidden" name="hidden" type="hidden" value=""/>
                                     <input class="boton-oportunidades" href="" type="submit" value="+ Nueva oportunidad"></input>

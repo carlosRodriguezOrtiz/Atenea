@@ -89,6 +89,24 @@ class QuestionsInternesController extends AbstractController
       
     }
 
+    /**
+     * @Route("/questionsinternes/deleteCorporacion/{id<\d+>}/{idQi<\d+>}", name="qi_deleteCorporacion")
+     */
+    public function deleteCorporacion($id, $idQi)
+    {
+            $qiCorporacion = $this->getDoctrine()
+            ->getRepository(QuestionsInternes::class)
+            ->find($idQi);
+            
+       
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($qiCorporacion);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('qi_listCorporacion', ['qis' => $qiCorporacion, 'id' => $id]);
+      
+    }
+
        /**
      * @Route("/questionsinternesEmpresas/edit/{id<\d+>}/{idQi<\d+>}", name="qi_edit_empresa")
      */
@@ -175,15 +193,59 @@ class QuestionsInternesController extends AbstractController
         ));
     }
 
+          /**
+     * @Route("/questionsinternesCorporacion/edit/{id<\d+>}/{idQi<\d+>}", name="qi_edit_corporacion")
+     */
+    public function editQICorporacion($id, $idQi, Request $request)
+    {
+       
+        $corporacion = $this->getDoctrine()
+            ->getRepository(QuestionsInternes::class)
+            ->find($idQi);
+      
+
+
+        $form = $this->createForm(QuestionsInternesType::class, $corporacion, array('submit' => 'Desar'));
+        $form->add('FechaAlta', DateType::class, array(
+            "widget" => 'single_text',
+            "format" => 'yyyy-MM-dd'
+        ));
+
+
+        $form->handleRequest($request);
+       
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $corporacion = $form->getData();
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($corporacion);
+            $entityManager->flush();
+
+            $this->addFlash(
+                'notice',
+                'Centros ' . $corporacion->getNombre() . ' desada!'
+            );
+
+            return $this->redirectToRoute('qi_listCorporacion', array('id' => $id));
+        }
+
+        return $this->render('questions_internes/edit.qi.corporacion.html.twig', array(
+            'form' => $form->createView(),
+            'title' => 'Editar centros de QI',
+            'id' => $id
+        ));
+    }
+
 
     /**
      * @Route("/questionsinternesEmpresa/new/{id<\d+>}", name="crearQiEmpresa")
      */
     public function newQiEmpresa($id, Request $request)
     {
-        $QI = new QuestionsInternes();
+        $qi = new QuestionsInternes();
 
-        $form = $this->createForm(QuestionsInternesType::class , $QI, array ('submit'=>'Crear QI'));
+        $form = $this->createForm(QuestionsInternesType::class , $qi, array ('submit'=>'Crear QI'));
 
         $form->handleRequest($request);
 
@@ -194,6 +256,7 @@ class QuestionsInternesController extends AbstractController
 
             $qi = $form->getData();
             $qi->setEmpresa($empresa);
+            // $qi->setAspecteQ(null);
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($qi);
@@ -201,7 +264,7 @@ class QuestionsInternesController extends AbstractController
 
             $this->addFlash(
                 'notice',
-                'Nova QI '.$QI->getNombre() .' creada!'
+                'Nova QI '.$qi->getNombre() .' creada!'
             );
 
             // return $this->redirectToRoute('login'); 
@@ -232,7 +295,7 @@ class QuestionsInternesController extends AbstractController
 
             $qi = $form->getData();
             $qi->setCentro($centro);
-
+            $qi->setAspecteQ(null);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($qi);
             $entityManager->flush();
