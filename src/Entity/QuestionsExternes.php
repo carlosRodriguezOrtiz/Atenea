@@ -53,6 +53,16 @@ class QuestionsExternes
      */
     private $empresa;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Centro")
+     */
+    private $centro;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Corporacion")
+     */
+    private $corporacion;
+
     public function __construct()
     {
         $this->binomio = new ArrayCollection();
@@ -168,6 +178,30 @@ class QuestionsExternes
     public function setEmpresa(?Empresa $empresa): self
     {
         $this->empresa = $empresa;
+
+        return $this;
+    }
+
+    public function getCentro(): ?Centro
+    {
+        return $this->centro;
+    }
+
+    public function setCentro(?Centro $centro): self
+    {
+        $this->centro = $centro;
+
+        return $this;
+    }
+
+    public function getCorporacion(): ?Corporacion
+    {
+        return $this->corporacion;
+    }
+
+    public function setCorporacion(?Corporacion $corporacion): self
+    {
+        $this->corporacion = $corporacion;
 
         return $this;
     }

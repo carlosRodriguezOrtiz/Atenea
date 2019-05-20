@@ -164,10 +164,10 @@ class CorporacionController extends AbstractController
             ->find($id);
 
         $empresas=$corporacion->getArrayEmpresa();   
-        //$usuarios = $corporacion->getUsuarios();
-       // if(!$usuarios->isEmpty()){
-         //   $mensajeErrorFK="Error, no se ha podido eliminar esta corporación. Contiene uno o varios usuarios, por favor primero elimina esos usuarios.";
-        //} else{
+        $usuarios = $corporacion->getUsuarios();
+       if(!$usuarios == null){
+           $mensajeErrorFK="Error, no se ha podido eliminar esta corporación. Contiene uno o varios usuarios, por favor primero elimina esos usuarios.";
+        } else{
             if($empresas->isEmpty()){
 
                 $entityManager = $this->getDoctrine()->getManager();
@@ -183,7 +183,7 @@ class CorporacionController extends AbstractController
                 }else {
                     $mensajeErrorFK="Error, no se ha podido eliminar esta corporación. Contiene una o varias empresas, por favor primero elimina esas empresas.";
                 }
-        //}
+        }
         return $this->redirectToRoute('corporaciones_list', array(
             'mensaje'=>$mensajeErrorFK,
             )

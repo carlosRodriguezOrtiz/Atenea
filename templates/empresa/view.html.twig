@@ -8,7 +8,6 @@
                 <section class="col-md-12">
                <h1 style="margin: 10px; text-align: center; text-decoration: underline;"> {{ empresa.nombre }}</h1>
                <h3 style="text-decoration: underline;">Información </h3>
-                
                 <section>
                 Nombre: {{ empresa.nombre }}
                 </section>
@@ -22,7 +21,7 @@
                 Descripcion: {{ empresa.descripcion }} #}
                 </section>
                 <a class="btn btn-primary btn-lg" href="{{ path('centros_new', {'id': empresa.id}) }}" style="margin: 10px;">Añadir centro</a>
-                <a class="btn btn-danger btn-md" href="{{ path('empresas_list') }}">&laquo; Torna</a>
+                <a class="btn btn-danger btn-md" href="{{ path('inicio') }}">&laquo; Torna</a>
                  <h4 style="text-decoration: underline;">Centros</h4>
                 
                     <table class="table">
