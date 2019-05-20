@@ -127,8 +127,9 @@ class CentroController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $centros = $form->getData();
+            $centroModificado = $this->getDoctrine()->getRepository(Centro::class)->findByNombre($centros->getNombre());
             
-       
+            if(sizeof($centroModificado)== 0 ){
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($centros);
@@ -136,15 +137,24 @@ class CentroController extends AbstractController
 
             $this->addFlash(
                 'notice',
-                'Centros '.$centros->getNombre().' desada!'
+                'Centros '.$centros->getNombre().' modificados!'
             );
 
-            return $this->redirectToRoute('centros_list');
+            $centroModificado=true;
+                $avisoCreacion = "El centro ha sido modificado con éxito.";
+
+            } else {
+                $centroModificado=false;
+                $avisoCreacion = "El centro no se ha podido modificar.";
+            }
+
+            //return $this->redirectToRoute('centros_list');
         }
 
         return $this->render('centro/centros.html.twig', array(
             'form' => $form->createView(),
             'title' => 'Editar centros',
+            'mensaje' => $avisoCreacion,
         ));
     }
 
