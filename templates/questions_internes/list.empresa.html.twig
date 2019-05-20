@@ -27,8 +27,8 @@
                                     <th scope="row">{{questions_internes.tipus.descripcion}}</th>
  
                                     <td>
-                         {# <a </span href="{{ path('empresa_edit', {'id': empresa.id}) }}" <span class="icon-pencil-alt text-black">Edit</a>
-                         <a </span href="{{ path('empresa_delete', {'id': empresa.id}) }}" <span class="icon-trash-empty text-black">Eliminar</a> #}
+                                        <a </span href="{{ path('qi_edit_empresa', {'id' : id, 'idQi': questions_internes.id}) }}" <span class="icon-pencil-alt text-black">Edit</a>
+                                        <a </span href="{{ path('qi_deleteEmpresa', {'id' : id, 'idQi': questions_internes.id}) }}" <span class="icon-trash-empty text-black">Eliminar</a>
                                     </td>
                                 </tr>
                             {% endfor %}

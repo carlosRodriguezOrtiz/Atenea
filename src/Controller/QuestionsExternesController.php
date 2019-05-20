@@ -63,6 +63,8 @@ class QuestionsExternesController extends AbstractController
 
     }
 
+
+
     /**
      * @Route("/questionsexternesEmpresas/new/{id<\d+>}", name="crearQeEmpresa")
      */
@@ -148,6 +150,7 @@ class QuestionsExternesController extends AbstractController
     }
     
 
+
     /**
      * @Route("/questionsexternesCentro/new/{id<\d+>}", name="crearQeCentro")
      */
@@ -190,6 +193,8 @@ class QuestionsExternesController extends AbstractController
             'id' => $id,
         ));
     }
+
+ 
 
     /**
      * @Route("/questionsexternesEmpresas/edit/{id<\d+>}/{idQe<\d+>}", name="qe_edit_empresa")
@@ -326,15 +331,56 @@ class QuestionsExternesController extends AbstractController
     }
     
     /**
-     * @Route("/questionsexternes/delete/{id<\d+>}", name="qe_delete")
+     * @Route("/questionsexternes/dte/{id<\d+>}/{idQe<\d+>}", name="qe_delete")
      */
-    public function delete($id)
+    public function delete($id, $idQe)
     {
             $qe = $this->getDoctrine()
             ->getRepository(QuestionsExternes::class)
             ->findAll();
         
-            return $this->render('questions_externes/list.html.twig', ['qes' => $qe]);
+            // return $this->render('questions_externes/list.html.twig', ['qes' => $qe]);
+            return $this->render('questions_externes/delete.qe.empresa.html.twig', ['qes' => $qe, 'id' => $id]);
+
+
+            
+    }
+
+     /**
+     * @Route("/questionsexternes/deleteCentro/{id<\d+>}/{idQe<\d+>}", name="qe_deleteCentro")
+     */
+    public function deleteCentro($id, $idQe)
+    {
+            $qeCentro = $this->getDoctrine()
+            ->getRepository(QuestionsExternes::class)
+            ->find($idQe);
+            
+       
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($qeCentro);
+            $entityManager->flush();
+            // return $this->render('questions_externes/list.html.twig', ['qes' => $qe]);
+            return $this->redirectToRoute('qe_listCentros', ['qes' => $qeCentro, 'id' => $id]);
+      
+    }
+
+
+         /**
+     * @Route("/questionsexternes/deleteEmpresa/{id<\d+>}/{idQe<\d+>}", name="qe_deleteEmpresa")
+     */
+    public function deleteEmpresa($id, $idQe)
+    {
+            $qeEmpresa = $this->getDoctrine()
+            ->getRepository(QuestionsExternes::class)
+            ->find($idQe);
+            
+       
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($qeEmpresa);
+            $entityManager->flush();
+            // return $this->render('questions_externes/list.html.twig', ['qes' => $qe]);
+            return $this->redirectToRoute('qe_listEmpresas', ['qes' => $qeEmpresa, 'id' => $id]);
+      
     }
 
 
