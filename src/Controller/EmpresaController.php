@@ -30,23 +30,31 @@ class EmpresaController extends AbstractController
      */
     function list() {
         $usuariActual = $this->getUser();
-
         $userDB = $this->getDoctrine()
             ->getRepository(User::class)
             ->find($usuariActual->getId());
-
         if ($userDB->getRole()->getNombre() == "ROLE_ADMIN") {
+        if($this->getUser()->getCorporacion()==null && $this->getUser()->getEmpresa()){
+          $empresas = $this->getDoctrine()
+            ->getRepository(Empresa::class)
+            ->findAll();
 
-            $empresas = $this->getDoctrine()
-                ->getRepository(Empresa::class)
-                ->findAll();
+        if (isset($_REQUEST['mensaje']) && $_REQUEST['mensaje'] != "") {
+            return $this->render('empresa/list.html.twig', ['empresas' => $empresas, 'mensaje' => $_REQUEST['mensaje']]);
+              } else {
+            return $this->render('empresa/list.html.twig', ['empresas' => $empresas, 'mensaje' => " "]);
+        }
+            }else{
+                $id = $this->getUser()->getCorporacion()->getId();
+                $corp = $this->getDoctrine()
+                        ->getRepository(Corporacion::class)
+                        ->find($id);
+                        $empresas = $corp->getArrayEmpresa();
 
-            if (isset($_REQUEST['mensaje']) && $_REQUEST['mensaje'] != "") {
-                return $this->render('empresa/list.html.twig', ['empresas' => $empresas, 'mensaje' => $_REQUEST['mensaje']]);
-            } else {
-                return $this->render('empresa/list.html.twig', ['empresas' => $empresas, 'mensaje' => " "]);
-            }
-
+                        var_dump(sizeof($empresas));
+            $mensaje="";
+                        return $this->render('empresa/list.html.twig', ['empresas' => $empresas, 'mensaje' => $mensaje]);
+}
         } else {
             return $this->render('empresa/list.html.twig', ['empresa' => $userDB->getEmpresa(), 'mensaje' => " "]);
 
@@ -65,52 +73,15 @@ class EmpresaController extends AbstractController
 
         return $this->render('empresa/view.html.twig', ['empresa' => $empresa, 'centros' => $empresa->getArrayCentros()]);
     }
-
-   /**
-     * @Route("/empresa/new/{id<\d+>}", name="empresas_new")
-     */
-    function new ($id, Request $request) {
-        $empresas = new Empresa();
-
-        $form = $this->createForm(EmpresasType::class, $empresas, array('submit' => 'Crear Empresa'));
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $empresas = $form->getData();
-
-            $corporaciones = $this->getDoctrine()
-                ->getRepository(Corporacion::class)
-                ->find($id);
-
-            $empresas->setCorporaciones($corporaciones);
-
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($empresas);
-            $entityManager->flush();
-
-            $this->addFlash(
-                'notice',
-                'Nova empresas ' . $empresas->getNombre() . ' creada!'
-            );
-
-            return $this->redirectToRoute('corporaciones_list');
-        }
-
-        return $this->render('empresa/empresas.html.twig', array(
-            'form' => $form->createView(),
-            'title' => 'Nova empresa',
-        ));
-    }
-
-    /**
+    
+/**
      * @Route("/empresa/new", name="crearEmpresa")
      */
     public function newEmpresa(Request $request)
     {
         $empresas = new Empresa();
-
+        $empresaCreada=false;
+        $avisoCreacion = "";
         $form = $this->createForm(EmpresasType::class, $empresas, array('submit' => 'Crear Empresa'));
 
         $form->handleRequest($request);
@@ -119,23 +90,45 @@ class EmpresaController extends AbstractController
 
             $empresas = $form->getData();
 
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($empresas);
-            $entityManager->flush();
+            $empresa2 = $this->getDoctrine()->getRepository(Empresa::class)->findByNombre($empresas->getNombre());
+           
 
-            $this->addFlash(
-                'notice',
-                'Nova empresas ' . $empresas->getNombre() . ' creada!'
-            );
+            if(sizeof($empresa2)== 0 ){
+               
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($empresas);
+                $entityManager->flush();
+    
+                $this->addFlash(
+                    'notice',
+                    'Nova empresas ' . $empresas->getNombre() . ' creada!'
+                );
+    
+                $empresaCreada=true;
+                $avisoCreacion = "La empresa ha sido creada";
 
-            return $this->redirectToRoute('crearEmpresa');
+                $empresas = new Empresa();
+                $form = $this->createForm(EmpresasType::class, $empresas, array('submit' => 'Crear Empresa'));
+
+
+            } else {
+                $empresaCreada=false;
+                $avisoCreacion = "La empresa ya existe , porfavor introduzca una nueva";
+
+              
+    
+            }
+          
         }
-
-        return $this->render('empresa/empresas.html.twig', array(
-            'form' => $form->createView(),
-            'title' => 'Nova empresa',
-        ));
+             return $this->render('empresa/empresas.html.twig', array(
+                'form' => $form->createView(),
+                'title' => 'Nova empresa', 
+                'mensaje' => $avisoCreacion,
+            )); 
     }
+  
+
+
 
     /**
      * @Route("/empresa/edit/{id<\d+>}", name="empresa_edit")

@@ -33,7 +33,7 @@
                                     <td>{{ corporacion.fechaBaja|date('d-m-Y') }}</td>
                                     <td>{{ corporacion.descripcion }}</td>
                                     <td>
-                        <a class="btn btn-danger btn-md" href="{{ path('empresas_new', {'id': corporacion.id}) }}">Añadir empresa</a>
+                        <a class="btn btn-danger btn-md" href="{{ path('crearEmpresa', {'id': corporacion.id}) }}">Añadir empresa</a>
                                     </td>
                                        <td>
                          <a </span href="{{ path('corporacion_edit', {'id': corporacion.id}) }}" <span class="icon-pencil-alt text-black">Editar</a>
@@ -42,13 +42,13 @@
                                 </tr>
                                     
                             {% endfor %}
-                                                            
-
                         </tbody>
-                        
+                </table>
+                <div class="container">
+                     <p class=" text-black">{{ mensaje }}</p>
 
-                    </table>
-                    <span class=" text-black">{{ mensaje }}</span>
+                </div>
+
                 </section>
             </section>
         </section>

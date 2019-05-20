@@ -1,36 +1,42 @@
-{% extends 'base.html.twig' %}
-{% block title %}
-    {{ title }}{% endblock %}
-{% form_theme form 'bootstrap_4_layout.html.twig' %}
-{% block body %}
-    <section class="bg-white text-black mt-3 mb-3">
-        <div class="container ">
-            <section class="row ">
-                <div class="col-md-8"></div>
-                <div class="col-md-4">
-                    <div class="btn-group float-right mt-2 mb-3" role="group">
-                        <a class="btn btn-danger btn-md" href="{{ path('empresas_list') }}">&laquo; Torna</a>
+    {% extends 'base.html.twig' %}
+    {% block title %}
+        {{ title }}{% endblock %}
+    {% form_theme form 'bootstrap_4_layout.html.twig' %}
+    {% block body %}
+        <section class="bg-white text-black mt-3 mb-3">
+            <div class="container ">
+                <section class="row ">
+                    <div class="col-md-8"></div>
+                    <div class="col-md-4">
+                        <div class="btn-group float-right mt-2 mb-3" role="group">
+                            <a class="btn btn-danger btn-md" href="{{ path('empresas_list') }}">&laquo; Torna</a>
+                        </div>
                     </div>
-                </div>
-            </section>
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-sm-8">
-                        <div class="card d-flex ">
-                            <div class="card-header bg-danger text-white">
-                                 <h4>{{ title }}</h4>
-                            </div>
-                            <div class="card-body">
-                                <div class="col-12 ">
-                                    {{ form_start(form) }}
-                                    {{ form_widget(form) }}
-                                    {{  form_end(form ) }}
+                </section>
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-sm-8">
+                            <div class="card d-flex ">
+                                <div class="card-header bg-danger text-white">
+                                    <h4>{{ title }}</h4>
                                 </div>
-                            </div>
+                                <div class="card-body">
+                                    <div class="col-12 ">
+                                        {{ form_start(form) }}
+                                        {{ form_widget(form) }}
+                                        {{  form_end(form ) }}
+                                    </div>
+                                </div>
+                        {% if mensaje == "La empresa ha sido creada" %}
+                        <p class=" text-success pl-3">{{mensaje}}</p>
+                            {% else %}
+                            <p class=" text-danger pl-3">{{mensaje}}</p>
+                {% endif %}
+                          </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+    
     </section>
-{% endblock %}
+    {% endblock %}

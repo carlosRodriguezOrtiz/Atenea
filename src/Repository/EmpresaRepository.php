@@ -47,4 +47,14 @@ class EmpresaRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function findByNombre($value)
+    {
+        return $this->createQueryBuilder('e')
+            ->andWhere('e.nombre = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }

@@ -28,6 +28,11 @@
                                 </div>
                             </div>
                         </div>
+                         {% if mensaje == "El centro ha sido creado" %}
+                        <p class=" text-success pl-3">{{mensaje}}</p>
+                            {% else %}
+                            <p class=" text-danger pl-3">{{mensaje}}</p>
+                {% endif %}
                     </div>
                 </div>
             </div>
