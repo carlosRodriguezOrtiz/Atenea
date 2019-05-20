@@ -46,8 +46,6 @@ class EmpresaController extends AbstractController
                     ->getRepository(Corporacion::class)
                     ->find($id);
                 $empresas = $corp->getArrayEmpresa();
-
-                var_dump(sizeof($empresas));
                 $mensaje = "";
                 return $this->render('empresa/list.html.twig', ['empresas' => $empresas, 'mensaje' => $mensaje]);
             }
