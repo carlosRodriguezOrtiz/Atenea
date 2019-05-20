@@ -96,6 +96,19 @@ class QuestionsExternesRepository extends ServiceEntityRepository
         ;
     }
 
+    public function findByCorporacionIdAndQeId($idCorporacion, $idQe)
+    {
+        return $this->createQueryBuilder('q')
+            ->andWhere('q.corporacion = :idCorporacion')
+            ->andWhere('q.id = :idQe')
+            ->setParameter('idCorporacion', $idCorporacion)
+            ->setParameter('idQe', $idQe)
+            ->orderBy('q.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+    
     public function findByCorporacionId($value)
     {
         return $this->createQueryBuilder('q')

@@ -31,7 +31,7 @@
                             <a class="btn btn-secondary btn-lg" href="">Gestionar Personal</a>
                         {% elseif app.user.corporacion != null %}
                             <h1>{{app.user.corporacion.nombre}}</h1>
-                            <a class="btn btn-primary btn-lg" href="{{ path('gestion_contextoEmpresa', {id : app.user.corporacion.id}) }}">Gestionar Contexto de
+                            <a class="btn btn-primary btn-lg" href="{{ path('gestion_contextoCorporacion', {id : app.user.corporacion.id}) }}">Gestionar Contexto de
                                                                                     la organización Corporación</a>
                             <a class="btn btn-secondary btn-lg" href="">Gestionar Personal</a>
                         {% endif %}

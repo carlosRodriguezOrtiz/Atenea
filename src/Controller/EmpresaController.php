@@ -292,9 +292,6 @@ class EmpresaController extends AbstractController
                 }
             }
         }
-
-
-
         if (isset($_REQUEST['mensaje']) && $_REQUEST['mensaje'] != "") {
             return $this->render('emergente/list.html.twig', ['empresas' => $empresas, 'mensaje' => $_REQUEST['mensaje']]);
         } else if ($centros != null) {
