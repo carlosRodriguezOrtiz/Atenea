@@ -149,22 +149,6 @@ class QuestionsInternes
         return $this;
     }
 
-<<<<<<< HEAD
-    /**
-     * @return Collection|AspecteQ[]
-     */
-    public function getAspecteQ(): Collection
-    {
-        return $this->aspecteQ;
-    }
-
-    public function addAspecteQ(AspecteQ $aspecteQ): self
-    {
-        if (!$this->aspecteQ->contains($aspecteQ)) {
-            $this->aspecteQ[] = $aspecteQ;
-            $aspecteQ->setQuestionsInternes($this);
-        }
-=======
     public function getEmpresa(): ?Empresa
     {
         return $this->empresa;
@@ -173,22 +157,10 @@ class QuestionsInternes
     public function setEmpresa(?Empresa $empresa): self
     {
         $this->empresa = $empresa;
->>>>>>> d139f2844bee455159f263b1d0a7b3f1a3a3a0e4
 
         return $this;
     }
 
-<<<<<<< HEAD
-    public function removeAspecteQ(AspecteQ $aspecteQ): self
-    {
-        if ($this->aspecteQ->contains($aspecteQ)) {
-            $this->aspecteQ->removeElement($aspecteQ);
-            // set the owning side to null (unless already changed)
-            if ($aspecteQ->getQuestionsInternes() === $this) {
-                $aspecteQ->setQuestionsInternes(null);
-            }
-        }
-=======
     public function getCentro(): ?Centro
     {
         return $this->centro;
@@ -209,7 +181,6 @@ class QuestionsInternes
     public function setCorporacion(?Corporacion $corporacion): self
     {
         $this->corporacion = $corporacion;
->>>>>>> d139f2844bee455159f263b1d0a7b3f1a3a3a0e4
 
         return $this;
     }
