@@ -9,6 +9,9 @@
                 <section class="col-md-12">
                     <table class="table">
                     <a class="btn btn-danger btn-md" href="{{ path('inicio') }}">&laquo; Torna</a>
+                    {% if app.user.role.nombre == 'ROLE_ADMIN' %}
+                        <a class="btn btn-danger btn-md ml-3" href="{{ path('user_centro') }}">Registrar usuario Centro</a>
+                    {% endif %}
                     {#<a class="btn btn-primary btn-lg" href="{{ path('corporaciones_new') }}" style="margin: 10px;">Crear Centro</a>#}
                         <thead>
                             <tr>
