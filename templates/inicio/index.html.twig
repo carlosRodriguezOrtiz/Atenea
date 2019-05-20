@@ -23,13 +23,10 @@
                         {% endif %}
                     {% else %}
                         {% if app.user.empresa != null %}
-<<<<<<< HEAD
                             {# <a class="btn btn-primary btn-lg" href="{{ path('gestion_contexto', {id : app.user.empresa.id}) }}">Gestionar Contexto de la organización Empresa</a> #}
-=======
                             <h1>{{app.user.empresa.nombre}}</h1>
                             <a class="btn btn-primary btn-lg" href="{{ path('gestion_contextoEmpresa', {id : app.user.empresa.id}) }}">Gestionar Contexto de la
                                                                                     organización Empresa</a>
->>>>>>> d139f2844bee455159f263b1d0a7b3f1a3a3a0e4
                             <a class="btn btn-secondary btn-lg" href="">Gestionar Personal</a>
                         {% elseif app.user.corporacion != null %}
                             <h1>{{app.user.corporacion.nombre}}</h1>

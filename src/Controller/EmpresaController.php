@@ -75,6 +75,8 @@ class EmpresaController extends AbstractController
      */
     public function newEmpresa(Request $request)
     {
+        var_dump("HOla");
+        exit();
         $empresas = new Empresa();
         $empresaCreada = false;
         $avisoCreacion = "";
@@ -117,6 +119,53 @@ class EmpresaController extends AbstractController
         ));
     }
 
+        /**
+     * @Route("/empresa/new/{id<\d+>}", name="crearEmpresaCorp")
+     */
+    public function newEmpresaCorp($id,Request $request)
+    {
+        $empresas = new Empresa();
+        $empresaCreada = false;
+        $avisoCreacion = "";
+        $form = $this->createForm(EmpresasType::class, $empresas, array('submit' => 'Crear Empresa'));
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $empresas = $form->getData();
+
+            $empresa2 = $this->getDoctrine()->getRepository(Empresa::class)->findByNombre($empresas->getNombre());
+
+
+            if (sizeof($empresa2) == 0) {
+                $corporacion=$this->getDoctrine()->getRepository(Corporacion::class)->find($id);
+                $empresas->setCorporaciones($corporacion);
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($empresas);
+                $entityManager->flush();
+
+                $this->addFlash(
+                    'notice',
+                    'Nova empresas ' . $empresas->getNombre() . ' creada!'
+                );
+
+                $empresaCreada = true;
+                $avisoCreacion = "La empresa ha sido creada";
+
+                $empresas = new Empresa();
+                $form = $this->createForm(EmpresasType::class, $empresas, array('submit' => 'Crear Empresa'));
+            } else {
+                $empresaCreada = false;
+                $avisoCreacion = "La empresa ya existe , porfavor introduzca una nueva";
+            }
+        }
+        return $this->render('empresa/empresas.html.twig', array(
+            'form' => $form->createView(),
+            'title' => 'Nova empresa',
+            'mensaje' => $avisoCreacion,
+        ));
+    }
 
 
 

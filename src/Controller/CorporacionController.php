@@ -165,7 +165,7 @@ class CorporacionController extends AbstractController
 
         $empresas=$corporacion->getArrayEmpresa();   
         $usuarios = $corporacion->getUsuarios();
-       if(!$usuarios == null){
+       if($usuarios->isEmpty()){
            $mensajeErrorFK="Error, no se ha podido eliminar esta corporación. Contiene uno o varios usuarios, por favor primero elimina esos usuarios.";
         } else{
             if($empresas->isEmpty()){
