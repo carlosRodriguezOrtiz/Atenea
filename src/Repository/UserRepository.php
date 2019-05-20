@@ -37,6 +37,7 @@ class UserRepository extends ServiceEntityRepository
 
         return $user;
     }
+    
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, User::class);

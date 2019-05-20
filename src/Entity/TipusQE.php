@@ -105,7 +105,7 @@ class TipusQE
         return $this;
     }
 
-    public function removeQuestionsExterne(QuestionsExternes $questionsExterne): self
+    public function removeQuestionsExternes(QuestionsExternes $questionsExterne): self
     {
         if ($this->questionsExternes->contains($questionsExterne)) {
             $this->questionsExternes->removeElement($questionsExterne);

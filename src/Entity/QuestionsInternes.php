@@ -44,9 +44,19 @@ class QuestionsInternes
     private $binomio;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\AspecteQ", mappedBy="questionsInternes")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Empresa")
      */
-    private $aspecteQ;
+    private $empresa;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Centro")
+     */
+    private $centro;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Corporacion")
+     */
+    private $corporacion;
 
     public function __construct()
     {
@@ -139,6 +149,7 @@ class QuestionsInternes
         return $this;
     }
 
+<<<<<<< HEAD
     /**
      * @return Collection|AspecteQ[]
      */
@@ -153,10 +164,21 @@ class QuestionsInternes
             $this->aspecteQ[] = $aspecteQ;
             $aspecteQ->setQuestionsInternes($this);
         }
+=======
+    public function getEmpresa(): ?Empresa
+    {
+        return $this->empresa;
+    }
+
+    public function setEmpresa(?Empresa $empresa): self
+    {
+        $this->empresa = $empresa;
+>>>>>>> d139f2844bee455159f263b1d0a7b3f1a3a3a0e4
 
         return $this;
     }
 
+<<<<<<< HEAD
     public function removeAspecteQ(AspecteQ $aspecteQ): self
     {
         if ($this->aspecteQ->contains($aspecteQ)) {
@@ -166,6 +188,28 @@ class QuestionsInternes
                 $aspecteQ->setQuestionsInternes(null);
             }
         }
+=======
+    public function getCentro(): ?Centro
+    {
+        return $this->centro;
+    }
+
+    public function setCentro(?Centro $centro): self
+    {
+        $this->centro = $centro;
+
+        return $this;
+    }
+
+    public function getCorporacion(): ?Corporacion
+    {
+        return $this->corporacion;
+    }
+
+    public function setCorporacion(?Corporacion $corporacion): self
+    {
+        $this->corporacion = $corporacion;
+>>>>>>> d139f2844bee455159f263b1d0a7b3f1a3a3a0e4
 
         return $this;
     }

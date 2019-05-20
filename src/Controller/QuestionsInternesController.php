@@ -6,29 +6,43 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use App\Form\QuestionsInternesType;
 use App\Entity\QuestionsInternes;
+use App\Entity\Empresa;
+use App\Entity\Centro;
 
 class QuestionsInternesController extends AbstractController
 {
    
 
     /**
-     * @Route("/questionsinternes/{id<\d+>}", name="qi_list")
+     * @Route("/questionsinternesEmpresas/{id<\d+>}", name="qi_listEmpresas")
      */
-    public function list($id)
+    public function listEmpresasInternes($id)
     {
         $qi = $this->getDoctrine()
-            ->getRepository(QuestionsInternes::class)
-            ->find($id);
+        ->getRepository(QuestionsInternes::class)
+        ->findByEmpresaId($id);
+        
+            return $this->render('questions_internes/list.empresa.html.twig', ['qis' => $qi, 'id' => $id]);
+    }
 
-            return $this->render('questions_internes/list.html.twig', ['qis' => $qi]);
+        /**
+     * @Route("/questionsinternesCentros/{id<\d+>}", name="qi_listCentros")
+     */
+    public function listCentrosInternes($id)
+    {
+            $qi = $this->getDoctrine()
+            ->getRepository(QuestionsInternes::class)
+            ->findByCentroId($id);
+
+            return $this->render('questions_internes/list.centro.html.twig', ['qis' => $qi, 'id' => $id]);
 
     }
 
 
     /**
-     * @Route("/questionsinternes/new", name="crearQI")
+     * @Route("/questionsinternesEmpresa/new/{id<\d+>}", name="crearQiEmpresa")
      */
-    public function newQI(Request $request)
+    public function newQiEmpresa($id, Request $request)
     {
         $QI = new QuestionsInternes();
 
@@ -37,11 +51,15 @@ class QuestionsInternesController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $empresa = $this->getDoctrine()
+            ->getRepository(Empresa::class)
+            ->find($id);
 
-            $QI = $form->getData();
+            $qi = $form->getData();
+            $qi->setEmpresa($empresa);
 
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($QI);
+            $entityManager->persist($qi);
             $entityManager->flush();
 
             $this->addFlash(
@@ -49,12 +67,49 @@ class QuestionsInternesController extends AbstractController
                 'Nova QI '.$QI->getNombre() .' creada!'
             );
 
-            return $this->redirectToRoute('login'); 
+            // return $this->redirectToRoute('login'); 
         }
 
-        return $this->render('questions_internes/questions_internes.html.twig', array(
+        return $this->render('questions_internes/create.qi.empresa.html.twig', array(
             'form' => $form->createView(),
             'title' => 'Nova QI',
+            'id' => $id,
+        ));
+    }
+
+    /**
+     * @Route("/questionsinternesCentro/new/{id<\d+>}", name="crearQiCentro")
+     */
+    public function newQiCentro($id, Request $request)
+    {
+        $QI = new QuestionsInternes();
+
+        $form = $this->createForm(QuestionsInternesType::class , $QI, array ('submit'=>'Crear QI'));
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $centro = $this->getDoctrine()
+            ->getRepository(Centro::class)
+            ->find($id);
+
+            $qi = $form->getData();
+            $qi->setCentro($centro);
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($qi);
+            $entityManager->flush();
+
+            $this->addFlash(
+                'notice',
+                'Nova QI '.$QI->getNombre() .' creada!'
+            );
+        }
+
+        return $this->render('questions_internes/create.qi.centro.html.twig', array(
+            'form' => $form->createView(),
+            'title' => 'Nova QI',
+            'id' => $id,
         ));
     }
 }

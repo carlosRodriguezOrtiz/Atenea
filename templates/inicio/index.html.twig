@@ -7,15 +7,34 @@
             <section class="row text-center">
                 <section class="col-md-12 mt-5">
                     {% if app.user.role.nombre == 'ROLE_ADMIN' %}
-                        <a class="btn btn-primary btn-lg" href="{{ path('corporaciones_list') }}">Gestión de Corporaciones</a>
-                        <a class="btn btn-secondary btn-lg" href="{{ path('empresas_list') }}">Gestión de Empresas</a>
-                        <a class="btn btn-success btn-lg" href="{{ path('user_list') }}">Gestión de Usuarios</a>
+                        {% if app.user.corporacion != null  %}
+                            <a class="btn btn-primary btn-lg" href="{{ path('corporacion',{id : app.user.corporacion.id}) }}">Gestión de Corporación</a>
+                            <a class="btn btn-success btn-lg" href="{{ path('users_corp',{id : app.user.corporacion.id}) }}">Gestión de Usuarios</a>
+                        {% elseif app.user.empresa != null %}
+                            <a class="btn btn-secondary btn-lg" href="{{ path('empresa',{id : app.user.empresa.id}) }}">Gestión de Empresa</a>
+                            <a class="btn btn-success btn-lg" href="{{ path('users_emp',{id : app.user.empresa.id}) }}">Gestión de Usuarios</a>
+                       {#  {%% elseif app.user.centro != null %%}
+                            <a class="btn btn-secondary btn-lg" href="{{ path('empresa',{id : app.user.centro.id}) }}">Gestión de Empresa</a>
+                            <a class="btn btn-success btn-lg" href="{{ path('users_emp',{id : app.user.centro.id}) }}">Gestión de Usuarios</a>  #}
+                        {% else %}
+                            <a class="btn btn-primary btn-lg" href="{{ path('corporaciones_list') }}">Gestión de Corporaciones</a>
+                            <a class="btn btn-secondary btn-lg" href="{{ path('empresas_list') }}">Gestión de Empresas</a>
+                            <a class="btn btn-success btn-lg" href="{{ path('user_list') }}">Gestión de Usuarios</a>
+                        {% endif %}
                     {% else %}
                         {% if app.user.empresa != null %}
+<<<<<<< HEAD
                             {# <a class="btn btn-primary btn-lg" href="{{ path('gestion_contexto', {id : app.user.empresa.id}) }}">Gestionar Contexto de la organización Empresa</a> #}
+=======
+                            <h1>{{app.user.empresa.nombre}}</h1>
+                            <a class="btn btn-primary btn-lg" href="{{ path('gestion_contextoEmpresa', {id : app.user.empresa.id}) }}">Gestionar Contexto de la
+                                                                                    organización Empresa</a>
+>>>>>>> d139f2844bee455159f263b1d0a7b3f1a3a3a0e4
                             <a class="btn btn-secondary btn-lg" href="">Gestionar Personal</a>
                         {% elseif app.user.corporacion != null %}
-                            <a class="btn btn-primary btn-lg" href="{{ path('gestion_contexto', {id : app.user.corporacion.id}) }}">Gestionar Contexto de la organización Corporación</a>
+                            <h1>{{app.user.corporacion.nombre}}</h1>
+                            <a class="btn btn-primary btn-lg" href="{{ path('gestion_contextoEmpresa', {id : app.user.corporacion.id}) }}">Gestionar Contexto de
+                                                                                    la organización Corporación</a>
                             <a class="btn btn-secondary btn-lg" href="">Gestionar Personal</a>
                         {% endif %}
                     {% endif %}
