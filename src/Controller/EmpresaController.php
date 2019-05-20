@@ -75,8 +75,6 @@ class EmpresaController extends AbstractController
      */
     public function newEmpresa(Request $request)
     {
-        var_dump("HOla");
-        exit();
         $empresas = new Empresa();
         $empresaCreada = false;
         $avisoCreacion = "";
@@ -109,7 +107,7 @@ class EmpresaController extends AbstractController
                 $form = $this->createForm(EmpresasType::class, $empresas, array('submit' => 'Crear Empresa'));
             } else {
                 $empresaCreada = false;
-                $avisoCreacion = "La empresa ya existe , porfavor introduzca una nueva";
+                $avisoCreacion = "La empresa ya existe, porfavor introduzca una nueva.";
             }
         }
         return $this->render('empresa/empresas.html.twig', array(
