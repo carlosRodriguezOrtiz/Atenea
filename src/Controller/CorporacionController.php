@@ -62,7 +62,8 @@ class CorporacionController extends AbstractController
     public function new(Request $request)
     {
         $corporaciones= new Corporacion();
-
+        $corporacionCreada=false;
+        $avisoCreacion = "";
         $form = $this->createForm(CorporacionesType::class , $corporaciones, array ('submit'=>'Crear Corporación'));
 
         $form->handleRequest($request);
@@ -70,23 +71,42 @@ class CorporacionController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $corporaciones = $form->getData();
+            $corporacioncreada = $this->getDoctrine()->getRepository(Corporacion::class)->findByNombre($corporaciones->getNombre());
 
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($corporaciones);
-            $entityManager->flush();
+            if(sizeof($corporacioncreada)== 0 ){
+               
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($corporaciones);
+                $entityManager->flush();
+    
+                $this->addFlash(
+                    'notice',
+                    'Nova corporaciones ' . $corporaciones->getNombre() . ' creada!'
+                );
+    
+                $corporacionCreada=true;
+                $avisoCreacion = "La corporacion ha sido creada";
 
-            $this->addFlash(
-                'notice',
-                'Nueva corporacion '.$corporaciones->getNombre() .' creada!'
-            );
+                $corporaciones = new Corporacion();
+                $form = $this->createForm(corporacionesType::class, $corporaciones, array('submit' => 'Crear Corporación'));
 
-            return $this->redirectToRoute('corporaciones_new'); 
+
+            } else {
+                $corporacionCreada=false;
+                $avisoCreacion = "La empresa ya existe , porfavor introduzca una nueva";
+
+              
+    
+            }
+          
         }
 
         return $this->render('corporacion/corporaciones.html.twig', array(
             'form' => $form->createView(),
             'title' => 'Nueva corporacion',
+            'mensaje' => $avisoCreacion,
         ));
+           
     }
 
     /**

@@ -13,6 +13,7 @@ use App\Entity\Centro;
 use App\Entity\Empresa;
 
 
+
 class CentroController extends AbstractController
 {
     /**
@@ -42,7 +43,8 @@ class CentroController extends AbstractController
     public function new($id ,Request $request)
     {
         $centros= new Centro();
-
+        $centroCreada=false;
+        $avisoCreacion = "";
         $form = $this->createForm(CentrosType::class , $centros, array ('submit'=>'Crear Centro'));
 
         $form->handleRequest($request);
@@ -50,8 +52,9 @@ class CentroController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
      
             $centros = $form->getData();
-           
-            
+            $centrocreado = $this->getDoctrine()->getRepository(Centro::class)->findByNombre($centros->getNombre());
+
+            if(sizeof($centrocreado)== 0 ){
             $empresas = $this->getDoctrine()
             ->getRepository(Empresa::class)
             ->find($id);
@@ -64,15 +67,28 @@ class CentroController extends AbstractController
 
             $this->addFlash(
                 'notice',
-                'Nuevos centros '.$centros->getNombre() .' creada!'
+                'Nuevos centros '.$centros->getNombre() .' creado!'
             );
 
-            return $this->redirectToRoute('empresas_list'); 
-        }
+            $centroCreada=true;
+            $avisoCreacion = "El centro ha sido creado";
 
+            $centros = new Centro();
+            $form = $this->createForm(CentrosType::class, $centros, array('submit' => 'Crear Centro'));
+
+
+         } else {
+            $centroCreada=false;
+            $avisoCreacion = "El centro ya existe , porfavor introduzca uno nuevo";
+
+          
+
+        }
+    }
         return $this->render('centro/centros.html.twig', array(
             'form' => $form->createView(),
             'title' => 'Nuevo Centro',
+            'mensaje' => $avisoCreacion,
         ));
     }
 
