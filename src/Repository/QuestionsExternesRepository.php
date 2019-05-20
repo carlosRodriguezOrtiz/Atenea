@@ -59,11 +59,37 @@ class QuestionsExternesRepository extends ServiceEntityRepository
         ;
     }
 
+    public function findByEmpresaIdAndQeId($idEmpresa, $idQe)
+    {
+        return $this->createQueryBuilder('q')
+            ->andWhere('q.empresa = :idEmpresa')
+            ->andWhere('q.id = :idQe')
+            ->setParameter('idEmpresa', $idEmpresa)
+            ->setParameter('idQe', $idQe)
+            ->orderBy('q.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     public function findByCentroId($value)
     {
         return $this->createQueryBuilder('q')
             ->andWhere('q.centro = :val')
             ->setParameter('val', $value)
+            ->orderBy('q.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function findByCentroIdAndQeId($idCentro, $idQe)
+    {
+        return $this->createQueryBuilder('q')
+            ->andWhere('q.centro = :idCentro')
+            ->andWhere('q.id = :idQe')
+            ->setParameter('idCentro', $idCentro)
+            ->setParameter('idQe', $idQe)
             ->orderBy('q.id', 'ASC')
             ->getQuery()
             ->getResult()

@@ -148,15 +148,93 @@ class QuestionsExternesController extends AbstractController
     }
 
     /**
-     * @Route("/questionsexternes/edit/{id<\d+>}", name="qe_edit")
+     * @Route("/questionsexternesEmpresas/edit/{id<\d+>}/{idQe<\d+>}", name="qe_edit_empresa")
      */
-    public function edit($id)
+    public function editQeEmpresa($id, $idQe)
     {
-            $qe = $this->getDoctrine()
-            ->getRepository(QuestionsExternes::class)
+            $tiposQE = $this->getDoctrine()
+            ->getRepository(TipusQE::class)
             ->findAll();
+
+            $qes = $this->getDoctrine()
+            ->getRepository(QuestionsExternes::class)
+            ->findByEmpresaIdAndQeId($id,$idQe);
+            $qe = $qes[0];
+            $tipusQE = $this->getDoctrine()
+            ->getRepository(TipusQE::class)
+            ->find($qe->getSubtipus()->getTipusQE()->getId());
+
+            $subtipus = $tipusQE->getSubtipus();
+
+            if (isset($_POST['nombre'])) {
+            
+                $qe->setNombre($_POST['nombre']);
+                $qe->setFechaAlta(new \DateTime($_POST['dateA']));
+                $qe->setFechaBaja(new \DateTime($_POST['dateB']));
+                $subtipus = $this->getDoctrine()
+                ->getRepository(SubTipusQE::class)
+                ->find($_POST['subtipus']);
+                $qe->setSubtipus($subtipus);
+
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($qe);
+                $entityManager->flush();
+
+            }
         
-            return $this->render('questions_externes/list.html.twig', ['qes' => $qe]);
+            return $this->render('questions_externes/edit.qe.empresa.html.twig', [
+                'title' => 'Edit QE',
+                'qe' => $qe,
+                'tiposQE' => $tiposQE,
+                'subtipus' => $subtipus,
+                'id' => $id,
+                'idQe' => $idQe,
+                ]);
+    }
+
+    /**
+     * @Route("/questionsexternesCentro/edit/{id<\d+>}/{idQe<\d+>}", name="qe_edit_centro")
+     */
+    public function editQeCentro($id, $idQe)
+    {
+        $tiposQE = $this->getDoctrine()
+        ->getRepository(TipusQE::class)
+        ->findAll();
+
+        $qes = $this->getDoctrine()
+        ->getRepository(QuestionsExternes::class)
+        ->findByCentroIdAndQeId($id,$idQe);
+        $qe = $qes[0];
+        $tipusQE = $this->getDoctrine()
+        ->getRepository(TipusQE::class)
+        ->find($qe->getSubtipus()->getTipusQE()->getId());
+
+        $subtipus = $tipusQE->getSubtipus();
+
+        if (isset($_POST['nombre'])) {
+        
+            $qe->setNombre($_POST['nombre']);
+            $qe->setFechaAlta(new \DateTime($_POST['dateA']));
+            $qe->setFechaBaja(new \DateTime($_POST['dateB']));
+            $subtipus = $this->getDoctrine()
+            ->getRepository(SubTipusQE::class)
+            ->find($_POST['subtipus']);
+            $qe->setSubtipus($subtipus);
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($qe);
+            $entityManager->flush();
+
+        }
+    
+        return $this->render('questions_externes/edit.qe.centro.html.twig', [
+            'title' => 'Edit QE',
+            'qe' => $qe,
+            'tiposQE' => $tiposQE,
+            'subtipus' => $subtipus,
+            'id' => $id,
+            'idQe' => $idQe,
+            ]);
     }
 
     /**
