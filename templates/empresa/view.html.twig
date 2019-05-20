@@ -21,7 +21,7 @@
                 Descripcion: {{ empresa.descripcion }} #}
                 </section>
                 <a class="btn btn-primary btn-lg" href="{{ path('centros_new', {'id': empresa.id}) }}" style="margin: 10px;">Añadir centro</a>
-                <a class="btn btn-danger btn-md" href="{{ path('inicio') }}">&laquo; Torna</a>
+                <a class="btn btn-danger btn-md" href="{{ path('inicio') }}">&laquo; Volver</a>
                  <h4 style="text-decoration: underline;">Centros</h4>
                 
                     <table class="table">
@@ -44,7 +44,7 @@
                                     <td>{{ centro.fechaBaja|date('d-m-Y') }}</td>
                                     <td>{{ centro.descripcion }}</td>
                                     <td>
-                                        <a </span href="{{ path('centro_edit', {'id': centro.id}) }}" <span class="icon-pencil-alt text-black">Edit</a>
+                                        <a </span href="{{ path('centro_edit', {'id': centro.id}) }}" <span class="icon-pencil-alt text-black">Editar</a>
                                         <a </span href="{{ path('centro_delete', {'id': centro.id}) }}" <span class="icon-trash-empty text-black">Eliminar</a>
                                     </td>
                                 </tr>

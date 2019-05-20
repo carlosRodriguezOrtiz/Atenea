@@ -70,5 +70,16 @@ class UserRepository extends ServiceEntityRepository
             ->getOneOrNullResult()
         ;
     } */
+
+        
+    public function findUsuariosCentro($value)
+    {
+        return $this->createQueryBuilder('u')
+            ->andWhere('u.centro = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getResult()
+        ;
+    } 
     
 }

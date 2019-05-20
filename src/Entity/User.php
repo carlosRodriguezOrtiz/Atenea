@@ -53,8 +53,14 @@ class User implements AdvancedUserInterface, \Serializable
      */
     private $corporacion;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Centro")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $centro;
 
-
+    
+  
 
     public function __construct()
     {
@@ -262,5 +268,19 @@ class User implements AdvancedUserInterface, \Serializable
         $this->corporacion = $corporacion;
 
         return $this;
-    }  
+    }
+
+    public function getCentro(): ?Centro
+    {
+        return $this->centro;
+    }
+
+    public function setCentro(?Centro $centro): self
+    {
+        $this->centro = $centro;
+
+        return $this;
+    }
+
+
 }

@@ -1,14 +1,21 @@
 {% extends 'base.html.twig' %}
-{% block title %}
-    {{ title }}{% endblock %}
+
+{% block title %}Hello QuestionsExternesController!{% endblock %}
+
 {% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
     <section class="bg-white text-black mt-3 mb-3">
         <div class="container ">
             <section class="row ">
                 <div class="col-md-8"></div>
                 <div class="col-md-4">
                     <div class="btn-group float-right mt-2 mb-3" role="group">
-                        <a class="btn btn-danger btn-md">&laquo; Volver</a>
+                        <a class="btn btn-danger btn-md">&laquo; Torna</a>
                     </div>
                 </div>
             </section>
@@ -21,31 +28,41 @@
                             </div>
                             <div class="card-body">
                                 <div class="col-12 ">
-                                    <form action="{{path('crearQeEmpresa', { 'id' : id })}}" method="POST">
-                                        <label>Nombre</label><input name="nombre" type="text"/>
+                                    <form action="{{path('qe_edit_centro', { 'id' : id, 'idQe' : idQe })}}" method="POST">
+                                        <label>Nombre</label><input name="nombre" type="text" value="{{ qe.nombre }}" />
                                         <div class="form-group">
-                                            <label>Fecha de Alta</label>
-                                            <input type="date" value="" name="dateA"/>
+                                            <label>Fecha Alta</label>
+                                            <input type="date" name="dateA" value="{{qe.fechaAlta|date('Y-m-d')}}" />
                                         </div>
                                         <div class="form-group">
-                                            <label>Fecha de Baja</label>
-                                            <input type="date" value="" name="dateB"/>
+                                            <label>Fecha Baja </label>
+                                            <input type="date" name="dateB" value="{{ qe.fechaBaja|date('Y-m-d')  }}"/>
                                         </div>
                                         <div class="form-group">
-                                            <label>Tipo</label>
+                                            <label>Tipus</label>
                                             <select id="tipusQE" name="tipus" id="tipusQE">
-                                                <option value="null">-- Elije tipo de QE --</option>
+                                                <option value="null">-- Elije tipus QE --</option>
                                                 {% for tipo in tiposQE %}
-                                                    <option value="{{tipo.id}}">{{tipo.nombre}}</option>
+                                                    {% if ( tipo.id == qe.subtipus.tipusQE.id ) %}
+                                                        <option value="{{tipo.id}}" selected>{{tipo.nombre}}</option>
+                                                    {% else %}
+                                                        <option value="{{tipo.id}}">{{tipo.nombre}}</option>
+                                                    {% endif %}
                                                 {% endfor %}
                                             </select>
                                         </div>
                                         <div class="form-group">
-                                            <label>Subtipo</label>
+                                            <label>Subtipus</label>
                                             <select id="subtipusQE" name="subtipus">
-                                                <option value="null">-- Elije tipo de QE --</option>
+                                                <option value="null">-- Elije tipus QE --</option>
                                                 {% for subptipu in subtipus %}
-                                                    <option value="{{subptipu.id}}">{{subptipu.descripcion}}</option>
+
+                                                    {% if ( subptipu.id == qe.subtipus.id ) %}
+                                                        <option value="{{subptipu.id}}" selected>{{subptipu.descripcion}}</option>
+                                                    {% else %}
+                                                        <option value="{{subptipu.id}}">{{subptipu.descripcion}}</option>
+                                                    {% endif %}
+                                                    
                                                 {% endfor %}
                                             </select>
                                         </div>
@@ -95,4 +112,5 @@
 
         } 
     </script>
+</div>
 {% endblock %}

@@ -1,16 +1,15 @@
-    {% extends 'base.html.twig' %}
-    {% block title %}
-        {{ title }}{% endblock %}
-    {% form_theme form 'bootstrap_4_layout.html.twig' %}
-    {% block body %}
-        <section class="bg-white text-black mt-3 mb-3">
-            <div class="container ">
-                <section class="row ">
-                    <div class="col-md-8"></div>
-                    <div class="col-md-4">
-                        <div class="btn-group float-right mt-2 mb-3" role="group">
-                            <a class="btn btn-danger btn-md" href="{{ path('empresas_list') }}">&laquo; Torna</a>
-                        </div>
+{% extends 'base.html.twig' %}
+{% block title %}
+    {{ title }}{% endblock %}
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+{% block body %}
+    <section class="bg-white text-black mt-3 mb-3">
+        <div class="container ">
+            <section class="row ">
+                <div class="col-md-8"></div>
+                <div class="col-md-4">
+                    <div class="btn-group float-right mt-2 mb-3" role="group">
+                        <a class="btn btn-danger btn-md" href="{{ path('empresas_list') }}">&laquo; Volver</a>
                     </div>
                 </section>
                 <div class="container">

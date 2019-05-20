@@ -13,12 +13,13 @@
                         {% elseif app.user.empresa != null %}
                             <a class="btn btn-secondary btn-lg" href="{{ path('empresa',{id : app.user.empresa.id}) }}">Gestión de Empresa</a>
                             <a class="btn btn-success btn-lg" href="{{ path('users_emp',{id : app.user.empresa.id}) }}">Gestión de Usuarios</a>
-                       {#  {%% elseif app.user.centro != null %%}
-                            <a class="btn btn-secondary btn-lg" href="{{ path('empresa',{id : app.user.centro.id}) }}">Gestión de Empresa</a>
-                            <a class="btn btn-success btn-lg" href="{{ path('users_emp',{id : app.user.centro.id}) }}">Gestión de Usuarios</a>  #}
+                         {% elseif app.user.centro != null %}
+                            <a class="btn btn-secondary btn-lg" href="{{ path('centro',{id : app.user.centro.id}) }}">Gestión de Centro</a>
+                            <a class="btn btn-success btn-lg" href="{{ path('users_centro',{id : app.user.centro.id}) }}">Gestión de Usuarios</a>
                         {% else %}
                             <a class="btn btn-primary btn-lg" href="{{ path('corporaciones_list') }}">Gestión de Corporaciones</a>
                             <a class="btn btn-secondary btn-lg" href="{{ path('empresas_list') }}">Gestión de Empresas</a>
+                            <a class="btn btn-warning btn-lg" href="{{ path('centros_list') }}">Gestión de Centros</a>
                             <a class="btn btn-success btn-lg" href="{{ path('user_list') }}">Gestión de Usuarios</a>
                         {% endif %}
                     {% else %}

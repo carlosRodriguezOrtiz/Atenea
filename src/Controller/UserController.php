@@ -4,6 +4,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Entity\Corporacion;
 use App\Entity\Empresa;
+use App\Entity\Centro;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -93,6 +94,29 @@ class UserController extends AbstractController
 
         return $this->render('user/list.html.twig', ['user' => $user]);
     }
+   
+
+ /**
+     * @Route("/users/centro/{id<\d+>}", name="users_centro")
+     */
+    public function usersCentro($id)
+    {       
+        $user = [];
+        if($this->getUser()->getCentro()->getId() == $id){
+
+            $users = $this->getDoctrine()
+            ->getRepository(User::class)
+            ->findUsuariosCentro($id);
+
+        return $this->render('user/list.html.twig', ['user' => $users]);
+        }
+
+        return $this->render('user/list.html.twig', ['user' => $users]);
+    }
+
+
+
+
 
     /**
      * @Route("/users/empresa/{id<\d+>}", name="users_emp")
