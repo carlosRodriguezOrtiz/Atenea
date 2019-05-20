@@ -12,7 +12,7 @@
                         <a class="btn btn-success btn-lg" href="{{ path('user_list') }}">Gestión de Usuarios</a>
                     {% else %}
                         {% if app.user.empresa != null %}
-                            <a class="btn btn-primary btn-lg" href="{{ path('gestion_contexto', {id : app.user.empresa.id}) }}">Gestionar Contexto de la organización Empresa</a>
+                            {# <a class="btn btn-primary btn-lg" href="{{ path('gestion_contexto', {id : app.user.empresa.id}) }}">Gestionar Contexto de la organización Empresa</a> #}
                             <a class="btn btn-secondary btn-lg" href="">Gestionar Personal</a>
                         {% elseif app.user.corporacion != null %}
                             <a class="btn btn-primary btn-lg" href="{{ path('gestion_contexto', {id : app.user.corporacion.id}) }}">Gestionar Contexto de la organización Corporación</a>

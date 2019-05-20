@@ -48,9 +48,15 @@ class QuestionsExternes
      */
     private $subtipus;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\AspecteQ", mappedBy="aspecteQ")
+     */
+    private $aspecteQ;
+
     public function __construct()
     {
         $this->binomio = new ArrayCollection();
+        $this->aspecteQ = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -151,6 +157,37 @@ class QuestionsExternes
     public function setSubtipus(?SubTipusQE $subtipus): self
     {
         $this->subtipus = $subtipus;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|AspecteQ[]
+     */
+    public function getAspecteQ(): Collection
+    {
+        return $this->aspecteQ;
+    }
+
+    public function addAspecteQ(AspecteQ $aspecteQ): self
+    {
+        if (!$this->aspecteQ->contains($aspecteQ)) {
+            $this->aspecteQ[] = $aspecteQ;
+            $aspecteQ->setAspecteQ($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAspecteQ(AspecteQ $aspecteQ): self
+    {
+        if ($this->aspecteQ->contains($aspecteQ)) {
+            $this->aspecteQ->removeElement($aspecteQ);
+            // set the owning side to null (unless already changed)
+            if ($aspecteQ->getAspecteQ() === $this) {
+                $aspecteQ->setAspecteQ(null);
+            }
+        }
 
         return $this;
     }

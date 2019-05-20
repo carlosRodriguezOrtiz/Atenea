@@ -43,9 +43,15 @@ class QuestionsInternes
      */
     private $binomio;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\AspecteQ", mappedBy="questionsInternes")
+     */
+    private $aspecteQ;
+
     public function __construct()
     {
         $this->binomio = new ArrayCollection();
+        $this->aspecteQ = new ArrayCollection();
     }
 
     public function getNombre(): ?string
@@ -127,6 +133,37 @@ class QuestionsInternes
             // set the owning side to null (unless already changed)
             if ($binomio->getQuestionInterna() === $this) {
                 $binomio->setQuestionInterna(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|AspecteQ[]
+     */
+    public function getAspecteQ(): Collection
+    {
+        return $this->aspecteQ;
+    }
+
+    public function addAspecteQ(AspecteQ $aspecteQ): self
+    {
+        if (!$this->aspecteQ->contains($aspecteQ)) {
+            $this->aspecteQ[] = $aspecteQ;
+            $aspecteQ->setQuestionsInternes($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAspecteQ(AspecteQ $aspecteQ): self
+    {
+        if ($this->aspecteQ->contains($aspecteQ)) {
+            $this->aspecteQ->removeElement($aspecteQ);
+            // set the owning side to null (unless already changed)
+            if ($aspecteQ->getQuestionsInternes() === $this) {
+                $aspecteQ->setQuestionsInternes(null);
             }
         }
 
