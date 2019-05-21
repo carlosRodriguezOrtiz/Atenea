@@ -6,11 +6,8 @@
         <section class="container-fluid">
             <section class="row">
                 <section class="col-md-12">
-
-
-                    <a class="btn btn-danger btn-md mt-3 mb-3" href="{{ path('crearQiCentro', { 'id' : id }) }}">&laquo; Crear nueva cuestion interna</a>
-
-
+                    <a class="btn btn-danger mb-3 mt-3" href="{{ path('crearQiCentro', { 'id' : id }) }}">&laquo; Crear nueva cuestión interna</a>
+                    <a class="btn btn-danger btn-md" href="{{ path('gestion_contextoCentro', { 'id' : id }) }}">&laquo; Volver</a>
                     <table class="table">
                         <thead>
                             <tr>
@@ -30,7 +27,7 @@
                                     <th scope="row">{{questions_internes.tipus.descripcion}}</th>
  
                                     <td>
-                                        <a </span href="{{ path('qi_edit_centros', {'id' : id, 'idQi': questions_internes.id}) }}" <span class="icon-pencil-alt text-black">Edit</a>
+                                        <a </span href="{{ path('qi_edit_centros', {'id' : id, 'idQi': questions_internes.id}) }}" <span class="icon-pencil-alt text-black">Editar</a>
                                         <a </span href="{{ path('qi_deleteCentro', {'id' : id, 'idQi': questions_internes.id}) }}" <span class="icon-trash-empty text-black">Eliminar</a>
                                     </td>
                                 </tr>

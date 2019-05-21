@@ -20,3 +20,33 @@ a.disabled {
     pointer-events: none;
     cursor: default;
 }
+
+@media (min-width: 481px) and (max-width: 767px) {
+    .gestion-contexto {
+        width: 100%;
+    }
+    .res-but {
+        width: 75%;
+    }
+}
+
+@media (min-width: 320px) and (max-width: 480px) {
+    .gestion-contexto {
+        width: 100%;
+    }
+    .res-but {
+        width: 60%;
+    }
+}
+
+@media (min-width: 1281px) {
+    .res-but {
+        width: 40%;
+    }
+}
+
+@media (min-width: 1025px) and (max-width: 1280px) {
+    .res-but {
+        width: 40%;
+    }
+}

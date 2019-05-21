@@ -7,7 +7,7 @@
         <h3 style="margin: 10px; text-align: center; text-decoration: underline;">Listado de Empresas</h3>
             <section class="row">
                 <section class="col-md-12">
-                    <table class="table">
+                    <table class="table table-responsive-sm">
                     <a class="btn btn-primary btn-lg" href="{{ path('crearEmpresa') }}" style="margin: 10px;">Crear Empresa</a>
                     
                      {% if app.user.role.nombre == 'ROLE_ADMIN' %}
