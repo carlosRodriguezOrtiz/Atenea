@@ -28,7 +28,7 @@
                                 </div>
                             </div>
                         </div>
-                         {% if mensaje == "El centro ha sido creado" %}
+                         {% if mensaje == "El centro ha sido creado" or mensaje == "El centro ha sido modificado con éxito." %}
                         <p class=" text-success pl-3">{{mensaje}}</p>
                             {% else %}
                             <p class=" text-danger pl-3">{{mensaje}}</p>
