@@ -7,7 +7,7 @@
         <h3 style="margin: 10px; text-align: center; text-decoration: underline;">Listado de Centros</h3>
             <section class="row">
                 <section class="col-md-12">
-                    <table class="table">
+                    <table class="table table-responsive-sm">
                     {% if app.user.role.nombre == 'ROLE_ADMIN' %}
                         <a class="btn btn-danger btn-md ml-3" href="{{ path('user_centro') }}">Registrar usuario Centro</a>
                     {% endif %}

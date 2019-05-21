@@ -6,13 +6,13 @@
         <section class="container-fluid">
         <h3 style="margin: 10px; text-align: center; text-decoration: underline;">Listado de Corporaciones</h3>
             <section class="row">
-                <section class="col-md-12">
-                    <table class="table">
+                <section class="col-md-12 ">
                     <a class="btn btn-primary btn-lg" href="{{ path('corporaciones_new') }}" style="margin: 10px;">Crear Corporación</a>
-                       {% if app.user.role.nombre == 'ROLE_ADMIN' %}
-                        <a class="btn btn-danger btn-md ml-3" href="{{ path('user_registration') }}">Registrar usuario Corporación</a>
-                    {% endif %}
-                    <a class="btn btn-danger btn-md" href="{{ path('inicio') }}" style="margin: 10px;">&laquo; Volver</a>
+                        {% if app.user.role.nombre == 'ROLE_ADMIN' %}
+                            <a class="btn btn-danger btn-md ml-3" href="{{ path('user_registration') }}">Registrar usuario Corporación</a>
+                        {% endif %}
+                        <a class="btn btn-danger btn-md" href="{{ path('inicio') }}" style="margin: 10px;">&laquo; Volver</a>
+                    <table class="table table-responsive-sm">
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
@@ -43,14 +43,14 @@
                                     
                             {% endfor %}
                         </tbody>
-                </table>
-                <div >
-                    {% if mensaje == "Corporación eliminada correctamente." %}
-                        <p class=" text-success pl-3">{{mensaje}}</p>
-                    {% else %}
-                        <p class=" text-danger pl-3">{{mensaje}}</p>
-                </div>
-                {% endif %}
+                    </table>
+                    <div >
+                        {% if mensaje == "Corporación eliminada correctamente." %}
+                            <p class=" text-success pl-3">{{mensaje}}</p>
+                        {% else %}
+                            <p class=" text-danger pl-3">{{mensaje}}</p>
+                    </div>
+                    {% endif %}
                 </section>
             </section>
         </section>
