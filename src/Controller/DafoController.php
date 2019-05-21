@@ -8,7 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Dafo;
 use App\Entity\QuestionsExternes;
 use App\Entity\QuestionsInternes;
-
+use App\Entity\Binomio;
 class DafoController extends AbstractController
 {
     /**
@@ -20,7 +20,7 @@ class DafoController extends AbstractController
         ->getRepository(QuestionsExternes::class)
         ->findByCorporacionId($id);
 
-        $aspectesQci = $this->getDoctrine()
+        $questionsInternes = $this->getDoctrine()
         ->getRepository(QuestionsInternes::class)
         ->findByCorporacionId($id);
 
@@ -30,20 +30,24 @@ class DafoController extends AbstractController
         $fortaleses = [];
         $oportunitats = [];
 
-        foreach ($aspectesQci as $qi) {
-            if($qi->getAspecteQ()->getDafo() == 'D'){
-                array_push($debilitats, $qi);
-            } else {
-                array_push($fortaleses, $qi);
+        foreach ($questionsInternes as $qi) {
+            foreach ($qi->getAspecteQs() as $asQ) {
+                if($asQ->getDafo() == 'D'){
+                    array_push($debilitats, $asQ);
+                } else {
+                    array_push($fortaleses, $asQ);
+                }
             }
         }
 
         foreach ($aspectesQce as $qe) {
-            if($qe->getAspecteQ()->getDafo() == 'A'){
-                array_push($amenaces, $qe);
+            foreach ($qe->getAspecteQs() as $asQ) {
+            if($asQ->getDafo() == 'A'){
+                array_push($amenaces, $asQ);
             } else {
-                array_push($oportunitats, $qe);
+                array_push($oportunitats, $asQ);
             }
+        }
         }
         
 
@@ -60,76 +64,118 @@ class DafoController extends AbstractController
     
 
     /**
-     * @Route("/dafo/binomio", name="binomio")
+     * @Route("/dafo/binomio-corporacion/{id<\d+>}", name="binomioCorp")
      */
-    public function binomio()
+    public function binomio($id)
     {
-        $dafo = $this->getDoctrine()
-        ->getRepository(Dafo::class)
-        ->find(1);
+        $questionsExternes = $this->getDoctrine()
+        ->getRepository(QuestionsExternes::class)
+        ->findByCorporacionId($id);
 
-        $supervivencia = [];
-        $ofensiva = [];
-        $reorientacion = [];
-        $defensiva = [];
+        $questionsInternes = $this->getDoctrine()
+        ->getRepository(QuestionsInternes::class)
+        ->findByCorporacionId($id);
 
-        foreach ($dafo->getQuestionsInternes() as $qi) {
+        $array_AspQEx = [];
+        $array_AspQIn = [];
+        $binomios = [];
+        foreach ($questionsInternes as $qi) {
+            foreach ($qi->getAspecteQs() as $as) {
+                array_push($array_AspQIn,$as);
+            }
+           
+        }
             
-            foreach ($dafo->getQuestionsExternes() as $qe) {
-                if($qi->getTipus()== "debilidad" && $qe->getTipus() == "amenaza"){
-                    //array_push($supervivencia,[$qi,$qe]);
-                }else if($qi->getTipus()== "fortaleza" && $qe->getTipus() == "oportunidad"){
-                    //array_push($ofensiva,[$qi,$qe]);
-                }else if($qi->getTipus()== "debilidad" && $qe->getTipus() == "oportunidad"){
-                    //array_push($reorientacion,[$qi,$qe]);
-                }else if($qi->getTipus()== "fortaleza" && $qe->getTipus() == "amenaza"){
-                    //array_push($defensiva,[$qi,$qe]);
-                }
+        foreach ($questionsExternes as $qe) {
+            foreach ($qe->getAspecteQs() as $as) {
+                array_push($array_AspQEx, $as);
             }
         }
-        
-        return $this->render('dafo/binomio.html.twig', [
-            'supervivencia' => $supervivencia,
-            'ofensiva' => $ofensiva,
-            'reorientacion' => $reorientacion,
-            'defensiva' => $defensiva
+
+        foreach ($array_AspQIn as $qi) {
+            
+            foreach ($array_AspQEx as $qe) {
+                
+                
+                if($qi->getDafo()== "D" && $qe->getDafo() == "A"){
+                    $bi= new Binomio();
+                    $bi->addAspectesQ($qi);
+                    $bi->addAspectesQ($qe);
+                    $bi->setSelected(false);
+                    array_push($binomios,$bi);
+                }else if($qi->getDafo() == "F" && $qe->getDafo() == "O"){
+                    $bi= new Binomio();
+                    $bi->addAspectesQ($qi);
+                    $bi->addAspectesQ($qe);
+                    $bi->setSelected(false);
+                    array_push($binomios,$bi);
+                }else if($qi->getDafo() == "D" && $qe->getDafo() == "O"){
+                    $bi= new Binomio();
+                    $bi->addAspectesQ($qi);
+                    $bi->addAspectesQ($qe);
+                    $bi->setSelected(false);
+                    array_push($binomios,$bi);
+                }else if($qi->getDafo() == "F" && $qe->getDafo() == "A"){
+                    $bi= new Binomio();
+                    $bi->addAspectesQ($qi);
+                    $bi->addAspectesQ($qe);
+                    $bi->setSelected(false);
+                    array_push($binomios,$bi);
+                }
+            }
+        } 
+     
+
+
+        foreach ($binomios as $bin){
+             $entityManager = $this->getDoctrine()->getManager();
+             $entityManager->persist($bin);
+             $entityManager->flush();
+        }
+             
+        $binomios2 = $this->getDoctrine()
+        ->getRepository(Binomio::class)
+        ->findAll();
+        return $this->render('dafo/binomioCorp.html.twig', [
+            'binomios' => $binomios
         ]);
     }
 
-     /**
-     * @Route("/dafo/binomio2", name="binomio2")
+    /**
+     * @Route("/dafo/factor-critico-exito-corporacion/{id<\d+>}", name="binomioCorporacion")
      */
-    public function binomio2()
+    public function fceCorp()
     {
-        $dafo = $this->getDoctrine()
-        ->getRepository(Dafo::class)
-        ->find(1);
 
-        $supervivencia = [];
-        $ofensiva = [];
-        $reorientacion = [];
-        $defensiva = [];
+        $questionsExternes = $this->getDoctrine()
+        ->getRepository(QuestionsExternes::class)
+        ->findByCorporacionId($id);
 
-        foreach ($dafo->getQuestionsInternes() as $qi) {
-            
-            foreach ($dafo->getQuestionsExternes() as $qe) {
-                if($qi->getTipus()== "debilidad" && $qe->getTipus() == "amenaza"){
-                    array_push($supervivencia,[$qi,$qe]);
-                }else if($qi->getTipus()== "fortaleza" && $qe->getTipus() == "oportunidad"){
-                    array_push($ofensiva,[$qi,$qe]);
-                }else if($qi->getTipus()== "debilidad" && $qe->getTipus() == "oportunidad"){
-                    array_push($reorientacion,[$qi,$qe]);
-                }else if($qi->getTipus()== "fortaleza" && $qe->getTipus() == "amenaza"){
-                    array_push($defensiva,[$qi,$qe]);
-                }
-            }
+        $questionsInternes = $this->getDoctrine()
+        ->getRepository(QuestionsInternes::class)
+        ->findByCorporacionId($id);
+        $binomios = [];
+        if(isset($_POST)){
+           foreach ($_POST as $bin) {
+            $binomio = $this->getDoctrine()
+            ->getRepository(Binomio::class)
+            ->find($bin);
+            $binomio->setSelected(true);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($binomio);
+            $entityManager->flush();
+           }
         }
+        $binomiosBBDD = $this->getDoctrine()
+        ->getRepository(Binomio::class)->findBySelected();
+        foreach ($binomiosBBDD as $bin ) {
+            var_dump($key->getId());
+        }
+       
+        die();
         
-        return $this->render('dafo/binomio.html.twig', [
-            'supervivencia' => $supervivencia,
-            'ofensiva' => $ofensiva,
-            'reorientacion' => $reorientacion,
-            'defensiva' => $defensiva
+        return $this->render('dafo/fce.html.twig', [
+            'binomios' => $binomiosBBDD
         ]);
     }
 }

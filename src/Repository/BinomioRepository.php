@@ -47,4 +47,14 @@ class BinomioRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function findBySelected()
+    {
+        return $this->createQueryBuilder('b')
+            ->andWhere('b.selected = 1')
+            ->orderBy('b.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }

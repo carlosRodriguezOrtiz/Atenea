@@ -59,14 +59,15 @@ class QuestionsInternes
     private $corporacion;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\AspecteQ", mappedBy="questioInterna", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="App\Entity\AspecteQ", mappedBy="CuestionesInternas")
      */
-    private $aspecteQ;
+    private $aspecteQs;
 
     public function __construct()
     {
         $this->binomio = new ArrayCollection();
         $this->aspecteQ = new ArrayCollection();
+        $this->aspecteQs = new ArrayCollection();
     }
 
     public function getNombre(): ?string
@@ -190,19 +191,32 @@ class QuestionsInternes
         return $this;
     }
 
-    public function getAspecteQ(): ?AspecteQ
+    /**
+     * @return Collection|AspecteQ[]
+     */
+    public function getAspecteQs(): Collection
     {
-        return $this->aspecteQ;
+        return $this->aspecteQs;
     }
 
-    public function setAspecteQ(?AspecteQ $aspecteQ): self
+    public function addAspecteQ(AspecteQ $aspecteQ): self
     {
-        $this->aspecteQ = $aspecteQ;
+        if (!$this->aspecteQs->contains($aspecteQ)) {
+            $this->aspecteQs[] = $aspecteQ;
+            $aspecteQ->setCuestionesInternas($this);
+        }
 
-        // set (or unset) the owning side of the relation if necessary
-        $newQuestioInterna = $aspecteQ === null ? null : $this;
-        if ($newQuestioInterna !== $aspecteQ->getQuestioInterna()) {
-            $aspecteQ->setQuestioInterna($newQuestioInterna);
+        return $this;
+    }
+
+    public function removeAspecteQ(AspecteQ $aspecteQ): self
+    {
+        if ($this->aspecteQs->contains($aspecteQ)) {
+            $this->aspecteQs->removeElement($aspecteQ);
+            // set the owning side to null (unless already changed)
+            if ($aspecteQ->getCuestionesInternas() === $this) {
+                $aspecteQ->setCuestionesInternas(null);
+            }
         }
 
         return $this;
