@@ -33,22 +33,24 @@
                                     <td>{{ corporacion.fechaBaja|date('d-m-Y') }}</td>
                                     <td>{{ corporacion.descripcion }}</td>
                                     <td>
-                        <a class="btn btn-danger btn-md" href="{{ path('crearEmpresaCorp', {'id': corporacion.id}) }}">Añadir empresa</a>
+                                        <a class="btn btn-danger btn-md" href="{{ path('crearEmpresaCorp', {'id': corporacion.id}) }}">Añadir empresa</a>
                                     </td>
-                                       <td>
-                         <a </span href="{{ path('corporacion_edit', {'id': corporacion.id}) }}" <span class="icon-pencil-alt text-black">Editar</a>
-                        <a </span href="{{ path('corporacion_delete', {'id': corporacion.id}) }}" <span class="icon-trash-empty text-black">Eliminar</a>
+                                    <td>
+                                        <a </span href="{{ path('corporacion_edit', {'id': corporacion.id}) }}" <span class="icon-pencil-alt text-black">Editar</a>
+                                        <a </span href="{{ path('corporacion_delete', {'id': corporacion.id}) }}" <span class="icon-trash-empty text-black">Eliminar</a>
                                     </td>
                                 </tr>
                                     
                             {% endfor %}
                         </tbody>
                 </table>
-                <div class="container">
-                     <p class=" text-black">{{ mensaje }}</p>
-
+                <div >
+                    {% if mensaje == "Corporación eliminada correctamente." %}
+                        <p class=" text-success pl-3">{{mensaje}}</p>
+                    {% else %}
+                        <p class=" text-danger pl-3">{{mensaje}}</p>
                 </div>
-
+                {% endif %}
                 </section>
             </section>
         </section>
