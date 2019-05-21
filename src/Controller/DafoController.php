@@ -6,33 +6,40 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
 use App\Entity\Dafo;
+use App\Entity\QuestionsExternes;
+use App\Entity\QuestionsInternes;
 
 class DafoController extends AbstractController
 {
     /**
-     * @Route("/dafo/list", name="dafo2")
+     * @Route("/dafo-corporacion/list/{id<\d+>}", name="dafo_corporacion")
      */
-    public function list()
+    public function list($id)
     {
-        $dafo = $this->getDoctrine()
-        ->getRepository(Dafo::class)
-        ->find(1);
+        $aspectesQce = $this->getDoctrine()
+        ->getRepository(QuestionsExternes::class)
+        ->findByCorporacionId($id);
 
+        $aspectesQci = $this->getDoctrine()
+        ->getRepository(QuestionsInternes::class)
+        ->findByCorporacionId($id);
+
+        
         $debilitats = [];
         $amenaces = [];
         $fortaleses = [];
         $oportunitats = [];
 
-        foreach ($dafo->getQuestionsInternes() as $qi) {
-            if($qi->getTipus() == 'debilidad'){
+        foreach ($aspectesQci as $qi) {
+            if($qi->getAspecteQ()->getDafo() == 'D'){
                 array_push($debilitats, $qi);
             } else {
                 array_push($fortaleses, $qi);
             }
         }
 
-        foreach ($dafo->getQuestionsExternes() as $qe) {
-            if($qe->getTipus() == 'amenaza'){
+        foreach ($aspectesQce as $qe) {
+            if($qe->getAspecteQ()->getDafo() == 'A'){
                 array_push($amenaces, $qe);
             } else {
                 array_push($oportunitats, $qe);
@@ -46,12 +53,13 @@ class DafoController extends AbstractController
             'amenaces' => $amenaces,
             'fortaleses' => $fortaleses,
             'oportunitats' => $oportunitats,
+            'id' => $id,
         ]);
     }
 
     
 
-        /**
+    /**
      * @Route("/dafo/binomio", name="binomio")
      */
     public function binomio()

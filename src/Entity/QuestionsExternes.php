@@ -63,10 +63,14 @@ class QuestionsExternes
      */
     private $corporacion;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\AspecteQ", mappedBy="questioExterna", cascade={"persist", "remove"})
+     */
+    private $aspecteQ;
+
     public function __construct()
     {
         $this->binomio = new ArrayCollection();
-        $this->aspecteQ = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -203,6 +207,24 @@ class QuestionsExternes
     public function setCorporacion(?Corporacion $corporacion): self
     {
         $this->corporacion = $corporacion;
+
+        return $this;
+    }
+
+    public function getAspecteQ(): ?AspecteQ
+    {
+        return $this->aspecteQ;
+    }
+
+    public function setAspecteQ(?AspecteQ $aspecteQ): self
+    {
+        $this->aspecteQ = $aspecteQ;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newQuestionsExternes = $aspecteQ === null ? null : $this;
+        if ($newQuestionsExternes !== $aspecteQ->getQuestionsExternes()) {
+            $aspecteQ->setQuestionsExternes($newQuestionsExternes);
+        }
 
         return $this;
     }

@@ -9,6 +9,7 @@ use App\Entity\SubTipusQE;
 use App\Entity\TipusQE;
 use App\Entity\Empresa;
 use App\Entity\Centro;
+use App\Entity\Corporacion;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use App\Form\QuestionsExternesType;
 
@@ -39,9 +40,9 @@ class QuestionsExternesController extends AbstractController
     {
             $qe = $this->getDoctrine()
             ->getRepository(QuestionsExternes::class)
-            ->find($id);
+            ->findByCorporacionId($id);
 
-            return $this->render('questions_externes/list.empresa.html.twig', ['qes' => $qe, 'id' => $id]);
+            return $this->render('questions_externes/list.corporacion.html.twig', ['qes' => $qe, 'id' => $id]);
 
     }
 
@@ -61,6 +62,8 @@ class QuestionsExternesController extends AbstractController
             return $this->render('questions_externes/list.centro.html.twig', ['qes' => $qe, 'id' => $id]);
 
     }
+
+
 
     /**
      * @Route("/questionsexternesEmpresas/new/{id<\d+>}", name="crearQeEmpresa")
@@ -104,6 +107,50 @@ class QuestionsExternesController extends AbstractController
         ));
     }
 
+     /**
+     * @Route("/questionsexternesCorporacion/new/{id<\d+>}", name="crearQeCorporacion")
+     */
+    public function newQeCorporacion($id)
+    {
+        
+        $subtipus = null;
+
+        $tiposQE = $this->getDoctrine()
+        ->getRepository(TipusQE::class)
+        ->findAll();
+    
+        // POST Form Subir los datos a la BBDD
+        if (isset($_POST['nombre'])) {
+
+            $corporacion = $this->getDoctrine()
+            ->getRepository(Corporacion::class)
+            ->find($id);
+
+            $qe = new QuestionsExternes();
+            $qe->setCorporacion($corporacion);
+            $qe->setNombre($_POST['nombre']);
+            $qe->setFechaAlta(new \DateTime($_POST['dateA']));
+            $qe->setFechaBaja(new \DateTime($_POST['dateB']));
+            $subtipus = $this->getDoctrine()
+            ->getRepository(SubTipusQE::class)
+            ->find($_POST['subtipus']);
+            $qe->setSubtipus($subtipus);
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($qe);
+            $entityManager->flush();
+        }
+
+        return $this->render('questions_externes/create.qe.corporacion.html.twig', array(
+            'title' => 'Nova QE',
+            'tiposQE' => $tiposQE,
+            'subtipus' => $subtipus,
+            'id' => $id,
+        ));
+    }
+    
+
+
     /**
      * @Route("/questionsexternesCentro/new/{id<\d+>}", name="crearQeCentro")
      */
@@ -146,6 +193,8 @@ class QuestionsExternesController extends AbstractController
             'id' => $id,
         ));
     }
+
+ 
 
     /**
      * @Route("/questionsexternesEmpresas/edit/{id<\d+>}/{idQe<\d+>}", name="qe_edit_empresa")
@@ -236,17 +285,106 @@ class QuestionsExternesController extends AbstractController
             'idQe' => $idQe,
             ]);
     }
-
-    /**
-     * @Route("/questionsexternes/delete/{id<\d+>}", name="qe_delete")
+        /**
+     * @Route("/questionsexternesCorporacion/edit/{id<\d+>}/{idQe<\d+>}", name="qe_edit_corporacion")
      */
-    public function delete($id)
+    public function editQeCorporacion($id, $idQe)
     {
-            $qe = $this->getDoctrine()
-            ->getRepository(QuestionsExternes::class)
-            ->findAll();
+        $tiposQE = $this->getDoctrine()
+        ->getRepository(TipusQE::class)
+        ->findAll();
+
+        $qes = $this->getDoctrine()
+        ->getRepository(QuestionsExternes::class)
+        ->findByCorporacionIdAndQeId($id,$idQe);
+        $qe = $qes[0];
+        $tipusQE = $this->getDoctrine()
+        ->getRepository(TipusQE::class)
+        ->find($qe->getSubtipus()->getTipusQE()->getId());
+
+        $subtipus = $tipusQE->getSubtipus();
+
+        if (isset($_POST['nombre'])) {
         
-            return $this->render('questions_externes/list.html.twig', ['qes' => $qe]);
+            $qe->setNombre($_POST['nombre']);
+            $qe->setFechaAlta(new \DateTime($_POST['dateA']));
+            $qe->setFechaBaja(new \DateTime($_POST['dateB']));
+            $subtipus = $this->getDoctrine()
+            ->getRepository(SubTipusQE::class)
+            ->find($_POST['subtipus']);
+            $qe->setSubtipus($subtipus);
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($qe);
+            $entityManager->flush();
+
+        }
+    
+        return $this->render('questions_externes/edit.qe.corporacion.html.twig', [
+            'title' => 'Edit QE',
+            'qe' => $qe,
+            'tiposQE' => $tiposQE,
+            'subtipus' => $subtipus,
+            'id' => $id,
+            'idQe' => $idQe,
+            ]);
+    }
+    
+    /**
+     * @Route("/questionsexternes/deleteCorporacion/{id<\d+>}/{idQe<\d+>}", name="qe_delete_corporacion")
+     */
+    public function deleteCorporacion($id, $idQe)
+    {
+        $qeCorporacion = $this->getDoctrine()
+        ->getRepository(QuestionsExternes::class)
+        ->find($idQe);
+        
+   
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($qeCorporacion);
+        $entityManager->flush();
+        // return $this->render('questions_externes/list.html.twig', ['qes' => $qe]);
+        return $this->redirectToRoute('qe_listCorporacion', ['qes' => $qeCorporacion, 'id' => $id]);
+
+
+            
+    }
+
+     /**
+     * @Route("/questionsexternes/deleteCentro/{id<\d+>}/{idQe<\d+>}", name="qe_deleteCentro")
+     */
+    public function deleteCentro($id, $idQe)
+    {
+            $qeCentro = $this->getDoctrine()
+            ->getRepository(QuestionsExternes::class)
+            ->find($idQe);
+            
+       
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($qeCentro);
+            $entityManager->flush();
+            // return $this->render('questions_externes/list.html.twig', ['qes' => $qe]);
+            return $this->redirectToRoute('qe_listCentros', ['qes' => $qeCentro, 'id' => $id]);
+      
+    }
+
+
+         /**
+     * @Route("/questionsexternes/deleteEmpresa/{id<\d+>}/{idQe<\d+>}", name="qe_deleteEmpresa")
+     */
+    public function deleteEmpresa($id, $idQe)
+    {
+            $qeEmpresa = $this->getDoctrine()
+            ->getRepository(QuestionsExternes::class)
+            ->find($idQe);
+            
+       
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($qeEmpresa);
+            $entityManager->flush();
+            // return $this->render('questions_externes/list.html.twig', ['qes' => $qe]);
+            return $this->redirectToRoute('qe_listEmpresas', ['qes' => $qeEmpresa, 'id' => $id]);
+      
     }
 
 

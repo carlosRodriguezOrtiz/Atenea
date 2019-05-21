@@ -6,7 +6,11 @@
         <section class="container-fluid">
             <section class="row">
                 <section class="col-md-12">
-                <a href="{{ path('crearQiCentro', {'id': id }) }}">Nuevo</a>
+
+
+                    <a class="btn btn-danger btn-md mt-3 mb-3" href="{{ path('crearQiCentro', { 'id' : id }) }}">&laquo; Crear nueva cuestion interna</a>
+
+
                     <table class="table">
                         <thead>
                             <tr>
@@ -26,8 +30,8 @@
                                     <th scope="row">{{questions_internes.tipus.descripcion}}</th>
  
                                     <td>
-                         {# <a </span href="{{ path('empresa_edit', {'id': empresa.id}) }}" <span class="icon-pencil-alt text-black">Edit</a>
-                         <a </span href="{{ path('empresa_delete', {'id': empresa.id}) }}" <span class="icon-trash-empty text-black">Eliminar</a> #}
+                                        <a </span href="{{ path('qi_edit_centros', {'id' : id, 'idQi': questions_internes.id}) }}" <span class="icon-pencil-alt text-black">Edit</a>
+                                        <a </span href="{{ path('qi_deleteCentro', {'id' : id, 'idQi': questions_internes.id}) }}" <span class="icon-trash-empty text-black">Eliminar</a>
                                     </td>
                                 </tr>
                             {% endfor %}

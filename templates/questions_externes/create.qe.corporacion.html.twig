@@ -8,7 +8,7 @@
                 <div class="col-md-8"></div>
                 <div class="col-md-4">
                     <div class="btn-group float-right mt-2 mb-3" role="group">
-                    <a class="btn btn-danger btn-md" href="{{ path('qe_listCentros', { 'id' : id }) }}">&laquo; Volver</a>
+                        <a class="btn btn-danger btn-md" href="{{path('inicio')}}">&laquo; Volver</a>
                     </div>
                 </div>
             </section>
@@ -21,7 +21,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="col-12 ">
-                                    <form action="{{path('crearQeCentro', { 'id' : id })}}" method="POST">
+                                    <form action="{{path('crearQeCorporacion', { 'id' : id })}}" method="POST">
                                         <label>Nombre</label><input name="nombre" type="text"/>
                                         <div class="form-group">
                                             <label>Fecha de Alta</label>

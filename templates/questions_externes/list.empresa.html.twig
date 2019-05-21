@@ -6,7 +6,10 @@
         <section class="container-fluid">
             <section class="row">
                 <section class="col-md-12">
-                    <a href="{{ path('crearQeEmpresa', {'id': id }) }}">Nuevo</a>
+                   
+
+                                        <a  class="btn btn-danger mb-3 mt-3" href="{{ path('crearQeEmpresa', {'id': id }) }}" >Crear nueva Cuestion Externa </a>
+
                     <a class="btn btn-danger btn-md" href="{{ path('gestion_contextoEmpresa', { 'id' : id }) }}">&laquo; Volver</a>
                     <table class="table">
                         <thead>
@@ -27,8 +30,8 @@
                                     <td>{{ questions_externes.getSubTipus().getTipusQE().getNombre() }}</td>
 
                                     <td>
-                                        <a </span href="{{ path('qe_edit_empresa', {'id' : id, 'idQe': questions_externes.id}) }}" <span class="icon-pencil-alt text-black">Editar</a>
-                                        <a </span href="{{ path('qe_delete', {'id': questions_externes.id}) }}" <span class="icon-trash-empty text-black">Eliminar</a>
+                                        <a </span href="{{ path('qe_edit_empresa', {'id' : id, 'idQe': questions_externes.id}) }}" <span class="icon-pencil-alt text-black">Edit</a>
+                                        <a </span href="{{ path('qe_deleteEmpresa', {'id' : id, 'idQe': questions_externes.id}) }}" <span class="icon-trash-empty text-black">Eliminar</a>
                                     </td>
                                 </tr>
                             {% endfor %}
