@@ -149,13 +149,13 @@ class EmpresaController extends AbstractController
                 );
 
                 $empresaCreada = true;
-                $avisoCreacion = "La empresa ha sido creada";
+                $avisoCreacion = "La empresa ha sido creada con éxito.";
 
                 $empresas = new Empresa();
                 $form = $this->createForm(empresasType::class, $empresas, array('submit' => 'Crear Empresa'));
             } else {
                 $empresaCreada = false;
-                $avisoCreacion = "La empresa ya existe , porfavor introduzca una nueva";
+                $avisoCreacion = "La empresa ya existe, porfavor introduzca una nueva.";
             }
         }
         return $this->render('empresa/empresas.html.twig', array(
