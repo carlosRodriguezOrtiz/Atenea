@@ -9,7 +9,7 @@
                 <div class="col-md-8"></div>
                 <div class="col-md-4">
                     <div class="btn-group float-right mt-2 mb-3" role="group">
-                        <a class="btn btn-danger btn-md" href="{{ path('empresas_list') }}">&laquo; Volver</a>
+                        <a class="btn btn-danger btn-md" href="{{ path('inicio') }}">&laquo; Volver</a>
                     </div>
                 </section>
                 <div class="container">
@@ -26,7 +26,7 @@
                                         {{  form_end(form ) }}
                                     </div>
                                 </div>
-                        {% if mensaje == "La empresa ha sido creada" %}
+                        {% if mensaje == "La empresa ha sido creada con éxito." or mensaje == "La empresa ha sido modificada con éxito." %}
                         <p class=" text-success pl-3">{{mensaje}}</p>
                             {% else %}
                             <p class=" text-danger pl-3">{{mensaje}}</p>

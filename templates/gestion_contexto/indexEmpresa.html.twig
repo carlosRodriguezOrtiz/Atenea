@@ -15,8 +15,8 @@
             <section class="row text-center">
                 <section class="col-md-12 mt-5">
                         <a class="btn btn-primary btn-lg gestion-contexto" href="{{ path('qe_listEmpresas' , {id : id}) }}">Gestionar cuestiones externas</a><br><br>
-                        <a class="btn btn-secondary btn-lg gestion-contexto"  href="{{ path('qi_listEmpresas', {id : id}) }}">Gestionar cuestiones internas</a><br><br>
-                        {# <a class="btn btn-success btn-lg gestion-contexto"  href="">Gestionar partes interesadas</a><br><br> #}
+                        <a class="btn btn-secondary btn-lg gestion-contexto" href="{{ path('qi_listEmpresas', {id : id}) }}">Gestionar cuestiones internas</a><br><br>
+                        <a class="btn btn-success btn-lg gestion-contexto disabled" href="">Gestionar partes interesadas</a><br><br>
                         <a class="btn btn-primary btn-lg gestion-contexto" href="{{path('aspectes_qe_empresa',{id : id})}}">QE-Gestionar aspectos favorables y desfavorables</a><br><br>
                         <a class="btn btn-primary btn-lg gestion-contexto" href="{{path('aspectes_qi_empresa',{id : id})}}">QI-Gestionar aspectos favorables y desfavorables</a><br><br>
                         <a class="btn btn-secondary btn-lg gestion-contexto" href="{{ path('dafo', {id : id}) }}">DAFO</a><br><br>

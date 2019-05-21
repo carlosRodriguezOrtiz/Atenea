@@ -63,11 +63,19 @@
                                     </td>
                                 </tr>
                             {% endif %}
+                            
                         </tbody>
                     </table>
-                   
+                    </div>
+                        {% if mensaje == "Empresa eliminada correctamente." %}
+                            <p class=" text-success pl-3">{{mensaje}}</p>
+                        {% else %}
+                            <p class=" text-danger pl-3">{{mensaje}}</p>
+                    </div>
+                    </div>
+                        {% endif %}
 
-                    <span class=" text-black">{{mensaje}}</span>
+                    {# <span class=" text-black">{{mensaje}}</span> #}
                 </section>
             </section>
         </section>
