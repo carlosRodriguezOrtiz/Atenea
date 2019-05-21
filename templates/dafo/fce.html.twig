@@ -11,16 +11,13 @@
     }
 </style>
 <div class="example-wrapper">
-<form method="post" action="{{ path('binomioCorporacion', {id : id}) }}">
+<form method="post" action="{{ path('binomioCorporacionCreate', {id : id}) }}">
+
     {% for binomio in binomios %}
     {{  binomio.getAspectesQ()[0].getDafo()}} {{binomio.getAspectesQ()[0].getNom() }} x {{ binomio.getAspectesQ()[1].getDafo()}} {{ binomio.getAspectesQ()[1].getNom() }} 
-       <input type="checkbox" name="{{binomio.id}}" value="{{binomio.id}}"><br />
+      FCE: <input type="text" name="{{binomio.id}}" value=""><br />
   {% endfor %}
-
-   
-
-
-    <input type="submit" value="Enviar"/>
+      <input type="submit" value="Enviar"/>
 </form>
 </div>
 {% endblock %}

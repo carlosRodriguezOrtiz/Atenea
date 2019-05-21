@@ -9,6 +9,7 @@ use App\Entity\Dafo;
 use App\Entity\QuestionsExternes;
 use App\Entity\QuestionsInternes;
 use App\Entity\Binomio;
+use App\Entity\FactorCriticoDeExito;
 class DafoController extends AbstractController
 {
     /**
@@ -137,14 +138,15 @@ class DafoController extends AbstractController
         ->getRepository(Binomio::class)
         ->findAll();
         return $this->render('dafo/binomioCorp.html.twig', [
-            'binomios' => $binomios
+            'binomios' => $binomios,
+            'id' =>$id
         ]);
     }
 
     /**
      * @Route("/dafo/factor-critico-exito-corporacion/{id<\d+>}", name="binomioCorporacion")
      */
-    public function fceCorp()
+    public function fceCorp($id)
     {
 
         $questionsExternes = $this->getDoctrine()
@@ -168,14 +170,36 @@ class DafoController extends AbstractController
         }
         $binomiosBBDD = $this->getDoctrine()
         ->getRepository(Binomio::class)->findBySelected();
-        foreach ($binomiosBBDD as $bin ) {
-            var_dump($key->getId());
-        }
-       
-        die();
         
         return $this->render('dafo/fce.html.twig', [
-            'binomios' => $binomiosBBDD
+            'binomios' => $binomiosBBDD,
+            'id' => $id,
         ]);
     }
+
+    /**
+     * @Route("/dafo/factor-critico-exito-corporacion/create/{id<\d+>}", name="binomioCorporacionCreate")
+     */
+    public function fceCorpCreate($id)
+    {
+        if (isset($_POST)) {
+            foreach ($_POST as $key => $value) {
+                var_dump($key);
+                $binomio = $this->getDoctrine()
+                ->getRepository(Binomio::class)
+                ->find($key);
+                $fce = new FactorCriticoDeExito();
+                $fce->setBinomio($binomio);
+                $fce->setDescripcion($value);
+                
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($fce);
+                $entityManager->flush();
+            }
+        }
+        
+        return $this->redirectToRoute('dafo_corporacion',['id' => $id]);
+    }
+
+
 }
