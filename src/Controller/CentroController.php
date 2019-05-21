@@ -32,11 +32,36 @@ class CentroController extends AbstractController
      */
     public function view($id)
     {
+
+        $usuariActual = $this->getUser();
+
+        $userDB = $this->getDoctrine()
+            ->getRepository(User::class)
+            ->find($usuariActual->getId());
+
         $centro = $this->getDoctrine()
         ->getRepository(Centro::class)
         ->find($id);
 
-        return $this->render('centro/view.html.twig', ['centro'=>$centro]);
+        if ($userDB->getRole()->getNombre() == "ROLE_ADMIN") {
+            return $this->render('centro/view.html.twig', ['centro' => $centro]);
+
+        } else {
+
+            if ($userDB->getCentro()->getId() == $id) {
+
+                return $this->render('centro/view.html.twig', ['centro' => $centro]);
+
+            } else {
+
+                $mensajeError = 'El usuario actual no puede acceder a esta empresa';
+                
+
+                return $this->render('centro/errores.html.twig', [ 'mensajeError' => $mensajeError]);
+            }
+
+        }
+
     }
 
    /**

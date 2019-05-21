@@ -148,7 +148,7 @@ class AspectesQController extends AbstractController
 
         if (isset($_POST['hidden'])) {
             $ce = $this->getDoctrine()->getRepository(QuestionsExternes::class)->find($_POST['hidden']);
-            $aspectoQ->setQuestioExterna($ce);
+            $aspectoQ->setCuestionesExternas($ce);
             if (isset($_POST['amenaza'])) {
                 $aspectoQ->setDescripcio($_POST['amenaza']);
                 $aspectoQ->setNom($_POST['amenaza']);
@@ -209,7 +209,7 @@ class AspectesQController extends AbstractController
 
         if (isset($_POST['hidden'])) {
             $ce = $this->getDoctrine()->getRepository(QuestionsExternes::class)->find($_POST['hidden']);
-            $aspectoQ->setQuestioExterna($ce);
+            $aspectoQ->setCuestionesExternas($ce);
             if (isset($_POST['amenaza'])) {
                 $aspectoQ->setDescripcio($_POST['amenaza']);
                 $aspectoQ->setNom($_POST['amenaza']);
@@ -270,7 +270,7 @@ class AspectesQController extends AbstractController
 
         if (isset($_POST['hidden'])) {
             $ce = $this->getDoctrine()->getRepository(QuestionsExternes::class)->find($_POST['hidden']);
-            $aspectoQ->setQuestioExterna($ce);
+            $aspectoQ->setCuestionesExternas($ce);
             if (isset($_POST['amenaza'])) {
                 $aspectoQ->setDescripcio($_POST['amenaza']);
                 $aspectoQ->setNom($_POST['amenaza']);
@@ -331,7 +331,7 @@ class AspectesQController extends AbstractController
 
         if (isset($_POST['hidden'])) {
             $ci = $this->getDoctrine()->getRepository(QuestionsInternes::class)->find($_POST['hidden']);
-            $aspectoQ->setQuestioInterna($ci);
+            $aspectoQ->setCuestionesInternas($ci);
             if (isset($_POST['debilidad'])) {
                 $aspectoQ->setDescripcio($_POST['debilidad']);
                 $aspectoQ->setNom($_POST['debilidad']);
@@ -390,7 +390,7 @@ class AspectesQController extends AbstractController
 
         if (isset($_POST['hidden'])) {
             $ci = $this->getDoctrine()->getRepository(QuestionsInternes::class)->find($_POST['hidden']);
-            $aspectoQ->setQuestioInterna($ci);
+            $aspectoQ->setCuestionesInternas($ci);
             if (isset($_POST['debilidad'])) {
                 $aspectoQ->setDescripcio($_POST['debilidad']);
                 $aspectoQ->setNom($_POST['debilidad']);
@@ -449,7 +449,7 @@ class AspectesQController extends AbstractController
 
         if (isset($_POST['hidden'])) {
             $ci = $this->getDoctrine()->getRepository(QuestionsInternes::class)->find($_POST['hidden']);
-            $aspectoQ->setQuestioInterna($ci);
+            $aspectoQ->setCuestionesInternas($ci);
             if (isset($_POST['debilidad'])) {
                 $aspectoQ->setDescripcio($_POST['debilidad']);
                 $aspectoQ->setNom($_POST['debilidad']);

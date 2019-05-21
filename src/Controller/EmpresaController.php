@@ -63,11 +63,36 @@ class EmpresaController extends AbstractController
      */
     public function view($id)
     {
+        $usuariActual = $this->getUser();
+
+        $userDB = $this->getDoctrine()
+            ->getRepository(User::class)
+            ->find($usuariActual->getId());
+
         $empresa = $this->getDoctrine()
             ->getRepository(Empresa::class)
             ->find($id);
 
-        return $this->render('empresa/view.html.twig', ['empresa' => $empresa, 'centros' => $empresa->getArrayCentros()]);
+
+        if ($userDB->getRole()->getNombre() == "ROLE_ADMIN") {
+            return $this->render('empresa/view.html.twig', ['empresa' => $empresa, 'centros' => $empresa->getArrayCentros()]);
+
+        } else {
+
+            if ($userDB->getEmpresa()->getId() == $id) {
+
+                return $this->render('empresa/view.html.twig', ['empresa' => $empresa, 'centros' => $empresa->getArrayCentros()]);
+
+            } else {
+
+                $mensajeError = 'El usuario actual no puede acceder a esta empresa';
+                
+
+                return $this->render('empresa/errores.html.twig', [ 'mensajeError' => $mensajeError]);
+            }
+
+        }
+
     }
 
     /**

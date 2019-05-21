@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -30,11 +31,35 @@ class CorporacionController extends AbstractController
      */
     public function view($id)
     {
-        $corporacion = $this->getDoctrine()
-        ->getRepository(Corporacion::class)
-        ->find($id);
 
-        return $this->render('corporacion/view.html.twig', ['corporacion'=>$corporacion,'empresas' => $corporacion->getArrayEmpresa()]);
+        $usuariActual = $this->getUser();
+
+        $userDB = $this->getDoctrine()
+            ->getRepository(User::class)
+            ->find($usuariActual->getId());
+
+        $corporacion = $this->getDoctrine()
+            ->getRepository(Corporacion::class)
+            ->find($id);
+
+        if ($userDB->getRole()->getNombre() == "ROLE_ADMIN") {
+            return $this->render('corporacion/view.html.twig', ['corporacion' => $corporacion, 'empresas' => $corporacion->getArrayEmpresa()]);
+
+        } else {
+
+            if ($userDB->getCorporacion()->getId() == $id) {
+
+                return $this->render('corporacion/view.html.twig', ['corporacion' => $corporacion, 'empresas' => $corporacion->getArrayEmpresa()]);
+
+            } else {
+
+                $mensajeError = 'El usuario actual no puede acceder a esta corporacion';
+
+                return $this->render('corporacion/errores.html.twig', ['mensajeError' => $mensajeError]);
+            }
+
+        }
+
     }
 
 
