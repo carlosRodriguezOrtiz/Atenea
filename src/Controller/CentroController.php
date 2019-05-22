@@ -187,7 +187,7 @@ class CentroController extends AbstractController
 
         return $this->render('centro/centros.html.twig', array(
             'form' => $form->createView(),
-            'title' => 'Editar centros',
+            'title' => 'Editar Centro',
             'mensaje' => $avisoCreacion,
         ));
     }

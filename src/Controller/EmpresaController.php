@@ -185,7 +185,7 @@ class EmpresaController extends AbstractController
         }
         return $this->render('empresa/empresas.html.twig', array(
             'form' => $form->createView(),
-            'title' => 'Nova empresa',
+            'title' => 'Nueva Empresa',
             'mensaje' => $avisoCreacion,
         ));
     }
@@ -242,7 +242,7 @@ class EmpresaController extends AbstractController
 
         return $this->render('empresa/empresas.html.twig', array(
             'form' => $form->createView(),
-            'title' => 'Editar empresas',
+            'title' => 'Editar Empresa',
             'mensaje' => $avisoCreacion,
         ));
     }

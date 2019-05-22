@@ -125,7 +125,7 @@ class CorporacionController extends AbstractController
 
         return $this->render('corporacion/corporaciones.html.twig', array(
             'form' => $form->createView(),
-            'title' => 'Nueva corporación',
+            'title' => 'Nueva Corporación',
             'mensaje' => $avisoCreacion,
         ));
            
@@ -180,7 +180,7 @@ class CorporacionController extends AbstractController
 
         return $this->render('corporacion/corporaciones.html.twig', array(
             'form' => $form->createView(),
-            'title' => 'Editar corporaciones',
+            'title' => 'Editar Corporación',
             'mensaje' => $avisoCreacion,
         ));
     }
