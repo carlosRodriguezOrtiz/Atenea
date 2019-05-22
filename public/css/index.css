@@ -26,7 +26,10 @@ a.disabled {
         width: 100%;
     }
     .res-but {
-        width: 75%;
+        width: 60%;
+    }
+    .res-search {
+        size: 30% !important;
     }
 }
 
@@ -36,6 +39,12 @@ a.disabled {
     }
     .res-but {
         width: 60%;
+    }
+    .res-div {
+        padding: 10%;
+    }
+    .res-search {
+        size: 30% !important;
     }
 }
 

@@ -5,7 +5,7 @@
             <div class="col-sm-8">
                 <div class="card d-flex ">
                     <div class="card-header bg-danger text-white">
-                        <h4>Inicia sesión</h4>
+                        <h4>Iniciar sesión</h4>
                     </div>
                      
                     <div class="card-body border border-dark">
@@ -13,12 +13,12 @@
                           
                             <form action="{{ path('login') }}" method="post" class="text-center ">
                                 <label class="sr-only " for="username">Usuario:</label>
-                                <input type="text" id="username" class="form-control mb-3 border border-secondary" name="_username" value="" placeholder="Username" required autofocus/>
+                                <input type="text" id="username" class="form-control mb-3 border border-secondary" name="_username" value="" placeholder="Usuario" required autofocus/>
                                 <label class="sr-only" for="password">Contraseña:</label>
-                                <input class="form-control mb-3 border border-secondary " id="password" name="_password" placeholder="Password" required type="password"/>
-                                                <i onclick="mostrarContrasena();" class="icon-search-1  pointer ">Mostrar contrasenya</i>
+                                <input class="form-control mb-3 border border-secondary " id="password" name="_password" placeholder="Contraseña" required type="password"/>
+                                                <i onclick="mostrarContrasena();" class="icon-search-1  pointer ">Mostrar contraseña</i>
                                                 <div>
-                              <button class="btn btn-md btn-danger mb-2 mt-4 " type="submit">Iniciar sesion</button>
+                              <button class="btn btn-md btn-danger mb-2 mt-4 " type="submit">Iniciar sesión</button>
                               </div>
                             </form>
                              {% if error %}

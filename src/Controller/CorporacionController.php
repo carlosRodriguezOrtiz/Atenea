@@ -26,6 +26,29 @@ class CorporacionController extends AbstractController
         ]);
     }
 
+
+  /**
+     * @Route("/corporacion/busqueda", name="corporacion_busqueda")
+     */
+    public function search(Request $request)
+    {
+        $term = $request->request->get('term');
+
+        $corporaciones = $this->getDoctrine()
+            ->getRepository(Corporacion::class)
+            ->findLikeNom($term);
+
+         
+            $mensaje="";
+        return $this->render('corporacion/list.html.twig', [
+            'corporaciones' => $corporaciones,
+            'searchTerm' => $term,
+            'mensaje' => $mensaje,
+        ]);  
+    }
+
+
+
     /**
      * @Route("/corporacion/{id<\d+>}", name="corporacion")
      */
@@ -41,6 +64,10 @@ class CorporacionController extends AbstractController
         $corporacion = $this->getDoctrine()
             ->getRepository(Corporacion::class)
             ->find($id);
+
+
+            if ($corporacion != null) {
+
 
         if ($userDB->getRole()->getNombre() == "ROLE_ADMIN") {
             return $this->render('corporacion/view.html.twig', ['corporacion' => $corporacion, 'empresas' => $corporacion->getArrayEmpresa()]);
@@ -60,11 +87,19 @@ class CorporacionController extends AbstractController
 
         }
 
+
+    } else {
+        $mensajeError = 'La corporacion  no existe!!';
+                
+
+        return $this->render('corporacion/errores.html.twig', [ 'mensajeError' => $mensajeError]);
+    }
+
     }
 
 
     /**
-     * @Route("/corporaciones/listar", name="corporaciones_list")
+     * @Route("/corporaciones/lista", name="corporaciones_list")
      */
     public function list()
     {
@@ -125,7 +160,7 @@ class CorporacionController extends AbstractController
 
         return $this->render('corporacion/corporaciones.html.twig', array(
             'form' => $form->createView(),
-            'title' => 'Nueva corporación',
+            'title' => 'Nueva Corporación',
             'mensaje' => $avisoCreacion,
         ));
            
@@ -180,7 +215,7 @@ class CorporacionController extends AbstractController
 
         return $this->render('corporacion/corporaciones.html.twig', array(
             'form' => $form->createView(),
-            'title' => 'Editar corporaciones',
+            'title' => 'Editar Corporación',
             'mensaje' => $avisoCreacion,
         ));
     }

@@ -143,7 +143,7 @@
             </div>
         </section>
         <div class="row">
-            <div class="col md-6 pr-0 pl-0  tabladafoDebilidades">
+            <div class="col md-6 pr-0 pl-0 tabladafoDebilidades">
                 <div class=" colorDebilidades">
                     <h3 class="ml-3">
                         Debilidades</h3>
@@ -156,10 +156,10 @@
                                     <p class="ml-5">{{ qi.getNom() }}
                                     </div>
                                     <div class="options">
-                                        <a>
-                                            <span class="icon-pencil-alt text-white"></a>
+                                        
                                             <a>
-                                                <span class="icon-trash-empty text-white"></a>
+                                                            <a  href="{{ path('aspecto_eliminar', {'id' : id, 'idAspectoQ': qi.id }) }}"  class="icon-trash-empty text-white" ></a>
+                                                        </a>
                                             </div>
                                         {% endfor %}
                                     </div>
@@ -181,10 +181,8 @@
                                             </p>
                                         </div>
                                         <div class="options">
-                                            <a>
-                                                <span class="icon-pencil-alt text-white"></a>
-                                                <a>
-                                                    <span class="icon-trash-empty text-white"></a>
+                                          
+                                                            <a  href="{{ path('aspecto_eliminar', {'id' : id, 'idAspectoQ': qe.id }) }}" class="icon-trash-empty text-white" ></a>
                                                 </div>
                                             {% endfor %}
                                         </div>
@@ -207,10 +205,10 @@
                                                 <p class="ml-5">{{ qi.getNom() }}</p>
                                             </div>
                                             <div class="options">
-                                                <a>
-                                                    <span class="icon-pencil-alt text-white"></a>
+                                     
                                                     <a>
-                                                        <span class="icon-trash-empty text-white"></a>
+                                                            <a  href="{{ path('aspecto_eliminar', {'id' : id, 'idAspectoQ': qi.id }) }}"  class="icon-trash-empty text-white" ></a>
+                                                        </a>
 
                                                     </div>
                                                 {% endfor %}
@@ -232,10 +230,10 @@
                                                     <p class="ml-5">{{ qe.getNom() }}</p>
                                                 </div>
                                                 <div class="options">
-                                                    <a>
-                                                        <span class="icon-pencil-alt text-white"></a>
+                                        
                                                         <a>
-                                                            <span class="icon-trash-empty text-white"></a>
+                                                            <a  href="{{ path('aspecto_eliminar', {'id' : id, 'idAspectoQ': qe.id }) }}"  class="icon-trash-empty text-white" ></a>
+                                                        </a>
                                                         </div>
                                                     {% endfor %}
                                                 </div>

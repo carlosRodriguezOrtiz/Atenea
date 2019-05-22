@@ -8,7 +8,7 @@
                 <section class="col-md-12">
                 {#<a class="btn btn-primary btn-lg" href="{{ path('crearEmpresa') }}" style="margin: 10px;">Crear Usuario</a>#}
                 <a class="btn btn-danger btn-md" href="{{ path('inicio') }}" style="margin: 10px;">&laquo; Volver</a>
-                    <table class="table table-responsive-sm">
+                    <table class="table table-hover table-responsive-sm">
                         <thead>
                             <tr>
                                 <th scope="col">ID</th>
@@ -16,10 +16,10 @@
                                 <th scope="col">Nombre Corporación</th>
                                 <th scope="col">Nombre Centro</th>
                                 <th scope="col">Nombre</th>
-                                <th scope="col">role</th>
-                                <th scope="col">email</th>
-                                <th scope="col">password</th>
-                                <th scope="col">isActive</th>
+                                <th scope="col">Rol</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Contraseña</th>
+                                <th scope="col">Activo</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -45,7 +45,11 @@
                                     <td>{{ user.role.nombre }}</td>
                                     <td>{{ user.email }}</td>
                                     <td>{{ user.password }}</td>
-                                    <td>{{ user.isActive }}</td>
+                                {% if user.isActive == 1 %}
+                                    <td>Si</td>
+                                {% else %}
+                                    <td>No</td>
+                                    {% endif %}
                                 </tr>
                             {% endfor %}
                         </tbody>

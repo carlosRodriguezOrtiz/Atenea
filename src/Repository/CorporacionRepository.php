@@ -36,17 +36,21 @@ class CorporacionRepository extends ServiceEntityRepository
     }
     */
 
-    /*
-    public function findOneBySomeField($value): ?Corporacion
-    {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
+     /**
+      * @return Corporacion[] Returns an array of Corporacion objects
+      */
+
+      public function findLikeNom($value)
+      {
+          return $this->createQueryBuilder('s')
+              ->andWhere('s.nombre like :val')
+              ->setParameter('val', '%'.$value.'%')
+              ->orderBy('s.id', 'ASC')
+              ->setMaxResults(1000)
+              ->getQuery()
+              ->getResult()
+          ;
+      }
 
 
     public function findByNombre($value)

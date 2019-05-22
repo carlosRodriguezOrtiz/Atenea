@@ -36,6 +36,23 @@ class CentroRepository extends ServiceEntityRepository
     }
     */
 
+  /**
+      * @return Centro[] Returns an array of Centro objects
+      */
+
+      public function findLikeNom($value)
+      {
+          return $this->createQueryBuilder('s')
+              ->andWhere('s.nombre like :val')
+              ->setParameter('val', '%'.$value.'%')
+              ->orderBy('s.id', 'ASC')
+              ->setMaxResults(1000)
+              ->getQuery()
+              ->getResult()
+          ;
+      }
+    
+
     /*
     public function findOneBySomeField($value): ?Centro
     {

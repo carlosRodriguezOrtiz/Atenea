@@ -6,14 +6,15 @@
         <section class="container-fluid">
             <section class="row">
                 <section class="col-md-12">
-                    <a class="btn btn-danger mb-3 mt-3" href="{{ path('crearQiCentro', { 'id' : id }) }}">&laquo; Crear nueva cuestión interna</a>
+                    <a class="btn btn-primary mb-3 mt-3" href="{{ path('crearQiCentro', { 'id' : id }) }}">Crear nueva Cuestión Interna</a>
                     <a class="btn btn-danger btn-md" href="{{ path('gestion_contextoCentro', { 'id' : id }) }}">&laquo; Volver</a>
-                    <table class="table">
+                    <table class="table table-hover table-responsive-sm">
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">Nombre</th>
                                 <th scope="col">Tipo</th>
+                                <th scope="col">Opciones</th>
                             </tr>
                         </thead>
                         <tbody>

@@ -7,9 +7,30 @@
         <h3 style="margin: 10px; text-align: center; text-decoration: underline;">Listado de Empresas</h3>
             <section class="row">
                 <section class="col-md-12">
-                    <table class="table table-responsive-sm">
-                    <a class="btn btn-primary btn-lg" href="{{ path('crearEmpresa') }}" style="margin: 10px;">Crear Empresa</a>
-                    
+                    <table class="table table-hover table-responsive-sm">
+                      {% if app.user.role.nombre == 'ROLE_ADMIN' %}
+ <form class="form-inline w-100 my-2 my-md-0 pr-3 form-just" method="post" action="{{ path('peliculas_busqueda') }}">
+            <div class="form-inline mr-2 d-flex" style="flex-wrap: nowrap;">
+                <input class="form-control" id="form_term" name="term" placeholder="Buscar Empresa" required="required" type="text">
+                                <button type="submit" class="btn btn-light icon-search-1 text-black"></button></div>
+            </form>
+     {% endif %}
+
+  {% if searchTerm is defined %}
+                    <div class="row">
+                        <div class="col-md-8">
+                            <p class=" text-black ml-3">Resultados de búsqueda por:
+                                <strong class="text-danger">
+                                    {{ searchTerm }}</strong>
+                            </p>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <a class="btn btn-default btn-sm float-right" href="{{ path('empresas_list') }}">x Borrar búsqueda</a>
+                        </div>
+                    </div>
+                {% endif %}
+                                    <a class="btn btn-primary btn-lg" href="{{ path('crearEmpresa') }}" style="margin: 10px;">Crear Empresa</a>
+
                      {% if app.user.role.nombre == 'ROLE_ADMIN' %}
                         <a class="btn btn-danger btn-md ml-3" href="{{ path('user_empresa') }}">Registrar usuario Empresa</a>
                     {% endif %}
