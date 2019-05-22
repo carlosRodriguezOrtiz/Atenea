@@ -24,6 +24,28 @@ class EmpresaController extends AbstractController
         ]);
     }
 
+
+  /**
+     * @Route("/empresa/busqueda", name="peliculas_busqueda")
+     */
+    public function search(Request $request)
+    {
+        $term = $request->request->get('term');
+
+        $empresas = $this->getDoctrine()
+            ->getRepository(Empresa::class)
+            ->findLikeNom($term);
+          $mensaje="";
+        return $this->render('empresa/list.html.twig', [
+            'empresas' => $empresas,
+            'searchTerm' => $term,
+            'mensaje' => $mensaje,
+        ]);
+        
+    }
+
+
+
     /**
      * @Route("/empresas/lista", name="empresas_list")
      */
@@ -185,7 +207,7 @@ class EmpresaController extends AbstractController
         }
         return $this->render('empresa/empresas.html.twig', array(
             'form' => $form->createView(),
-            'title' => 'Nova empresa',
+            'title' => 'Nueva Empresa',
             'mensaje' => $avisoCreacion,
         ));
     }
@@ -242,7 +264,7 @@ class EmpresaController extends AbstractController
 
         return $this->render('empresa/empresas.html.twig', array(
             'form' => $form->createView(),
-            'title' => 'Editar empresas',
+            'title' => 'Editar Empresa',
             'mensaje' => $avisoCreacion,
         ));
     }
