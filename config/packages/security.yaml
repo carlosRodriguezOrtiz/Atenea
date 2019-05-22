@@ -2,8 +2,8 @@ security:
     access_denied_url: /acces-denied
     encoders:
         App\Entity\User:
-            #algorithm: bcrypt
-            algorithm: plaintext
+                algorithm: bcrypt
+                #algorithm: plaintext
     providers:
         our_db_provider:
             entity:
