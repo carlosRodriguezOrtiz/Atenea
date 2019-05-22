@@ -10,8 +10,8 @@
                     <table class="table table-hover table-responsive-sm">
                       {% if app.user.role.nombre == 'ROLE_ADMIN' %}
  <form class="form-inline w-100 my-2 my-md-0 pr-3 form-just" method="post" action="{{ path('peliculas_busqueda') }}">
-            <div class="form-inline mr-2">
-                <input class="form-control mb-2 mr-sm-2 mb-sm-0" id="form_term" name="term" placeholder="Buscar Empresa" required="required" type="text">
+            <div class="form-inline mr-2 d-flex" style="flex-wrap: nowrap;">
+                <input class="form-control" id="form_term" name="term" placeholder="Buscar Empresa" required="required" type="text">
                                 <button type="submit" class="btn btn-light icon-search-1 text-black"></button></div>
             </form>
      {% endif %}

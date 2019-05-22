@@ -29,7 +29,7 @@ a.disabled {
         width: 60%;
     }
     .res-search {
-        size: 30%;
+        size: 30% !important;
     }
 }
 
@@ -44,7 +44,7 @@ a.disabled {
         padding: 10%;
     }
     .res-search {
-        size: 30%;
+        size: 30% !important;
     }
 }
 
