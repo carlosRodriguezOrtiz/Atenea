@@ -36,17 +36,21 @@ class EmpresaRepository extends ServiceEntityRepository
     }
     */
 
-    /*
-    public function findOneBySomeField($value): ?Empresa
-    {
-        return $this->createQueryBuilder('e')
-            ->andWhere('e.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
+   /**
+      * @return Empresa[] Returns an array of Empresa objects
+      */
+
+      public function findLikeNom($value)
+      {
+          return $this->createQueryBuilder('s')
+              ->andWhere('s.nombre like :val')
+              ->setParameter('val', '%'.$value.'%')
+              ->orderBy('s.id', 'ASC')
+              ->setMaxResults(1000)
+              ->getQuery()
+              ->getResult()
+          ;
+      }
 
     public function findByNombre($value)
     {

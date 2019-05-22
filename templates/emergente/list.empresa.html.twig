@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ejemplo DAFO
+{% endblock %}
+
+{% block body %}
+    <style>
+        .primeraCol {
+            padding-top: 12px;
+        }
+        .segundaCol {
+            padding-top: 12px;
+        }
+        .nomEmpresa {
+            width: 80%;
+            text-align: center;
+        }
+        .boton {
+            width: 20%;
+            float: left;
+            text-align: center;
+        }
+        .nomCentro {
+            width: 80%;
+            text-align: center;
+        }
+        .botones-down {
+            text-align: center;
+            text-decoration: none;
+            padding-top: 15px;
+        }
+        .titulo {
+            border: solid black 1px;
+            border-radius: 5px;
+            text-align: center;
+            background: #005095;
+            color: white;
+            font-weight: bold;
+        }
+    </style>
+
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-12 primeraCol">
+                    {% if centros|length > 0 %}
+                        <p class="titulo">CENTROS</p>
+                        {% for centro in centros %}
+
+                            <div class="boton">
+                                    <a class="btn btn-danger btn-md ml-3" href="{{ path('gestion_contextoCentros' , {id : centro.id}) }}">Seleccionar</a>
+                            </div>
+                            <div class="nomCentro">
+
+                                <p>{{ centro.nombre }}</p>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <p class="titulo">No hay centros</p>
+                    {% endif %}
+            </div> 
+        </div>
+        <div class="row">
+            <div class="col-md-12 botones-down">
+                <a class="btn btn-dark" href="{{ path('gestion_contextoEmpresa' , { 'id' : id}) }}">Seleccionar todo</a>
+            </div>
+        </div>
+
+
+    </div>
+
+
+{% endblock %}

@@ -24,6 +24,28 @@ class EmpresaController extends AbstractController
         ]);
     }
 
+
+  /**
+     * @Route("/empresa/busqueda", name="peliculas_busqueda")
+     */
+    public function search(Request $request)
+    {
+        $term = $request->request->get('term');
+
+        $empresas = $this->getDoctrine()
+            ->getRepository(Empresa::class)
+            ->findLikeNom($term);
+          $mensaje="";
+        return $this->render('empresa/list.html.twig', [
+            'empresas' => $empresas,
+            'searchTerm' => $term,
+            'mensaje' => $mensaje,
+        ]);
+        
+    }
+
+
+
     /**
      * @Route("/empresas/lista", name="empresas_list")
      */
@@ -191,7 +213,7 @@ class EmpresaController extends AbstractController
         }
         return $this->render('empresa/empresas.html.twig', array(
             'form' => $form->createView(),
-            'title' => 'Nova empresa',
+            'title' => 'Nueva Empresa',
             'mensaje' => $avisoCreacion,
         ));
     }
@@ -248,7 +270,7 @@ class EmpresaController extends AbstractController
 
         return $this->render('empresa/empresas.html.twig', array(
             'form' => $form->createView(),
-            'title' => 'Editar empresas',
+            'title' => 'Editar Empresa',
             'mensaje' => $avisoCreacion,
         ));
     }
@@ -287,61 +309,5 @@ class EmpresaController extends AbstractController
                 'mensaje' => $mensajeErrorFK,
             )
         );
-    }
-
-
-    /**
-     * @Route("/empresa/contexto", name="contexto")
-     */
-    public function contexto()
-    {
-        $empresas = $this->getDoctrine()
-            ->getRepository(Empresa::class)
-            ->findAll();
-        $centros = $this->getDoctrine()
-            ->getRepository(Centro::class)
-            ->findAll();
-
-        if (isset($_REQUEST['mensaje']) && $_REQUEST['mensaje'] != "") {
-            return $this->render('emergente/list.html.twig', ['empresas' => $empresas, 'mensaje' => $_REQUEST['mensaje']]);
-        } else {
-            return $this->render('emergente/list.html.twig', ['empresas' => $empresas, 'centros' => $centros]);
-        }
-    }
-
-    /**
-     * @Route("/empresas/contextoUser", name="contexto")
-     */
-    public function contextoUser()
-    {
-
-        $usuariActual = $this->getUser();
-
-        $userDB = $this->getDoctrine()
-            ->getRepository(User::class)
-            ->find($usuariActual->getId());
-
-        if ($userDB->getCorporacion() == null) {
-            $empresas = $userDB->getEmpresa();
-            $centros = null;
-            if ($empresas != null) {
-                $centros =  $empresas->getArrayCentros();
-            }
-        } else if ($userDB->getCorporacion() != null) {
-            $empresas = $userDB->getCorporacion()->getArrayEmpresa();
-            $centros = [];
-            foreach ($empresas as $empresa) {
-                foreach ($empresa->getArrayCentros() as $centro) {
-                    array_push($centros, $centro);
-                }
-            }
-        }
-        if (isset($_REQUEST['mensaje']) && $_REQUEST['mensaje'] != "") {
-            return $this->render('emergente/list.html.twig', ['empresas' => $empresas, 'mensaje' => $_REQUEST['mensaje']]);
-        } else if ($centros != null) {
-            return $this->render('emergente/list.html.twig', ['empresas' => $empresas, 'centros' => $centros]);
-        } else {
-            return $this->render('emergente/list.html.twig', ['empresas' => $empresas,  'centros' => $centros]);
-        }
     }
 }

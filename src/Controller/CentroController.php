@@ -76,7 +76,24 @@ class CentroController extends AbstractController
     }
 
     }
+  /**
+     * @Route("/centro/busqueda", name="centro_busqueda")
+     */
+    public function search(Request $request)
+    {
+        $term = $request->request->get('term');
 
+        $centro = $this->getDoctrine()
+            ->getRepository(Centro::class)
+            ->findLikeNom($term);
+          $mensaje="";
+        return $this->render('centro/list.html.twig', [
+            'centros' => $centro,
+            'searchTerm' => $term,
+            'mensaje' => $mensaje,
+        ]);
+        
+    }
    /**
      * @Route("/centros/nuevo/{id<\d+>}", name="centros_new")
      */
@@ -133,7 +150,7 @@ class CentroController extends AbstractController
     }
 
      /**
-     * @Route("/centros/listado", name="centros_list")
+     * @Route("/centros/lista", name="centros_list")
      */
     public function list()
     {
@@ -200,7 +217,7 @@ class CentroController extends AbstractController
 
         return $this->render('centro/centros.html.twig', array(
             'form' => $form->createView(),
-            'title' => 'Editar centros',
+            'title' => 'Editar Centro',
             'mensaje' => $avisoCreacion,
         ));
     }
