@@ -8,8 +8,28 @@
             <section class="row">
                 <section class="col-md-12">
                     <table class="table">
-                    <a class="btn btn-primary btn-lg" href="{{ path('crearEmpresa') }}" style="margin: 10px;">Crear Empresa</a>
-                    
+                      {% if app.user.role.nombre == 'ROLE_ADMIN' %}
+ <form class="form-inline w-100 my-2 my-md-0 pr-3 form-just" method="post" action="{{ path('peliculas_busqueda') }}">
+            <div class="form-inline mr-2">
+                <input class="form-control" id="form_term" name="term" placeholder="Buscar empresa" required="required" type="text"></div>
+            </form>
+     {% endif %}
+
+  {% if searchTerm is defined %}
+                    <div class="row">
+                        <div class="col-md-8">
+                            <p class=" text-black ml-3">Resultats de cerca per:
+                                <strong class="text-danger">
+                                    {{ searchTerm }}</strong>
+                            </p>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <a class="btn btn-default btn-sm float-right" href="{{ path('empresas_list') }}">x Esborrar resultats</a>
+                        </div>
+                    </div>
+                {% endif %}
+                                    <a class="btn btn-primary btn-lg" href="{{ path('crearEmpresa') }}" style="margin: 10px;">Crear Empresa</a>
+
                      {% if app.user.role.nombre == 'ROLE_ADMIN' %}
                         <a class="btn btn-danger btn-md ml-3" href="{{ path('user_empresa') }}">Registrar usuario Empresa</a>
                     {% endif %}

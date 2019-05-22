@@ -25,6 +25,29 @@ class CorporacionController extends AbstractController
         ]);
     }
 
+
+  /**
+     * @Route("/corporacion/busqueda", name="corporacion_busqueda")
+     */
+    public function search(Request $request)
+    {
+        $term = $request->request->get('term');
+
+        $corporaciones = $this->getDoctrine()
+            ->getRepository(Corporacion::class)
+            ->findLikeNom($term);
+
+         
+            $mensaje="";
+        return $this->render('corporacion/list.html.twig', [
+            'corporaciones' => $corporaciones,
+            'searchTerm' => $term,
+            'mensaje' => $mensaje,
+        ]);  
+    }
+
+
+
     /**
      * @Route("/corporacion/{id<\d+>}", name="corporacion")
      */

@@ -8,6 +8,26 @@
             <section class="row">
                 <section class="col-md-12">
                     <table class="table">
+                       {% if app.user.role.nombre == 'ROLE_ADMIN' %}
+ <form class="form-inline w-100 my-2 my-md-0 pr-3 form-just" method="post" action="{{ path('centro_busqueda') }}">
+            <div class="form-inline mr-2">
+                <input class="form-control" id="form_term" name="term" placeholder="Buscar centro" required="required" type="text"></div>
+            </form>
+     {% endif %}
+
+         {% if searchTerm is defined %}
+                    <div class="row">
+                        <div class="col-md-8">
+                            <p class=" text-black ml-3">Resultats de cerca per:
+                                <strong class="text-danger">
+                                    {{ searchTerm }}</strong>
+                            </p>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <a class="btn btn-default btn-sm float-right" href="{{ path('empresas_list') }}">x Esborrar resultats</a>
+                        </div>
+                    </div>
+                {% endif %}
                     {% if app.user.role.nombre == 'ROLE_ADMIN' %}
                         <a class="btn btn-danger btn-md ml-3" href="{{ path('user_centro') }}">Registrar usuario Centro</a>
                     {% endif %}

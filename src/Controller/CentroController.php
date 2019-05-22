@@ -36,7 +36,24 @@ class CentroController extends AbstractController
 
         return $this->render('centro/view.html.twig', ['centro'=>$centro]);
     }
+  /**
+     * @Route("/centro/busqueda", name="centro_busqueda")
+     */
+    public function search(Request $request)
+    {
+        $term = $request->request->get('term');
 
+        $centro = $this->getDoctrine()
+            ->getRepository(Centro::class)
+            ->findLikeNom($term);
+          $mensaje="";
+        return $this->render('centro/list.html.twig', [
+            'centro' => $centro,
+            'searchTerm' => $term,
+            'mensaje' => $mensaje,
+        ]);
+        
+    }
    /**
      * @Route("/centros/new/{id<\d+>}", name="centros_new")
      */

@@ -24,6 +24,28 @@ class EmpresaController extends AbstractController
         ]);
     }
 
+
+  /**
+     * @Route("/empresa/busqueda", name="peliculas_busqueda")
+     */
+    public function search(Request $request)
+    {
+        $term = $request->request->get('term');
+
+        $empresas = $this->getDoctrine()
+            ->getRepository(Empresa::class)
+            ->findLikeNom($term);
+          $mensaje="";
+        return $this->render('empresa/list.html.twig', [
+            'empresas' => $empresas,
+            'searchTerm' => $term,
+            'mensaje' => $mensaje,
+        ]);
+        
+    }
+
+
+
     /**
      * @Route("/empresas/list", name="empresas_list")
      */
