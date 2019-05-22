@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -53,16 +54,40 @@ class CorporacionController extends AbstractController
      */
     public function view($id)
     {
-        $corporacion = $this->getDoctrine()
-        ->getRepository(Corporacion::class)
-        ->find($id);
 
-        return $this->render('corporacion/view.html.twig', ['corporacion'=>$corporacion,'empresas' => $corporacion->getArrayEmpresa()]);
+        $usuariActual = $this->getUser();
+
+        $userDB = $this->getDoctrine()
+            ->getRepository(User::class)
+            ->find($usuariActual->getId());
+
+        $corporacion = $this->getDoctrine()
+            ->getRepository(Corporacion::class)
+            ->find($id);
+
+        if ($userDB->getRole()->getNombre() == "ROLE_ADMIN") {
+            return $this->render('corporacion/view.html.twig', ['corporacion' => $corporacion, 'empresas' => $corporacion->getArrayEmpresa()]);
+
+        } else {
+
+            if ($userDB->getCorporacion()->getId() == $id) {
+
+                return $this->render('corporacion/view.html.twig', ['corporacion' => $corporacion, 'empresas' => $corporacion->getArrayEmpresa()]);
+
+            } else {
+
+                $mensajeError = 'El usuario actual no puede acceder a esta corporacion';
+
+                return $this->render('corporacion/errores.html.twig', ['mensajeError' => $mensajeError]);
+            }
+
+        }
+
     }
 
 
     /**
-     * @Route("/corporaciones/list", name="corporaciones_list")
+     * @Route("/corporaciones/lista", name="corporaciones_list")
      */
     public function list()
     {
@@ -80,7 +105,7 @@ class CorporacionController extends AbstractController
     }
 
        /**
-     * @Route("/corporacion/new", name="corporaciones_new")
+     * @Route("/corporacion/nueva", name="corporaciones_new")
      */
     public function new(Request $request)
     {
@@ -116,7 +141,7 @@ class CorporacionController extends AbstractController
 
             } else {
                 $corporacionCreada=false;
-                $avisoCreacion = "La empresa ya existe, porfavor introduzca una nueva.";
+                $avisoCreacion = "La corporación ya existe, porfavor introduzca una nueva.";
             }
           
         }
@@ -130,7 +155,7 @@ class CorporacionController extends AbstractController
     }
 
     /**
-     * @Route("/corporacion/edit/{id<\d+>}", name="corporacion_edit")
+     * @Route("/corporacion/editar/{id<\d+>}", name="corporacion_edit")
      */
     public function edit($id, Request $request)
     {
@@ -170,7 +195,7 @@ class CorporacionController extends AbstractController
 
             } else {
                 $corporacionModificada=false;
-                $avisoCreacion = "La empresa no se ha podido modificar.";
+                $avisoCreacion = "La corporación no se ha podido modificar.";
             }
 
             // return $this->redirectToRoute('corporaciones_list');
@@ -184,7 +209,7 @@ class CorporacionController extends AbstractController
     }
 
     /**
-     * @Route("/corporacion/delete/{id<\d+>}", name="corporacion_delete")
+     * @Route("/corporacion/eliminar/{id<\d+>}", name="corporacion_delete")
      */
     public function delete($id, Request $request)
     {
@@ -195,6 +220,7 @@ class CorporacionController extends AbstractController
 
         $empresas=$corporacion->getArrayEmpresa();   
         $usuarios = $corporacion->getUsers();
+
        if(sizeof($usuarios) !=0){
            $mensajeErrorFK="Error, no se ha podido eliminar esta corporación. Contiene uno o varios usuarios, por favor elimine préviamente los usuarios.";
         } else{
@@ -204,6 +230,7 @@ class CorporacionController extends AbstractController
                 $nomCorporacion = $corporacion->getNombre();
                 $entityManager->remove($corporacion);
                 $entityManager->flush();
+                $mensajeErrorFK = "Corporación eliminada correctamente.";
         
                 $this->addFlash(
                     'notice',

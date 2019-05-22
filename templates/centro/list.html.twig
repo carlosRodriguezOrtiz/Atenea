@@ -44,25 +44,32 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {% for centros in centro %}
+                            {% for centro in centros %}
                                 <tr>
-                                    <th scope="row">{{centros.id}}</th>
-                                    <td>{{ centros.nombre }}</td>
-                                    <td>{{ centros.fechaAlta|date('d-m-Y')}}</td>
-                                    <td>{{ centros.fechaBaja|date('d-m-Y') }}</td>
-                                    <td>{{ centros.descripcion }}</td>
+                                    <th scope="row">{{centro.id}}</th>
+                                    <td>{{ centro.nombre }}</td>
+                                    <td>{{ centro.fechaAlta|date('d-m-Y')}}</td>
+                                    <td>{{ centro.fechaBaja|date('d-m-Y') }}</td>
+                                    <td>{{ centro.descripcion }}</td>
                                   {#   <td>
                   <a class="btn btn-danger btn-md" href="{{ path('centros_new', {'id': centros.id}) }}">Añadir centro</a>
                                     </td> #}
                                     <td>
-                         <a </span href="{{ path('centro_edit', {'id': centros.id}) }}" <span class="icon-pencil-alt text-black">Editar</a>
-                         <a </span href="{{ path('centro_delete', {'id': centros.id}) }}" <span class="icon-trash-empty text-black">Eliminar</a>
+                                        <a </span href="{{ path('centro_edit', {'id': centro.id}) }}" <span class="icon-pencil-alt text-black">Editar</a>
+                                        <a </span href="{{ path('centro_delete', {'id': centro.id}) }}" <span class="icon-trash-empty text-black">Eliminar</a>
 
                                     </td>
                                 </tr>
                             {% endfor %}
                         </tbody>
                     </table>
+                    <div >
+                        {% if mensaje == "Centro eliminado correctamente." %}
+                            <p class=" text-success pl-3">{{mensaje}}</p>
+                        {% else %}
+                            <p class=" text-danger pl-3">{{mensaje}}</p>
+                    </div>
+                    {% endif %}
                 </section>
             </section>
         </section>

@@ -63,10 +63,15 @@ class QuestionsExternes
      */
     private $corporacion;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\AspecteQ", mappedBy="CuestionesExternas")
+     */
+    private $aspecteQs;
+
     public function __construct()
     {
         $this->binomio = new ArrayCollection();
-        $this->aspecteQ = new ArrayCollection();
+        $this->aspecteQs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -206,4 +211,34 @@ class QuestionsExternes
 
         return $this;
     }
+
+    /**
+     * @return Collection|AspecteQ[]
+     */
+    public function getAspecteQs(): Collection
+    {
+        return $this->aspecteQs;
+    }
+
+    public function addAspecteQ(AspecteQ $aspecteQ): self
+    {
+        if (!$this->aspecteQs->contains($aspecteQ)) {
+            $this->aspecteQs[] = $aspecteQ;
+            $aspecteQ->setCuestionesExternas($this);
+        }
+        return $this;
+    }
+
+    public function removeAspecteQ(AspecteQ $aspecteQ): self
+    {
+        if ($this->aspecteQs->contains($aspecteQ)) {
+            $this->aspecteQs->removeElement($aspecteQ);
+            // set the owning side to null (unless already changed)
+            if ($aspecteQ->getCuestionesExternas() === $this) {
+                $aspecteQ->setCuestionesExternas(null);
+            }
+        }
+        return $this;
+    }
+
 }

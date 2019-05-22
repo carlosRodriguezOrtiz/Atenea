@@ -30,19 +30,15 @@ class AspectesQController extends AbstractController
     }
 
         /**
-     * @Route("/aspectos-corporacion/ci/{id<\d+>}", name="aspectes_qI_corporacion")
+     * @Route("/aspectos-corporacion/ci/{id<\d+>}", name="aspectes_qi_corporacion")
      */
     public function qiCorp($id)
     {
         $questions = $this->getDoctrine()
         ->getRepository(QuestionsInternes::class)
-        ->findAll();
+        ->findByCorporacionId($id);
 
-        if (isset($_POST['aa'])) {
-
-        }
-
-        return $this->render('aspec_fav_desfav/qi.corp.aspec_fav_desfav.html.twig', [
+        return $this->render('aspec_fav_desfav/corp.aspec_fav_desfav.html.twig', [
             'title' => 'AspectesQController',
             'questions' => $questions,
             'q' => "interna",
@@ -51,18 +47,15 @@ class AspectesQController extends AbstractController
     }
 
        /**
-     * @Route("/aspectos-empresa/ci/{id<\d+>}", name="aspectes_qI_empresa")
+     * @Route("/aspectos-empresa/ci/{id<\d+>}", name="aspectes_qi_empresa")
      */
     public function qiEmpresa($id)
     {
         $questions = $this->getDoctrine()
         ->getRepository(QuestionsInternes::class)
-        ->findAll();
+        ->findByEmpresaId($id);
 
-        if (isset($_POST['aa'])) {
-
-        }
-        return $this->render('aspec_fav_desfav/qi.corp.aspec_fav_desfav.html.twig', [
+        return $this->render('aspec_fav_desfav/empresa.aspec_fav_desfav.html.twig', [
             'title' => 'AspectesQController',
             'questions' => $questions,
             'q' => "interna",
@@ -71,19 +64,15 @@ class AspectesQController extends AbstractController
     }
 
        /**
-     * @Route("/aspectos-centro/ci/{id<\d+>}", name="aspectes_qI_centro")
+     * @Route("/aspectos-centro/ci/{id<\d+>}", name="aspectes_qi_centro")
      */
     public function qiCentre($id)
     {
         $questions = $this->getDoctrine()
         ->getRepository(QuestionsInternes::class)
-        ->findAll();
+        ->findByCentroId($id);
 
-        if (isset($_POST['aa'])) {
-
-        }
-
-        return $this->render('aspec_fav_desfav/qi.corp.aspec_fav_desfav.html.twig', [
+        return $this->render('aspec_fav_desfav/centro.aspec_fav_desfav.html.twig', [
             'title' => 'AspectesQController',
             'questions' => $questions,
             'q' => "interna",
@@ -92,7 +81,7 @@ class AspectesQController extends AbstractController
     }
 
     /**
-     * @Route("/aspectos-corporacion/ce/{id<\d+>}", name="aspectes_qE_corporacion")
+     * @Route("/aspectos-corporacion/ce/{id<\d+>}", name="aspectes_qe_corporacion")
      */
     public function qeCorporacion($id)
     {
@@ -100,7 +89,7 @@ class AspectesQController extends AbstractController
         ->getRepository(QuestionsExternes::class)
         ->findByCorporacionId($id);
 
-        return $this->render('aspec_fav_desfav/qe.corp.aspec_fav_desfav.html.twig', [
+        return $this->render('aspec_fav_desfav/corp.aspec_fav_desfav.html.twig', [
             'title' => 'AspectesQController',
             'questions' => $questions,
             'q' => "externa",
@@ -111,14 +100,14 @@ class AspectesQController extends AbstractController
 
 
     /**
-     * @Route("/aspectos-empresa/ce/{id<\d+>}", name="aspectes_qE_empresa")
+     * @Route("/aspectos-empresa/ce/{id<\d+>}", name="aspectes_qe_empresa")
      */
     public function qeEmpresa()
     {
         $questions = $this->getDoctrine()
         ->getRepository(QuestionsExternes::class)
-        ->findAll();
-        return $this->render('aspec_fav_desfav/qe.corp.aspec_fav_desfav.html.twig', [
+        ->findByEmpresaId();
+        return $this->render('aspec_fav_desfav/empresa.aspec_fav_desfav.html.twig', [
             'title' => 'AspectesQController',
             'questions' => $questions,
             'q' => "externa",
@@ -127,14 +116,15 @@ class AspectesQController extends AbstractController
     }
 
     /**
-     * @Route("/aspectos-centro/ce/{id<\d+>}", name="aspectes_qE_centro")
+     * @Route("/aspectos-centro/ce/{id<\d+>}", name="aspectes_qe_centro")
      */
     public function qeCentro($id)
     {
         $questions = $this->getDoctrine()
         ->getRepository(QuestionsExternes::class)
-        ->findAll();
-        return $this->render('aspec_fav_desfav/qe.corp.aspec_fav_desfav.html.twig', [
+        ->findByCentroId();
+
+        return $this->render('aspec_fav_desfav/centro.aspec_fav_desfav.html.twig', [
             'title' => 'AspectesQController',
             'questions' => $questions,
             'q' => "externa",
@@ -143,7 +133,7 @@ class AspectesQController extends AbstractController
     }
 
 
-        /**
+    /**
      * @Route("/aspectos-corporacion/ce/new/{id<\d+>}", name="aspectes_ce_corporacionCrear")
      */
     public function crearqeCorporacion($id)
@@ -157,40 +147,348 @@ class AspectesQController extends AbstractController
         $avisoCreacion = "";
 
         if (isset($_POST['hidden'])) {
+            $ce = $this->getDoctrine()->getRepository(QuestionsExternes::class)->find($_POST['hidden']);
+            $aspectoQ->setCuestionesExternas($ce);
+            if (isset($_POST['amenaza'])) {
+                $aspectoQ->setDescripcio($_POST['amenaza']);
+                $aspectoQ->setNom($_POST['amenaza']);
+                $aspectoQ->setDafo("A");
+            } elseif (isset($_POST['oportunidad'])){
+                $aspectoQ->setDescripcio($_POST['oportunidad']);
+                $aspectoQ->setNom($_POST['oportunidad']);
+                $aspectoQ->setDafo("O");
+            } 
 
-            var_dump($_POST);
-            exit();
-            $empresas = $form->getData();
 
-            $empresa2 = $this->getDoctrine()->getRepository(Empresa::class)->findByNombre($empresas->getNombre());
+            if ($aspectoQ->getAlta() == null) {
+                $aspectoQ->setAlta(new \DateTime());
+            }
 
+            if ($aspectoQ->getBaixa() == null) {
+                $aspectoQ->setBaixa(new \DateTime());
+            }
+   
 
-            if (sizeof($empresa2) == 0) {
-                $corporacion=$this->getDoctrine()->getRepository(Corporacion::class)->find($id);
-                $empresas->setCorporaciones($corporacion);
-                $entityManager = $this->getDoctrine()->getManager();
-                $entityManager->persist($empresas);
-                $entityManager->flush();
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($aspectoQ);
+            $entityManager->flush();
 
-                $this->addFlash(
-                    'notice',
-                    'Nova empresas ' . $empresas->getNombre() . ' creada!'
-                );
+            $this->addFlash(
+                'notice',
+                'Nuevo aspectoQ ' . $aspectoQ->getNom() . ' creada!'
+            );
 
                 $empresaCreada = true;
                 $avisoCreacion = "La empresa ha sido creada";
 
-                $empresas = new Empresa();
-                $form = $this->createForm(EmpresasType::class, $empresas, array('submit' => 'Crear Empresa'));
-            } else {
-                $empresaCreada = false;
-                $avisoCreacion = "La empresa ya existe , porfavor introduzca una nueva";
-            }
+        } else {
+            $empresaCreada = false;
+            $avisoCreacion = "La empresa ya existe , porfavor introduzca una nueva";
+        }
 
-        return $this->render('aspec_fav_desfav/qe.corp.aspec_fav_desfav.html.twig', [
+        return $this->render('aspec_fav_desfav/corp.aspec_fav_desfav.html.twig', [
             'title' => 'AspectesQController',
             'questions' => $questions,
             'q' => "externa",
+            'id' => $id,
+        ]);
+    }
+
+    /**
+     * @Route("/aspectos-empresa/ce/new/{id<\d+>}", name="aspectes_ce_empresaCrear")
+     */
+    public function crearqeEmpresa($id)
+    {
+        $questions = $this->getDoctrine()
+        ->getRepository(QuestionsExternes::class)
+        ->findByEmpresaId($id);
+
+        $aspectoQ = new AspecteQ();
+        $empresaCreada = false;
+        $avisoCreacion = "";
+
+        if (isset($_POST['hidden'])) {
+            $ce = $this->getDoctrine()->getRepository(QuestionsExternes::class)->find($_POST['hidden']);
+            $aspectoQ->setCuestionesExternas($ce);
+            if (isset($_POST['amenaza'])) {
+                $aspectoQ->setDescripcio($_POST['amenaza']);
+                $aspectoQ->setNom($_POST['amenaza']);
+                $aspectoQ->setDafo("A");
+            } elseif (isset($_POST['oportunidad'])){
+                $aspectoQ->setDescripcio($_POST['oportunidad']);
+                $aspectoQ->setNom($_POST['oportunidad']);
+                $aspectoQ->setDafo("O");
+            } 
+
+
+            if ($aspectoQ->getAlta() == null) {
+                $aspectoQ->setAlta(new \DateTime());
+            }
+
+            if ($aspectoQ->getBaixa() == null) {
+                $aspectoQ->setBaixa(new \DateTime());
+            }
+   
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($aspectoQ);
+            $entityManager->flush();
+
+            $this->addFlash(
+                'notice',
+                'Nuevo aspectoQ ' . $aspectoQ->getNom() . ' creada!'
+            );
+
+                $empresaCreada = true;
+                $avisoCreacion = "La empresa ha sido creada";
+
+        } else {
+            $empresaCreada = false;
+            $avisoCreacion = "La empresa ya existe , porfavor introduzca una nueva";
+        }
+
+        return $this->render('aspec_fav_desfav/empresa.aspec_fav_desfav.html.twig', [
+            'title' => 'AspectesQController',
+            'questions' => $questions,
+            'q' => "externa",
+            'id' => $id,
+        ]);
+    }
+
+    /**
+     * @Route("/aspectos-centro/ce/new/{id<\d+>}", name="aspectes_ce_centroCrear")
+     */
+    public function crearqeCentro($id)
+    {
+        $questions = $this->getDoctrine()
+        ->getRepository(QuestionsExternes::class)
+        ->findByCentroId($id);
+
+        $aspectoQ = new AspecteQ();
+        $empresaCreada = false;
+        $avisoCreacion = "";
+
+        if (isset($_POST['hidden'])) {
+            $ce = $this->getDoctrine()->getRepository(QuestionsExternes::class)->find($_POST['hidden']);
+            $aspectoQ->setCuestionesExternas($ce);
+            if (isset($_POST['amenaza'])) {
+                $aspectoQ->setDescripcio($_POST['amenaza']);
+                $aspectoQ->setNom($_POST['amenaza']);
+                $aspectoQ->setDafo("A");
+            } elseif (isset($_POST['oportunidad'])){
+                $aspectoQ->setDescripcio($_POST['oportunidad']);
+                $aspectoQ->setNom($_POST['oportunidad']);
+                $aspectoQ->setDafo("O");
+            } 
+
+
+            if ($aspectoQ->getAlta() == null) {
+                $aspectoQ->setAlta(new \DateTime());
+            }
+
+            if ($aspectoQ->getBaixa() == null) {
+                $aspectoQ->setBaixa(new \DateTime());
+            }
+   
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($aspectoQ);
+            $entityManager->flush();
+
+            $this->addFlash(
+                'notice',
+                'Nuevo aspectoQ ' . $aspectoQ->getNom() . ' creada!'
+            );
+
+                $empresaCreada = true;
+                $avisoCreacion = "La empresa ha sido creada";
+
+        } else {
+            $empresaCreada = false;
+            $avisoCreacion = "La empresa ya existe , porfavor introduzca una nueva";
+        }
+
+        return $this->render('aspec_fav_desfav/centro.aspec_fav_desfav.html.twig', [
+            'title' => 'AspectesQController',
+            'questions' => $questions,
+            'q' => "externa",
+            'id' => $id,
+        ]);
+    }
+
+    /**
+     * @Route("/aspectos-corporacion/ci/new/{id<\d+>}", name="aspectes_ci_corporacionCrear")
+     */
+    public function crearqiCorporacion($id)
+    {
+        $questions = $this->getDoctrine()
+        ->getRepository(QuestionsInternes::class)
+        ->findByCorporacionId($id);
+
+        $aspectoQ = new AspecteQ();
+        $empresaCreada = false;
+        $avisoCreacion = "";
+
+        if (isset($_POST['hidden'])) {
+            $ci = $this->getDoctrine()->getRepository(QuestionsInternes::class)->find($_POST['hidden']);
+            $aspectoQ->setCuestionesInternas($ci);
+            if (isset($_POST['debilidad'])) {
+                $aspectoQ->setDescripcio($_POST['debilidad']);
+                $aspectoQ->setNom($_POST['debilidad']);
+                $aspectoQ->setDafo("D");
+            } elseif (isset($_POST['fortaleza'])){
+                $aspectoQ->setDescripcio($_POST['fortaleza']);
+                $aspectoQ->setNom($_POST['fortaleza']);
+                $aspectoQ->setDafo("F");
+            } 
+    
+            if ($aspectoQ->getAlta() == null) {
+                $aspectoQ->setAlta(new \DateTime());
+            }
+
+            if ($aspectoQ->getBaixa() == null) {
+                $aspectoQ->setBaixa(new \DateTime());
+            }
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($aspectoQ);
+            $entityManager->flush();
+
+            $this->addFlash(
+                'notice',
+                'Nuevo aspectoQ ' . $aspectoQ->getNom() . ' creada!'
+            );
+
+                $empresaCreada = true;
+                $avisoCreacion = "La empresa ha sido creada";
+
+        } else {
+            $empresaCreada = false;
+            $avisoCreacion = "La empresa ya existe , porfavor introduzca una nueva";
+        }
+
+        return $this->render('aspec_fav_desfav/corp.aspec_fav_desfav.html.twig', [
+            'title' => 'AspectesQController',
+            'questions' => $questions,
+            'q' => "interna",
+            'id' => $id,
+        ]);
+    }
+
+    /**
+     * @Route("/aspectos-empresa/ci/new/{id<\d+>}", name="aspectes_ci_empresaCrear")
+     */
+    public function crearqiEmpresa($id)
+    {
+        $questions = $this->getDoctrine()
+        ->getRepository(QuestionsInternes::class)
+        ->findByEmpresaId($id);
+
+        $aspectoQ = new AspecteQ();
+        $empresaCreada = false;
+        $avisoCreacion = "";
+
+        if (isset($_POST['hidden'])) {
+            $ci = $this->getDoctrine()->getRepository(QuestionsInternes::class)->find($_POST['hidden']);
+            $aspectoQ->setCuestionesInternas($ci);
+            if (isset($_POST['debilidad'])) {
+                $aspectoQ->setDescripcio($_POST['debilidad']);
+                $aspectoQ->setNom($_POST['debilidad']);
+                $aspectoQ->setDafo("D");
+            } elseif (isset($_POST['fortaleza'])){
+                $aspectoQ->setDescripcio($_POST['fortaleza']);
+                $aspectoQ->setNom($_POST['fortaleza']);
+                $aspectoQ->setDafo("F");
+            } 
+    
+            if ($aspectoQ->getAlta() == null) {
+                $aspectoQ->setAlta(new \DateTime());
+            }
+
+            if ($aspectoQ->getBaixa() == null) {
+                $aspectoQ->setBaixa(new \DateTime());
+            }
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($aspectoQ);
+            $entityManager->flush();
+
+            $this->addFlash(
+                'notice',
+                'Nuevo aspectoQ ' . $aspectoQ->getNom() . ' creada!'
+            );
+
+                $empresaCreada = true;
+                $avisoCreacion = "La empresa ha sido creada";
+
+        } else {
+            $empresaCreada = false;
+            $avisoCreacion = "La empresa ya existe , porfavor introduzca una nueva";
+        }
+
+        return $this->render('aspec_fav_desfav/empresa.aspec_fav_desfav.html.twig', [
+            'title' => 'AspectesQController',
+            'questions' => $questions,
+            'q' => "interna",
+            'id' => $id,
+        ]);
+    }
+
+    /**
+     * @Route("/aspectos-centro/ci/new/{id<\d+>}", name="aspectes_ci_centroCrear")
+     */
+    public function crearqiCentro($id)
+    {
+        $questions = $this->getDoctrine()
+        ->getRepository(QuestionsInternes::class)
+        ->findByCentroId($id);
+
+        $aspectoQ = new AspecteQ();
+        $empresaCreada = false;
+        $avisoCreacion = "";
+
+        if (isset($_POST['hidden'])) {
+            $ci = $this->getDoctrine()->getRepository(QuestionsInternes::class)->find($_POST['hidden']);
+            $aspectoQ->setCuestionesInternas($ci);
+            if (isset($_POST['debilidad'])) {
+                $aspectoQ->setDescripcio($_POST['debilidad']);
+                $aspectoQ->setNom($_POST['debilidad']);
+                $aspectoQ->setDafo("D");
+            } elseif (isset($_POST['fortaleza'])){
+                $aspectoQ->setDescripcio($_POST['fortaleza']);
+                $aspectoQ->setNom($_POST['fortaleza']);
+                $aspectoQ->setDafo("F");
+            } 
+    
+            if ($aspectoQ->getAlta() == null) {
+                $aspectoQ->setAlta(new \DateTime());
+            }
+
+            if ($aspectoQ->getBaixa() == null) {
+                $aspectoQ->setBaixa(new \DateTime());
+            }
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($aspectoQ);
+            $entityManager->flush();
+
+            $this->addFlash(
+                'notice',
+                'Nuevo aspectoQ ' . $aspectoQ->getNom() . ' creada!'
+            );
+
+                $empresaCreada = true;
+                $avisoCreacion = "La empresa ha sido creada";
+
+        } else {
+            $empresaCreada = false;
+            $avisoCreacion = "La empresa ya existe , porfavor introduzca una nueva";
+        }
+
+        return $this->render('aspec_fav_desfav/centro.aspec_fav_desfav.html.twig', [
+            'title' => 'AspectesQController',
+            'questions' => $questions,
+            'q' => "interna",
             'id' => $id,
         ]);
     }
@@ -199,4 +497,3 @@ class AspectesQController extends AbstractController
 
 
 
-}

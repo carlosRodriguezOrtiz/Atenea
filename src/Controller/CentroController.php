@@ -11,6 +11,8 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use App\Entity\Centro;
 use App\Entity\Empresa;
+use App\Entity\User;
+
 
 
 
@@ -30,11 +32,36 @@ class CentroController extends AbstractController
      */
     public function view($id)
     {
+
+        $usuariActual = $this->getUser();
+
+        $userDB = $this->getDoctrine()
+            ->getRepository(User::class)
+            ->find($usuariActual->getId());
+
         $centro = $this->getDoctrine()
         ->getRepository(Centro::class)
         ->find($id);
 
-        return $this->render('centro/view.html.twig', ['centro'=>$centro]);
+        if ($userDB->getRole()->getNombre() == "ROLE_ADMIN") {
+            return $this->render('centro/view.html.twig', ['centro' => $centro]);
+
+        } else {
+
+            if ($userDB->getCentro()->getId() == $id) {
+
+                return $this->render('centro/view.html.twig', ['centro' => $centro]);
+
+            } else {
+
+                $mensajeError = 'El usuario actual no puede acceder a esta empresa';
+                
+
+                return $this->render('centro/errores.html.twig', [ 'mensajeError' => $mensajeError]);
+            }
+
+        }
+
     }
   /**
      * @Route("/centro/busqueda", name="centro_busqueda")
@@ -55,7 +82,7 @@ class CentroController extends AbstractController
         
     }
    /**
-     * @Route("/centros/new/{id<\d+>}", name="centros_new")
+     * @Route("/centros/nuevo/{id<\d+>}", name="centros_new")
      */
     public function new($id ,Request $request)
     {
@@ -110,19 +137,26 @@ class CentroController extends AbstractController
     }
 
      /**
-     * @Route("/centros/list", name="centros_list")
+     * @Route("/centros/lista", name="centros_list")
      */
     public function list()
     {
         $centro = $this->getDoctrine()
             ->getRepository(Centro::class)
             ->findAll();
-        return $this->render('centro/list.html.twig', ['centro' => $centro]);
+
+
+        if(isset($_REQUEST['mensaje']) && $_REQUEST['mensaje']!=""){
+            return $this->render('centro/list.html.twig', ['centros' => $centro, 'mensaje' => $_REQUEST['mensaje']]);
+        }else {
+            return $this->render('centro/list.html.twig', ['centros' => $centro, 'mensaje' => " "]);
+        }
+        
     }
 
 
     /**
-     * @Route("/centros/edit/{id<\d+>}", name="centro_edit")
+     * @Route("/centros/editar/{id<\d+>}", name="centro_edit")
      */
     public function edit($id, Request $request)
     {
@@ -176,24 +210,37 @@ class CentroController extends AbstractController
     }
 
         /**
-     * @Route("/centros/delete/{id<\d+>}", name="centro_delete")
+     * @Route("/centros/eliminar/{id<\d+>}", name="centro_delete")
      */
     public function delete($id, Request $request)
     {
+        $mensajeErrorFK="";
         $centro = $this->getDoctrine()
             ->getRepository(Centro::class)
             ->find($id);
 
-        $entityManager = $this->getDoctrine()->getManager();
-        $nomCentro = $centro->getNombre();
-        $entityManager->remove($centro);
-        $entityManager->flush();
+            $users = $this->getDoctrine()
+            ->getRepository(User::class)
+            ->findUsuariosCentro($id);
 
-        $this->addFlash(
-            'notice',
-            'Centro '.$nomCentro.' eliminada!'
+        if(sizeof($users) !=0){
+            $mensajeErrorFK="Error, no se ha podido eliminar este centro. Contiene uno o varios usuarios, por favor elimine préviamente los usuarios.";
+        } else{
+            
+                $entityManager = $this->getDoctrine()->getManager();
+                $nomCentro = $centro->getNombre();
+                $entityManager->remove($centro);
+                $entityManager->flush();
+                $mensajeErrorFK = "Centro eliminado correctamente.";
+
+                $this->addFlash(
+                    'notice',
+                    'Centro '.$nomCentro.' eliminado!'
+                );
+        }
+        return $this->redirectToRoute('centros_list', array(
+            'mensaje'=>$mensajeErrorFK,
+            )
         );
-
-        return $this->redirectToRoute('centros_list');
     }
 }

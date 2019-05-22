@@ -47,7 +47,7 @@ class EmpresaController extends AbstractController
 
 
     /**
-     * @Route("/empresas/list", name="empresas_list")
+     * @Route("/empresas/lista", name="empresas_list")
      */
     function list()
     {
@@ -85,15 +85,40 @@ class EmpresaController extends AbstractController
      */
     public function view($id)
     {
+        $usuariActual = $this->getUser();
+
+        $userDB = $this->getDoctrine()
+            ->getRepository(User::class)
+            ->find($usuariActual->getId());
+
         $empresa = $this->getDoctrine()
             ->getRepository(Empresa::class)
             ->find($id);
 
-        return $this->render('empresa/view.html.twig', ['empresa' => $empresa, 'centros' => $empresa->getArrayCentros()]);
+
+        if ($userDB->getRole()->getNombre() == "ROLE_ADMIN") {
+            return $this->render('empresa/view.html.twig', ['empresa' => $empresa, 'centros' => $empresa->getArrayCentros()]);
+
+        } else {
+
+            if ($userDB->getEmpresa()->getId() == $id) {
+
+                return $this->render('empresa/view.html.twig', ['empresa' => $empresa, 'centros' => $empresa->getArrayCentros()]);
+
+            } else {
+
+                $mensajeError = 'El usuario actual no puede acceder a esta empresa';
+                
+
+                return $this->render('empresa/errores.html.twig', [ 'mensajeError' => $mensajeError]);
+            }
+
+        }
+
     }
 
     /**
-     * @Route("/empresa/new", name="crearEmpresa")
+     * @Route("/empresa/nueva", name="crearEmpresa")
      */
     public function newEmpresa(Request $request)
     {
@@ -108,10 +133,10 @@ class EmpresaController extends AbstractController
 
             $empresas = $form->getData();
 
-            $empresa2 = $this->getDoctrine()->getRepository(Empresa::class)->findByNombre($empresas->getNombre());
+            $empresaCreada = $this->getDoctrine()->getRepository(Empresa::class)->findByNombre($empresas->getNombre());
 
 
-            if (sizeof($empresa2) == 0) {
+            if (sizeof($empresaCreada) == 0) {
 
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($empresas);
@@ -123,10 +148,10 @@ class EmpresaController extends AbstractController
                 );
 
                 $empresaCreada = true;
-                $avisoCreacion = "La empresa ha sido creada";
+                $avisoCreacion = "La empresa ha sido creada con éxito.";
 
                 $empresas = new Empresa();
-                $form = $this->createForm(EmpresasType::class, $empresas, array('submit' => 'Crear Empresa'));
+                $form = $this->createForm(empresasType::class, $empresas, array('submit' => 'Crear Empresa'));
             } else {
                 $empresaCreada = false;
                 $avisoCreacion = "La empresa ya existe, porfavor introduzca una nueva.";
@@ -134,13 +159,13 @@ class EmpresaController extends AbstractController
         }
         return $this->render('empresa/empresas.html.twig', array(
             'form' => $form->createView(),
-            'title' => 'Nova empresa',
+            'title' => 'Nueva empresa',
             'mensaje' => $avisoCreacion,
         ));
     }
 
         /**
-     * @Route("/empresa/new/{id<\d+>}", name="crearEmpresaCorp")
+     * @Route("/empresa/nueva/{id<\d+>}", name="crearEmpresaCorp")
      */
     public function newEmpresaCorp($id,Request $request)
     {
@@ -155,10 +180,10 @@ class EmpresaController extends AbstractController
 
             $empresas = $form->getData();
 
-            $empresa2 = $this->getDoctrine()->getRepository(Empresa::class)->findByNombre($empresas->getNombre());
+            $empresaCreada = $this->getDoctrine()->getRepository(Empresa::class)->findByNombre($empresas->getNombre());
 
 
-            if (sizeof($empresa2) == 0) {
+            if (sizeof($empresaCreada) == 0) {
                 $corporacion=$this->getDoctrine()->getRepository(Corporacion::class)->find($id);
                 $empresas->setCorporaciones($corporacion);
                 $entityManager = $this->getDoctrine()->getManager();
@@ -171,13 +196,13 @@ class EmpresaController extends AbstractController
                 );
 
                 $empresaCreada = true;
-                $avisoCreacion = "La empresa ha sido creada";
+                $avisoCreacion = "La empresa ha sido creada con éxito.";
 
                 $empresas = new Empresa();
-                $form = $this->createForm(EmpresasType::class, $empresas, array('submit' => 'Crear Empresa'));
+                $form = $this->createForm(empresasType::class, $empresas, array('submit' => 'Crear Empresa'));
             } else {
                 $empresaCreada = false;
-                $avisoCreacion = "La empresa ya existe , porfavor introduzca una nueva";
+                $avisoCreacion = "La empresa ya existe, porfavor introduzca una nueva.";
             }
         }
         return $this->render('empresa/empresas.html.twig', array(
@@ -190,14 +215,14 @@ class EmpresaController extends AbstractController
 
 
     /**
-     * @Route("/empresa/edit/{id<\d+>}", name="empresa_edit")
+     * @Route("/empresa/editar/{id<\d+>}", name="empresa_edit")
      */
     public function edit($id, Request $request)
     {
         $empresas = $this->getDoctrine()
             ->getRepository(Empresa::class)
             ->find($id);
-
+            $avisoCreacion = "";
         $form = $this->createForm(EmpresasType::class, $empresas, array('submit' => 'Desar'));
         $form->add('FechaAlta', DateType::class, array(
             "widget" => 'single_text',
@@ -213,6 +238,9 @@ class EmpresaController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $empresas = $form->getData();
+            $empresaModificada = $this->getDoctrine()->getRepository(Empresa::class)->findByNombre($empresas->getNombre());
+
+            if(sizeof($empresaModificada)== 0 ){
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($empresas);
@@ -223,17 +251,26 @@ class EmpresaController extends AbstractController
                 'Empresas ' . $empresas->getNombre() . ' desada!'
             );
 
-            return $this->redirectToRoute('empresas_list');
+            $empresaModificada=true;
+                $avisoCreacion = "La empresa ha sido modificada con éxito.";
+
+            } else {
+                $empresaModificada=false;
+                $avisoCreacion = "La empresa no se ha podido modificar.";
+            }
+
+            //return $this->redirectToRoute('empresas_list');
         }
 
         return $this->render('empresa/empresas.html.twig', array(
             'form' => $form->createView(),
             'title' => 'Editar empresas',
+            'mensaje' => $avisoCreacion,
         ));
     }
 
     /**
-     * @Route("/empresa/delete/{id<\d+>}", name="empresa_delete")
+     * @Route("/empresa/eliminar/{id<\d+>}", name="empresa_delete")
      */
     public function delete($id, Request $request)
     {
@@ -244,14 +281,15 @@ class EmpresaController extends AbstractController
         $centros = $empresas->getArrayCentros();
         $usuarios = $empresas->getUsers();
         if (!$centros->isEmpty()) {
-            $mensajeErrorFK = "Error , no se ha podido eliminar esta empresa. Contiene una o varios centros, por favor primero elimina esos centros";
+            $mensajeErrorFK = "Error, no se ha podido eliminar esta empresa. Contiene una o varios centros, por favor elimine préviamente esos centros.";
         } elseif (!$usuarios->isEmpty()) {
-            $mensajeErrorFK = "Error , no se ha podido eliminar esta empresa. Contiene uno o varios usuarios, por favor primero elimina esos usuarios";
+            $mensajeErrorFK = "Error, no se ha podido eliminar esta empresa. Contiene uno o varios usuarios, por favor elimine préviamente esos usuarios.";
         } else {
             $entityManager = $this->getDoctrine()->getManager();
             $nomEmpresas = $empresas->getNombre();
             $entityManager->remove($empresas);
             $entityManager->flush();
+            $mensajeErrorFK = "Empresa eliminada correctamente.";
 
             $this->addFlash(
                 'notice',

@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -42,14 +44,25 @@ class AspecteQ
     private $descripcio;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\QuestionsExternes", inversedBy="aspecteQ")
+     * @ORM\ManyToOne(targetEntity="App\Entity\QuestionsExternes", inversedBy="aspecteQs")
      */
-    private $questionsExternes;
+    private $CuestionesExternas;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\QuestionsInternes", inversedBy="aspecteQ")
+     * @ORM\ManyToOne(targetEntity="App\Entity\QuestionsInternes", inversedBy="aspecteQs")
      */
-    private $questionsInternes;
+    private $CuestionesInternas;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Binomio", mappedBy="AspectesQ")
+     */
+    private $binomios;
+
+    public function __construct()
+    {
+        $this->binomios = new ArrayCollection();
+    }
+
 
     public function getId(): ?int
     {
@@ -116,26 +129,54 @@ class AspecteQ
         return $this;
     }
 
-    public function getQuestionsExternes(): ?QuestionsExternes
+    public function getCuestionesExternas(): ?QuestionsExternes
     {
-        return $this->questionsExternes;
+        return $this->CuestionesExternas;
     }
 
-    public function setQuestionsExternes(?QuestionsExternes $questionsExternes): self
+    public function setCuestionesExternas(?QuestionsExternes $CuestionesExternas): self
     {
-        $this->questionsExternes = $questionsExternes;
+        $this->CuestionesExternas = $CuestionesExternas;
 
         return $this;
     }
 
-    public function getQuestionsInternes(): ?QuestionsInternes
+    public function getCuestionesInternas(): ?QuestionsInternes
     {
-        return $this->questionsInternes;
+        return $this->CuestionesInternas;
     }
 
-    public function setQuestionsInternes(?QuestionsInternes $questionsInternes): self
+    public function setCuestionesInternas(?QuestionsInternes $CuestionesInternas): self
     {
-        $this->questionsInternes = $questionsInternes;
+        $this->CuestionesInternas = $CuestionesInternas;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Binomio[]
+     */
+    public function getBinomios(): Collection
+    {
+        return $this->binomios;
+    }
+
+    public function addBinomio(Binomio $binomio): self
+    {
+        if (!$this->binomios->contains($binomio)) {
+            $this->binomios[] = $binomio;
+            $binomio->addAspectesQ($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBinomio(Binomio $binomio): self
+    {
+        if ($this->binomios->contains($binomio)) {
+            $this->binomios->removeElement($binomio);
+            $binomio->removeAspectesQ($this);
+        }
 
         return $this;
     }

@@ -6,15 +6,16 @@
         <section class="container-fluid">
             <section class="row">
                 <section class="col-md-12">
-                    <a href="{{ path('crearQeCorporacion', {'id': id }) }}">Nuevo</a>
+                    <a class="btn btn-primary mb-3 mt-3" href="{{ path('crearQeCorporacion', {'id': id }) }}">Crear nueva Cuestión Externa</a>
                     <a class="btn btn-danger btn-md" href="{{ path('gestion_contextoCorporacion', { 'id' : id }) }}">&laquo; Volver</a>
-                    <table class="table">
+                    <table class="table table-responsive-sm">
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">Nombre</th>
                                 <th scope="col">Tipo</th>
                                 <th scope="col">Subtipo</th>
+                                <th scope="col">Opciones</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -28,7 +29,7 @@
 
                                     <td>
                                         <a </span href="{{ path('qe_edit_corporacion', {'id' : id, 'idQe': questions_externes.id}) }}" <span class="icon-pencil-alt text-black">Editar</a>
-                                        {# <a </span href="{{ path('qe_delete_corporacion', {'id': questions_externes.id}) }}" <span class="icon-trash-empty text-black">Eliminar</a> #}
+                                        <a </span href="{{ path('qe_delete_corporacion', {'id' : id, 'idQe': questions_externes.id}) }}" <span class="icon-trash-empty text-black">Eliminar</a>
                                     </td>
                                 </tr>
                             {% endfor %}

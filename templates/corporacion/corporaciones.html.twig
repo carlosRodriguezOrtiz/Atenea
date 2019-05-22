@@ -27,7 +27,7 @@
                                     {{ form_widget(form) }}
                                     {{ form_end(form ) }}
                                 </div>
-                                    {% if mensaje == "La corporacion ha sido creada" %}
+                                    {% if mensaje == "La corporación ha sido creada con éxito." or mensaje == "La corporación ha sido modificada con éxito." %}
                                         <p class=" text-success pl-3">{{mensaje}}</p>
                                     {% else %}
                                         <p class=" text-danger pl-3">{{mensaje}}</p>

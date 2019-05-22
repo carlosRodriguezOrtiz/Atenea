@@ -29,10 +29,11 @@
                     </div>
                 {% endif %}
                     <a class="btn btn-primary btn-lg" href="{{ path('corporaciones_new') }}" style="margin: 10px;">Crear Corporación</a>
-                       {% if app.user.role.nombre == 'ROLE_ADMIN' %}
-                        <a class="btn btn-danger btn-md ml-3" href="{{ path('user_registration') }}">Registrar usuario Corporación</a>
-                    {% endif %}
-                    <a class="btn btn-danger btn-md" href="{{ path('inicio') }}" style="margin: 10px;">&laquo; Volver</a>
+                        {% if app.user.role.nombre == 'ROLE_ADMIN' %}
+                            <a class="btn btn-danger btn-md ml-3" href="{{ path('user_registration') }}">Registrar usuario Corporación</a>
+                        {% endif %}
+                        <a class="btn btn-danger btn-md" href="{{ path('inicio') }}" style="margin: 10px;">&laquo; Volver</a>
+                    <table class="table table-responsive-sm">
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
@@ -53,22 +54,24 @@
                                     <td>{{ corporacion.fechaBaja|date('d-m-Y') }}</td>
                                     <td>{{ corporacion.descripcion }}</td>
                                     <td>
-                        <a class="btn btn-danger btn-md" href="{{ path('crearEmpresaCorp', {'id': corporacion.id}) }}">Añadir empresa</a>
+                                        <a class="btn btn-danger btn-md" href="{{ path('crearEmpresaCorp', {'id': corporacion.id}) }}">Añadir empresa</a>
                                     </td>
-                                       <td>
-                         <a </span href="{{ path('corporacion_edit', {'id': corporacion.id}) }}" <span class="icon-pencil-alt text-black">Editar</a>
-                        <a </span href="{{ path('corporacion_delete', {'id': corporacion.id}) }}" <span class="icon-trash-empty text-black">Eliminar</a>
+                                    <td>
+                                        <a </span href="{{ path('corporacion_edit', {'id': corporacion.id}) }}" <span class="icon-pencil-alt text-black">Editar</a>
+                                        <a </span href="{{ path('corporacion_delete', {'id': corporacion.id}) }}" <span class="icon-trash-empty text-black">Eliminar</a>
                                     </td>
                                 </tr>
                                     
                             {% endfor %}
                         </tbody>
-                </table>
-                <div class="container">
-                     <p class=" text-black">{{ mensaje }}</p>
-
-                </div>
-
+                    </table>
+                    <div >
+                        {% if mensaje == "Corporación eliminada correctamente." %}
+                            <p class=" text-success pl-3">{{mensaje}}</p>
+                        {% else %}
+                            <p class=" text-danger pl-3">{{mensaje}}</p>
+                    </div>
+                    {% endif %}
                 </section>
             </section>
         </section>

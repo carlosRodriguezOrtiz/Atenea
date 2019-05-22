@@ -9,7 +9,7 @@
                 <div class="col-md-8"></div>
                 <div class="col-md-4">
                     <div class="btn-group float-right mt-2 mb-3" role="group">
-                        <a class="btn btn-danger btn-md" href="{{ path('inicio') }}">&laquo; Volver</a>
+                        <a class="btn btn-danger btn-md" href="{{path('qi_listCorporacion', { 'id' : id })}}" >&laquo; Torna</a>
                     </div>
                 </div>
             </section>
@@ -28,11 +28,6 @@
                                 </div>
                             </div>
                         </div>
-                         {% if mensaje == "El centro ha sido creado" or mensaje == "El centro ha sido modificado con éxito." %}
-                        <p class=" text-success pl-3">{{mensaje}}</p>
-                            {% else %}
-                            <p class=" text-danger pl-3">{{mensaje}}</p>
-                {% endif %}
                     </div>
                 </div>
             </div>

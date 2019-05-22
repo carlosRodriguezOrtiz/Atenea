@@ -7,13 +7,15 @@
             <section class="row">
                 <section class="col-md-12">
                     <a  class="btn btn-danger mb-3 mt-3" href="{{ path('crearQeCentro', {'id': id }) }}" >Crear nueva Cuestion Externa </a>
-                    <table class="table">
+                    <a class="btn btn-danger btn-md" href="{{ path('gestion_contextoCentro', { 'id' : id }) }}">&laquo; Volver</a>
+                    <table class="table table-responsive-sm">
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">Nombre</th>
                                 <th scope="col">Tipo</th>
                                 <th scope="col">Subtipo</th>
+                                <th scope="col">Opciones</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -26,7 +28,7 @@
                                     <td>{{ questions_externes.getSubTipus().getTipusQE().getNombre() }}</td>
 
                                     <td>
-                                        <a </span href="{{ path('qe_edit_centro', {'id' : id, 'idQe': questions_externes.id}) }}" <span class="icon-pencil-alt text-black">Edit</a>
+                                        <a </span href="{{ path('qe_edit_centro', {'id' : id, 'idQe': questions_externes.id}) }}" <span class="icon-pencil-alt text-black">Editar</a>
                                         <a </span href="{{ path('qe_deleteCentro', {'id' : id, 'idQe': questions_externes.id}) }}" <span class="icon-trash-empty text-black">Eliminar</a>
                                     </td>
                                 </tr>
