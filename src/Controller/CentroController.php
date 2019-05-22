@@ -75,7 +75,7 @@ class CentroController extends AbstractController
             ->findLikeNom($term);
           $mensaje="";
         return $this->render('centro/list.html.twig', [
-            'centro' => $centro,
+            'centros' => $centro,
             'searchTerm' => $term,
             'mensaje' => $mensaje,
         ]);
