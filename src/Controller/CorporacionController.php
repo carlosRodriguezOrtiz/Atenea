@@ -64,7 +64,7 @@ class CorporacionController extends AbstractController
 
 
     /**
-     * @Route("/corporaciones/listar", name="corporaciones_list")
+     * @Route("/corporaciones/lista", name="corporaciones_list")
      */
     public function list()
     {

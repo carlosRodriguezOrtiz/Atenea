@@ -120,7 +120,7 @@ class CentroController extends AbstractController
     }
 
      /**
-     * @Route("/centros/listado", name="centros_list")
+     * @Route("/centros/lista", name="centros_list")
      */
     public function list()
     {
