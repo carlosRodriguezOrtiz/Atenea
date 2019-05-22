@@ -47,4 +47,15 @@ class FactorCriticoDeExitoRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function findByBinomioId($value)
+    {
+        return $this->createQueryBuilder('b')
+            ->andWhere('b.binomio = :val')
+            ->setParameter('val', $value)
+            ->orderBy('b.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }

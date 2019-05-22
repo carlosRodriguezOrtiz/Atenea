@@ -57,4 +57,16 @@ class BinomioRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
+
+    public function findByBinomioId($value)
+    {
+        return $this->createQueryBuilder('b')
+            ->andWhere(':val MEMBER OF b.AspectesQ')
+            ->setParameter('val', $value)
+            ->orderBy('b.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
 }

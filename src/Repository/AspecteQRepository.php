@@ -47,4 +47,27 @@ class AspecteQRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function findByQEId($value)
+    {
+        return $this->createQueryBuilder('q')
+            ->andWhere('q.CuestionesExternas = :val')
+            ->setParameter('val', $value)
+            ->orderBy('q.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function findByQIId($value)
+    {
+        return $this->createQueryBuilder('q')
+            ->andWhere('q.CuestionesInternas = :val')
+            ->setParameter('val', $value)
+            ->orderBy('q.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+    
 }

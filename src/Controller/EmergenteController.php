@@ -30,8 +30,6 @@ class EmergenteController extends AbstractController
             }
         }
     
-
-
         foreach ($dafo->getQuestionsExternes() as $qe) {
             if($qe->getTipus() == 'amenaza'){
                 array_push($amenaces, $qe);
@@ -40,11 +38,7 @@ class EmergenteController extends AbstractController
             }
         }
     }
-        
-
-        
-
-        
+    
         return $this->render('dafo/list.html.twig', [
             'debilitats' => $debilitats,
             'amenaces' => $amenaces,

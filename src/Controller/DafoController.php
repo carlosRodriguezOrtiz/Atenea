@@ -50,9 +50,7 @@ class DafoController extends AbstractController
             }
         }
         }
-        
 
-        
         return $this->render('dafo/list.html.twig', [
             'debilitats' => $debilitats,
             'amenaces' => $amenaces,
@@ -61,8 +59,6 @@ class DafoController extends AbstractController
             'id' => $id,
         ]);
     }
-
-    
 
     /**
      * @Route("/dafo/binomio-corporacion/{id<\d+>}", name="binomioCorp")
@@ -126,8 +122,6 @@ class DafoController extends AbstractController
             }
         } 
      
-
-
         foreach ($binomios as $bin){
              $entityManager = $this->getDoctrine()->getManager();
              $entityManager->persist($bin);
@@ -142,64 +136,5 @@ class DafoController extends AbstractController
             'id' =>$id
         ]);
     }
-
-    /**
-     * @Route("/dafo/factor-critico-exito-corporacion/{id<\d+>}", name="binomioCorporacion")
-     */
-    public function fceCorp($id)
-    {
-
-        $questionsExternes = $this->getDoctrine()
-        ->getRepository(QuestionsExternes::class)
-        ->findByCorporacionId($id);
-
-        $questionsInternes = $this->getDoctrine()
-        ->getRepository(QuestionsInternes::class)
-        ->findByCorporacionId($id);
-        $binomios = [];
-        if(isset($_POST)){
-           foreach ($_POST as $bin) {
-            $binomio = $this->getDoctrine()
-            ->getRepository(Binomio::class)
-            ->find($bin);
-            $binomio->setSelected(true);
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($binomio);
-            $entityManager->flush();
-           }
-        }
-        $binomiosBBDD = $this->getDoctrine()
-        ->getRepository(Binomio::class)->findBySelected();
-        
-        return $this->render('dafo/fce.html.twig', [
-            'binomios' => $binomiosBBDD,
-            'id' => $id,
-        ]);
-    }
-
-    /**
-     * @Route("/dafo/factor-critico-exito-corporacion/create/{id<\d+>}", name="binomioCorporacionCreate")
-     */
-    public function fceCorpCreate($id)
-    {
-        if (isset($_POST)) {
-            foreach ($_POST as $key => $value) {
-                var_dump($key);
-                $binomio = $this->getDoctrine()
-                ->getRepository(Binomio::class)
-                ->find($key);
-                $fce = new FactorCriticoDeExito();
-                $fce->setBinomio($binomio);
-                $fce->setDescripcion($value);
-                
-                $entityManager = $this->getDoctrine()->getManager();
-                $entityManager->persist($fce);
-                $entityManager->flush();
-            }
-        }
-        
-        return $this->redirectToRoute('dafo_corporacion',['id' => $id]);
-    }
-
 
 }
