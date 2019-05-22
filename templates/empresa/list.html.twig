@@ -7,24 +7,25 @@
         <h3 style="margin: 10px; text-align: center; text-decoration: underline;">Listado de Empresas</h3>
             <section class="row">
                 <section class="col-md-12">
-                    <table class="table">
+                    <table class="table table-hover table-responsive-sm">
                       {% if app.user.role.nombre == 'ROLE_ADMIN' %}
  <form class="form-inline w-100 my-2 my-md-0 pr-3 form-just" method="post" action="{{ path('peliculas_busqueda') }}">
             <div class="form-inline mr-2">
-                <input class="form-control" id="form_term" name="term" placeholder="Buscar empresa" required="required" type="text"></div>
+                <input class="form-control mb-2 mr-sm-2 mb-sm-0" id="form_term" name="term" placeholder="Buscar Empresa" required="required" type="text">
+                                <button type="submit" class="btn btn-light icon-search-1 text-black"></button></div>
             </form>
      {% endif %}
 
   {% if searchTerm is defined %}
                     <div class="row">
                         <div class="col-md-8">
-                            <p class=" text-black ml-3">Resultats de cerca per:
+                            <p class=" text-black ml-3">Resultados de búsqueda por:
                                 <strong class="text-danger">
                                     {{ searchTerm }}</strong>
                             </p>
                         </div>
                         <div class="col-md-4 mb-4">
-                            <a class="btn btn-default btn-sm float-right" href="{{ path('empresas_list') }}">x Esborrar resultats</a>
+                            <a class="btn btn-default btn-sm float-right" href="{{ path('empresas_list') }}">x Borrar búsqueda</a>
                         </div>
                     </div>
                 {% endif %}

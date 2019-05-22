@@ -28,6 +28,9 @@ a.disabled {
     .res-but {
         width: 60%;
     }
+    .res-search {
+        size: 30%;
+    }
 }
 
 @media (min-width: 320px) and (max-width: 480px) {
@@ -39,6 +42,9 @@ a.disabled {
     }
     .res-div {
         padding: 10%;
+    }
+    .res-search {
+        size: 30%;
     }
 }
 
