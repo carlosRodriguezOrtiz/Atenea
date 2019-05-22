@@ -27,6 +27,7 @@ class CentroController extends AbstractController
             'controller_name' => 'CentroController',
         ]);
     }
+
  /**
      * @Route("/centro/{id<\d+>}", name="centro")
      */
@@ -42,6 +43,10 @@ class CentroController extends AbstractController
         $centro = $this->getDoctrine()
         ->getRepository(Centro::class)
         ->find($id);
+
+
+        if ($centro != null) {
+
 
         if ($userDB->getRole()->getNombre() == "ROLE_ADMIN") {
             return $this->render('centro/view.html.twig', ['centro' => $centro]);
@@ -61,6 +66,14 @@ class CentroController extends AbstractController
             }
 
         }
+        
+
+    } else {
+        $mensajeError = 'El centro  no existe!!';
+                
+
+        return $this->render('centro/errores.html.twig', [ 'mensajeError' => $mensajeError]);
+    }
 
     }
 

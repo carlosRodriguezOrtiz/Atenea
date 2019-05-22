@@ -42,6 +42,10 @@ class CorporacionController extends AbstractController
             ->getRepository(Corporacion::class)
             ->find($id);
 
+
+            if ($corporacion != null) {
+
+
         if ($userDB->getRole()->getNombre() == "ROLE_ADMIN") {
             return $this->render('corporacion/view.html.twig', ['corporacion' => $corporacion, 'empresas' => $corporacion->getArrayEmpresa()]);
 
@@ -59,6 +63,14 @@ class CorporacionController extends AbstractController
             }
 
         }
+
+
+    } else {
+        $mensajeError = 'La corporacion  no existe!!';
+                
+
+        return $this->render('corporacion/errores.html.twig', [ 'mensajeError' => $mensajeError]);
+    }
 
     }
 
